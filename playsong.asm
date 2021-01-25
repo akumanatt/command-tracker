@@ -6,57 +6,21 @@
 .include "library/printing/printstring.asm"
 .include "library/drawing/clearscreen.asm"
 .include "library/drawing/drawcharacters.asm"
+.include "library/drawing/loadscreen.asm"
+.include "library/drawing/scroll.asm"
 .include "library/math/add16.asm"
 .include "library/math/mulby12.asm"
 ;include "library/math/mod8.asm"
 ;.include "library/math/divby12.asm"
-.include "library/files/loadfiletobank.asm"
+;.include "library/files/loadfiletobank.asm"
+.include "library/files/loadfile.asm"
+;.include "library/files/loadfiletovram.asm"
 .include "library/sound/printnote.asm"
+.include "library/sound/printpattern.asm"
+.include "library/sound/decodenote.asm"
 .include "library/sound/pitch_table.inc"
 
-; Variables
-; VERA Settings
-VBLANK_MASK  = %00000001
-RES80x40x256 = %01101000
-RES80x40x16  = %01100000
-
-; Kernel Locations
-ISR_HANDLER = $0314
-
-; Constants
-TITLE_COLORS = $0F
-SONG_TITLE_X = $09
-SONG_TITLE_Y = $01
-AUTHOR_TITLE_X = $09
-AUTHOR_TITLE_Y = $02
-;SPEED = $40                ; how many vblanks to do nothing for
-SPEED = $08                ; how many vblanks to do nothing for
-ROW_MAX = $10                   ; Max # of rows for our test pattern
-UPPERCASE = $8E
-PETSCII_DASH = $2D
-PETSCII_PERIOD = $2E
-PETSCII_UP_ARROW = $5E
-
-NOTEREL  = $0D
-NOTEOFF  = $0E
-NOTENULL = $0F
-
-OCTAVE = $0C  ; 12
-
-; Zero Page Addresses
-VBLANK_SKIP_COUNT = $21    ; Count of current VBLANK skip
-ROW_COUNT = $22
-PREVIOUS_ISR_HANDLER = $24
-STRING_POINTER = $26
-
-NOTE_NOTE = $30
-NOTE_OCTAVE = $31
-NOTE_NUMERIC = $32
-
-;MAP0 = $00
-;MAP1 = $40 ; This is include, tilebase is at 7C by default
-;MAP2 = $80
-;MAP3 = $C0
+.include "variables.inc"
 
 start:
   lda #$00
@@ -65,10 +29,23 @@ start:
   sta VERA_addr_low ; Set Primary address low byte to 0
   lda #$00
   sta VERA_addr_high ; Set primary address bank to 0, stride to 0
-  lda #RES80x40x256
+  lda #RES128x128x16
+  sta VERA_L0_config
   sta VERA_L1_config
-  ;jsr enable_irq
+  ; enables 2nd layer (which is currently busted)
+  lda #DC_VIDEO
+  sta VERA_dc_video
+  lda #$40
+  sta VERA_L0_mapbase
+  lda #$00
+  sta VERA_L1_mapbase
+
   jsr clear_screen
+  lda #$12
+  jsr CHROUT
+  lda #$9B
+  jsr CHROUT
+
   jsr enable_irq
 
 frame:
@@ -78,13 +55,18 @@ frame:
   sta r0
   lda #>frame_filename
   sta r0+1
-  lda #$09
-  jsr load_file_to_bank
-  lda #<RAM_WIN
-  sta r0+0
-  lda #>RAM_WIN
-  sta r0+1
-  jsr draw_characters
+  lda #$09  ; file length
+  ;jsr load_file_to_vram
+  ;jsr load_file_to_bank
+  jsr load_file
+  jsr load_screen
+  ;lda #<RAM_WIN
+  ;sta r0+0
+  ;lda #>RAM_WIN
+  ;sta r0+1
+  ;jsr draw_characters
+
+  jsr print_pattern
 
   ; Display song title
   lda #SONG_TITLE_X    ;x
@@ -112,7 +94,13 @@ frame:
   sta r0+1
   jsr print_string
 
-set_vera:
+  ; Reverse works! In 16 and 256
+  ; I think it's just using other tiles somewhere in VERA
+  ; Also not sure how the layers work with 256 and inversion
+  lda #$12
+  jsr CHROUT
+
+set_vera_psg:
   ; Set base vera address to PSG
   lda #$01
   sta VERA_addr_high
@@ -126,6 +114,10 @@ set_vera:
   sta VERA_addr_low
   lda #%01000000
   sta VERA_data0
+
+  ; Load pattern to the bottom vera layer
+  ; jsr load_pattern_to_vera
+
 
 @loop:
   jmp @loop
@@ -178,45 +170,23 @@ play_row:
   ; get note value as our offset
   ldy ROW_COUNT
   ldx pattern,y ;get note from the pattern
-
-  ; Get note pitch and note
   txa
-  and #%00001111
-  sta NOTE_NOTE
-  ; Test for special notes since if they match, we can stop what we're doing
-  ;cmp $NOTEREL
+  jsr decode_note
 
+  ; Get numeric value of note
+  jsr mulby12
+  adc NOTE_NOTE
+  sta NOTE_NUMERIC
+  tax
+
+  lda NOTE_NOTE
   cmp #NOTEREL
   beq note_off     ; same as note off for now
   cmp #NOTEOFF
   beq note_off
   cmp #NOTENULL
-  beq print_only_note
-
-  ; Otherwise, we grab the octave and continue
-  txa
-  lsr
-  lsr
-  lsr
-  lsr
-  sta NOTE_OCTAVE
-  ;jsr printhex      ;dbg
-  ;rts
-  ;lda NOTE_OCTAVE   ;dbg
-
-  jsr mulby12
-  ;pha
-  ;jsr printhex
-  ;pla
-  clc
-  adc NOTE_NOTE
-  sta NOTE_NUMERIC
-  tax
-
-  ;cpx #NOTENULL       ; if it's FF, that's a null note so we skip
-;  beq print_row
-;  cpx #NOTEOFF        ; if it's FE, that's an immediate off note
-;  beq note_off
+  ;beq print_only_note
+  beq print_stuff
 
   ;$1F9C0 - $1F9FF
   ; low the low byte of Note
@@ -245,34 +215,36 @@ note_off:
   sta VERA_data0
 
 print_stuff:
-  gotocoords 5,9
-  ldy ROW_COUNT
-  lda pattern,y
-  ;txa
-  jsr printhex
-  gotocoords 6,9
-  lda NOTE_NUMERIC
-  jsr printhex
-print_only_note:
-  gotocoords 7,9
-  jsr print_note
-
+;  gotocoords 5,9
+;  ldy ROW_COUNT
+;  lda pattern,y
+;  ;txa
+;  jsr printhex
+;  gotocoords 6,9
+;  lda NOTE_NUMERIC
+;  jsr printhex
+;print_only_note:
+;  gotocoords 7,9
+;  jsr print_note
 
 print_row_count:
-  gotocoords 4,9
+  gotocoords ROW_Y,ROW_X
   lda ROW_COUNT       ; Get the current row conunt
   jsr printhex        ; print it
-
-
-
+  ; scroll 2nd layer (this busted)
+  jsr scroll
 
 inc_row:
   lda ROW_COUNT       ; get it again (printhex blows it away)
   clc
   adc #1              ; increment row count
   sta ROW_COUNT       ; store it
+
   cmp #ROW_MAX        ; see if we're at the row max
   beq @row_max      ; if not, jump to end; if so, go to row_max
+
+  ; Oh no it's slow!?
+
   rts
 @row_max:
   lda 0
@@ -310,6 +282,7 @@ note_sharps: .byte "-#-#--#-#-#--^-."
 ; "-#-#-#-36-#-#-"
 ;note_names: .byte  $06,$06,$07,$07,$08,$08,$09,$0A,$0A,$0B,$0B,$0C
 ;note_sharps: .byte "-#-#-#--#-#-"
+;frame_filename: .byte "frame.hex"
 frame_filename: .byte "frame.hex"
 heart_filename: .byte "heart.hex"
 song_title_string: .byte "first song 123!",0

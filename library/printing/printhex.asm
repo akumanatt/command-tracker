@@ -7,6 +7,8 @@
 printhex:
   phx
   pha
+  lda #$12
+  jsr CHROUT
   jsr @main
   pla
   plx
