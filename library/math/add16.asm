@@ -1,3 +1,4 @@
+; Add two 16-bit numbers
 .proc add16
   NUM1 = r0
   NUM2 = r1

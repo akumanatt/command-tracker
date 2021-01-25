@@ -15,17 +15,28 @@ ISR_HANDLER = $0314
 ; Constants
 SCREEN_X     = $A0    ; 80 * 2 (char + color)
 SCREEN_Y     = $3F    ; 60
-TITLE_COLORS = $B1
 SONG_TITLE_X = $09
 SONG_TITLE_Y = $01
 AUTHOR_TITLE_X = $09
 AUTHOR_TITLE_Y = $02
-ROW_X = $29
-ROW_Y = $02
+CURRENT_ROW_X = $29
+CURRENT_ROW_Y = $02
+;CURRENT_ROW_X = $00
+;CURRENT_ROW_Y = $00
+
+; Colors
+TITLE_COLORS = $B1
+PATTERN_ROW_NUMBER_COLOR = $B1
+PATTERN_NOTE_COLOR = $B1
+PATTERN_VOL_COLOR = $B5
+PATTERN_EFX_COLOR = $B8
+
+PATTERN_PLAY_POS = $28    ; Position 40 (halfway down the pattern section)
+
 
 ;SPEED = $40                ; how many vblanks to do nothing for
 SPEED = $06                ; how many vblanks to do nothing for
-ROW_MAX = $20                   ; Max # of rows for our test pattern
+ROW_MAX = $40               ; Max # of rows for our test pattern (64)
 UPPERCASE = $8E
 PETSCII_DASH = $2D
 PETSCII_PERIOD = $2E

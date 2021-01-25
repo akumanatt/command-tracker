@@ -1,12 +1,13 @@
 .proc print_note
+  COLOR = r0
 print_note:
   phx
   pha
   ldx NOTE_NOTE
   lda note_names,x
-  jsr CHROUT
+  jsr print_char_vera
   lda note_sharps,x
-  jsr CHROUT
+  jsr print_char_vera
   cpx #NOTEREL
   beq @print_rel_octave
   cpx #NOTEOFF
@@ -25,7 +26,7 @@ print_note:
 @print_null_octave:
   lda #PETSCII_PERIOD
 @print_note_end:
-  jsr CHROUT
+  jsr print_char_vera
   pla
   plx
   rts
