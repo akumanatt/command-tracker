@@ -5,9 +5,6 @@ print_pattern:
   ;gotocoords 10,1
   ldy #$00
 
-  lda #$12
-  jsr CHROUT
-
 @loop:
   phy
   tya

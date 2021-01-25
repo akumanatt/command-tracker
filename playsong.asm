@@ -33,8 +33,8 @@ start:
   sta VERA_L0_config
   sta VERA_L1_config
   ; enables 2nd layer (which is currently busted)
-  lda #DC_VIDEO
-  sta VERA_dc_video
+  ;lda #DC_VIDEO
+  ;sta VERA_dc_video
   lda #$40
   sta VERA_L0_mapbase
   lda #$00
@@ -232,7 +232,7 @@ print_row_count:
   lda ROW_COUNT       ; Get the current row conunt
   jsr printhex        ; print it
   ; scroll 2nd layer (this busted)
-  jsr scroll
+  ; jsr scroll
 
 inc_row:
   lda ROW_COUNT       ; get it again (printhex blows it away)

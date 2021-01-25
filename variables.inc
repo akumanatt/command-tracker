@@ -21,7 +21,7 @@ SONG_TITLE_Y = $01
 AUTHOR_TITLE_X = $09
 AUTHOR_TITLE_Y = $02
 ROW_X = $21
-ROW_Y = $01
+ROW_Y = $03
 
 ;SPEED = $40                ; how many vblanks to do nothing for
 SPEED = $06                ; how many vblanks to do nothing for
