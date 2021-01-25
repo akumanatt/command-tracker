@@ -15,13 +15,13 @@ ISR_HANDLER = $0314
 ; Constants
 SCREEN_X     = $A0    ; 80 * 2 (char + color)
 SCREEN_Y     = $3F    ; 60
-TITLE_COLORS = $BF
+TITLE_COLORS = $B1
 SONG_TITLE_X = $09
 SONG_TITLE_Y = $01
 AUTHOR_TITLE_X = $09
 AUTHOR_TITLE_Y = $02
-ROW_X = $21
-ROW_Y = $03
+ROW_X = $29
+ROW_Y = $02
 
 ;SPEED = $40                ; how many vblanks to do nothing for
 SPEED = $06                ; how many vblanks to do nothing for
