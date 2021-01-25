@@ -19,31 +19,29 @@ print_pattern:
   tya
   jsr printhex
 
-  lda #$62  ;bar
+  ; Move over one (for bar on top layer)
+  lda #$1D
   jsr CHROUT
 
   lda pattern,y
   jsr decode_note
   ;lda NOTE_NOTE
+  lda #$05 ; white
+  jsr CHROUT
   jsr print_note
 
   ; This is just dirty for now to make it look nice
   ; (also really should be using macros here...)
-  lda #$1D
+  ; Vol
+  lda #$1F  ; blue
   jsr CHROUT
   lda #$2E
   jsr CHROUT
   lda #$2E
   jsr CHROUT
 
-  lda #$1D
-  jsr CHROUT
-  lda #$2E
-  jsr CHROUT
-  lda #$2E
-  jsr CHROUT
-
-  lda #$1D
+  ;Effect
+  lda #$9C ; purple
   jsr CHROUT
   lda #$2E
   jsr CHROUT
@@ -54,6 +52,8 @@ print_pattern:
   lda #$2E
   jsr CHROUT
 
+  lda #$05 ; white
+  jsr CHROUT
   lda #$0D  ;return
   jsr CHROUT
 

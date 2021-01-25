@@ -35,7 +35,7 @@ start:
   ; enables 2nd layer (which is currently busted)
   ;lda #DC_VIDEO
   ;sta VERA_dc_video
-  lda #$40
+  lda #$00
   sta VERA_L0_mapbase
   lda #$00
   sta VERA_L1_mapbase
@@ -231,8 +231,14 @@ print_row_count:
   gotocoords ROW_Y,ROW_X
   lda ROW_COUNT       ; Get the current row conunt
   jsr printhex        ; print it
+
   ; scroll 2nd layer (this busted)
-  ; jsr scroll
+  lda SCROLL_ENABLE
+  cmp #$00
+  beq @no_scroll
+  jsr scroll
+@no_scroll:
+
 
 inc_row:
   lda ROW_COUNT       ; get it again (printhex blows it away)
@@ -276,6 +282,8 @@ enable_irq:
   rts
 
 .segment "DATA"
+SCROLL_ENABLE: .byte $00
+
 
 note_names:  .byte "ccddeffggaab-^-."
 note_sharps: .byte "-#-#--#-#-#--^-."
@@ -310,4 +318,4 @@ pattern:
 
 
 ; [x : y : character : color], [x : y; ,...]
-file_data: .byte 0
+file_data: .byte $01
