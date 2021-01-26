@@ -1,3 +1,13 @@
+; You forgot to include the insturment #.....
+; You forgot to include the insturment #.....
+; You forgot to include the insturment #.....
+; You forgot to include the insturment #.....
+; You forgot to include the insturment #.....
+; Also add speed readout
+
+
+
+
 .include "library/preamble.asm"
 .include "library/x16.inc"
 .include "library/macros.inc"
@@ -6,7 +16,6 @@
 .include "library/printing/vera/printchar.asm"
 .include "library/printing/printhex16.asm"
 .include "library/printing/printstring.asm"
-;.include "library/drawing/clearscreen.asm"
 .include "library/drawing/clearvram.asm"
 .include "library/drawing/vera/gotoxy.asm"
 .include "library/drawing/drawcharacters.asm"
@@ -15,17 +24,14 @@
 .include "library/drawing/drawframe.asm"
 .include "library/math/add16.asm"
 .include "library/math/mulby12.asm"
-;include "library/math/mod8.asm"
-;.include "library/math/divby12.asm"
-;.include "library/files/loadfiletobank.asm"
 .include "library/files/loadfile.asm"
-;.include "library/files/loadfiletovram.asm"
-.include "library/sound/printnote.asm"
-.include "library/sound/printpattern.asm"
+.include "library/printing/printnote.asm"
+.include "library/printing/printpattern.asm"
 .include "library/sound/decodenote.asm"
 .include "library/sound/pitch_table.inc"
-
 .include "library/tracker/playrow.asm"
+.include "library/tracker/getrow.asm"
+.include "library/tracker/getpattern.asm"
 .include "library/tracker/incrow.asm"
 .include "library/tracker/updaterowcount.asm"
 
@@ -36,6 +42,10 @@ start:
 .include "setup.asm"
   jsr enable_irq
   jsr draw_frame
+
+
+  jsr get_pattern
+  ; This would be in the order/pattern fetch code
   jsr print_pattern
 
 ; This is to configure the base instrument - it's a placeholder
@@ -88,9 +98,11 @@ vblank:
 @vblank_work:
   ldx #0
   stx VBLANK_SKIP_COUNT
+
+  jsr get_row             ; get the current row of pattern, put in ROW_POINTER
   jsr play_row
-  jsr update_row_count
   jsr scroll_pattern
+  jsr update_row_count
   jsr inc_row
   jmp @vblank_end
 
@@ -103,6 +115,7 @@ enable_irq:
   ; We load the address of our interrupt handler into a special memory
   ;   location. Basically when an interrupt triggers, this is the
   ;   routine the CPU will execute.
+  ldx #$0
   lda ISR_HANDLER,x
   sta PREVIOUS_ISR_HANDLER,x
   lda #<vblank
@@ -135,42 +148,7 @@ heart_filename: .byte "heart.hex"
 song_title_string: .byte "first song 123!",0
 author_string: .byte "m00dawg",0
 
-;pattern_using_tracker_notes:
-pattern:
-; DFAD
-.byte   $42, $FF
-.byte   $45, $FF
-.byte   $49, $FF
-.byte   $52, $FF
-.byte   $42, $FF
-.byte   $FF, $FF
-.byte   $49, $FF
-.byte   $FF, $FF
-.byte   $52, $FF
-.byte   $49, $FF
-.byte   $45, $FF
-.byte   $52, $FF
-.byte   $49, $FF
-.byte   $FE, $FF
-.byte   $42, $FF
-.byte   $FD, $FF
-.byte   $42, $FF
-.byte   $45, $FF
-.byte   $49, $FF
-.byte   $52, $FF
-.byte   $42, $FF
-.byte   $FF, $FF
-.byte   $49, $FF
-.byte   $FF, $FF
-.byte   $52, $FF
-.byte   $49, $FF
-.byte   $45, $FF
-.byte   $52, $FF
-.byte   $49, $FF
-.byte   $FE, $FF
-.byte   $42, $FF
-.byte   $FD, $FF
-
+.include "pattern.inc"
 
 ; [x : y : character : color], [x : y; ,...]
 file_data: .byte $01

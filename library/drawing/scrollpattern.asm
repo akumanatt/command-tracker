@@ -1,8 +1,9 @@
 .proc scroll_pattern
+
 ; r15 = place to hold 16-bit shift value
 scroll_pattern:
     lda SCROLL_ENABLE
-    beq @display_static_pattern
+    beq @end
 
     ; if we're on row 0, we need to set the scroll, other we jump past it
     lda ROW_COUNT
@@ -18,12 +19,12 @@ scroll_pattern:
     lda #$F8
     sta VERA_L0_hscroll_l
 
-    ; This rolls the scroll backwards by 30 characters (-240 dec)
-
+    ; This rolls the scroll backwards
+    ; (FF00 = -256)
     ;lda #$EE
-    lda #$FF
+    lda #PATTERN_SCROLL_START_H
     sta VERA_L0_vscroll_h
-    lda #$00
+    lda #PATTERN_SCROLL_START_L
     sta VERA_L0_vscroll_l
     rts
 
@@ -36,10 +37,6 @@ scroll_pattern:
     lda VERA_L0_vscroll_h
     adc #$00
     sta VERA_L0_vscroll_h
-
-
-; If scroll isn't enabled, we still need to put the pattern in the right spot
-@display_static_pattern:
 
 @end:
     rts

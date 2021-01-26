@@ -21,8 +21,6 @@ AUTHOR_TITLE_X = $09
 AUTHOR_TITLE_Y = $02
 CURRENT_ROW_X = $29
 CURRENT_ROW_Y = $02
-;CURRENT_ROW_X = $00
-;CURRENT_ROW_Y = $00
 
 ; Colors
 TITLE_COLORS = $B1
@@ -31,11 +29,19 @@ PATTERN_NOTE_COLOR = $B1
 PATTERN_VOL_COLOR = $B5
 PATTERN_EFX_COLOR = $B8
 
-PATTERN_PLAY_POS = $28    ; Position 40 (halfway down the pattern section)
+; Characters
+CHAR_DOT = $2E
 
+; Scroll offset to send to VERA to start the pattern in the middle
+; of the window. Here we are using a negative number.
+PATTERN_SCROLL_START_H = $FF
+PATTERN_SCROLL_START_L = $00
+
+TOTAL_BYTES_PER_ROW = $02         ; total bytes per row (for skipping rows)
 
 ;SPEED = $40                ; how many vblanks to do nothing for
 SPEED = $06                ; how many vblanks to do nothing for
+;SPEED = $10                ; how many vblanks to do nothing for
 ROW_MAX = $40               ; Max # of rows for our test pattern (64)
 UPPERCASE = $8E
 PETSCII_DASH = $2D
@@ -45,18 +51,25 @@ PETSCII_UP_ARROW = $5E
 NOTEREL  = $0D
 NOTEOFF  = $0E
 NOTENULL = $0F
+VOLNULL  = $FF
 
 OCTAVE = $0C  ; 12
 
 ; Zero Page Addresses
 VBLANK_SKIP_COUNT = $21    ; Count of current VBLANK skip
 ROW_COUNT = $22
-PREVIOUS_ISR_HANDLER = $24
-STRING_POINTER = $26
+NOTE_NOTE = $23
+NOTE_OCTAVE = $24
+NOTE_NUMERIC = $25
+PATTERN_POINTER = $26       ; 16-bit address to the current pattern
+ROW_POINTER = $28           ; 16-bit address of the row in the pattern
+STRING_POINTER = $2A
+PREVIOUS_ISR_HANDLER = $2C
 
-NOTE_NOTE = $30
-NOTE_OCTAVE = $31
-NOTE_NUMERIC = $32
+
+
+
+
 
 ;MAP0 = $00
 ;MAP1 = $40 ; This is include, tilebase is at 7C by default
