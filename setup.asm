@@ -37,3 +37,4 @@ setup:
   jsr clear_vram
   lda #$00
   sta VERA_addr_high
+  rts

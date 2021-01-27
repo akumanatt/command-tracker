@@ -8,10 +8,11 @@ play_row:
 
   ; y is our offset WITHIN THE ROW
   ldy #$00
+
+@note:
+  ; Get numeric value of note
   lda (ROW_POINTER),y ;get note from the pattern
   jsr decode_note
-
-  ; Get numeric value of note
   jsr mulby12
   adc NOTE_NOTE
   sta NOTE_NUMERIC
@@ -22,9 +23,10 @@ play_row:
   beq @note_off     ; same as note off for now
   cmp #NOTEOFF
   beq @note_off
-  cmp #NOTENULL ;if null, evaluate volume and skip playing note
-  beq @vol
+  cmp #NOTENULL ;if null, skip playing note
+  beq @inst
 
+@note_play:
   ;$1F9C0 - $1F9FF
   ; low the low byte of Note
   lda #$C0
@@ -36,6 +38,19 @@ play_row:
   sta VERA_addr_low
   lda pitch_dataH,x
   sta VERA_data0
+  jmp @inst
+
+@note_off:
+  lda #$C2
+  sta VERA_addr_low
+  lda #$00
+  sta VERA_data0
+
+@inst:
+  ; placeholder, do nothing but jump past the byte
+  iny
+  ;lda (ROW_POINTER),y ;get vol from the pattern
+  ;jsr printhex
 
 @vol:
   ; Set Vol
@@ -49,16 +64,12 @@ play_row:
   ora #%11000000
   sta VERA_data0
 
+
 ; effect
 @effect:
   ; nothing yet
   jmp @end
 
-@note_off:
-  lda #$C2
-  sta VERA_addr_low
-  lda #$00
-  sta VERA_data0
 @end:
   rts
 

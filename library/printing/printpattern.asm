@@ -6,9 +6,9 @@ print_pattern:
   sta VERA_addr_high
 
   ; Start at the first row
-  lda PATTERN_POINTER
+  lda #<PATTERN_POINTER
   sta ROW_POINTER
-  lda PATTERN_POINTER+1
+  lda #>PATTERN_POINTER
   sta ROW_POINTER+1
 
   ; row count
@@ -23,6 +23,7 @@ print_pattern:
   lda #$00  ; set x-pos to 0
   jsr vera_goto_xy    ; y-pos is y register
 
+@print_row_number:
   ; Print row number
   set_text_color #PATTERN_ROW_NUMBER_COLOR
   txa ; is row number
@@ -42,33 +43,9 @@ print_pattern:
   set_text_color #PATTERN_ROW_NUMBER_COLOR
   jsr print_note
 
-@vol:
-  ; Print vol
-  set_text_color #PATTERN_VOL_COLOR
-  iny
-  lda (ROW_POINTER),y
-  cmp #VOLNULL
-  bne @setvol
-@nullvol:
-  lda #CHAR_DOT
-  jsr print_char_vera
-  lda #CHAR_DOT
-  jsr print_char_vera
-  jmp @effect
-@setvol:
-  jsr printhex_vera
-  ; Print effect
-  ; placeholdr
-@effect:
-  set_text_color #PATTERN_EFX_COLOR
-  lda #CHAR_DOT
-  jsr print_char_vera
-  lda #CHAR_DOT
-  jsr print_char_vera
-  lda #CHAR_DOT
-  jsr print_char_vera
-  lda #CHAR_DOT
-  jsr print_char_vera
+  jsr @print_inst
+  jsr @print_vol
+  jsr @print_effect
 
 @jump_to_next_row:
     ; Using something like this in getrow too so probably a function?
@@ -91,4 +68,61 @@ print_pattern:
   bne @loop
 @end:
   rts
+
+@print_inst:
+  set_text_color #PATTERN_INST_COLOR
+  iny
+  lda (ROW_POINTER),y
+  cmp #INSTNULL
+  bne @setinst
+@nullinst:
+  lda #CHAR_DOT
+  jsr print_char_vera
+  lda #CHAR_DOT
+  jsr print_char_vera
+  rts
+@setinst:
+  jsr printhex_vera
+  rts
+
+@print_vol:
+  ; Print vol
+  set_text_color #PATTERN_VOL_COLOR
+  iny
+  lda (ROW_POINTER),y
+  cmp #VOLNULL
+  bne @setvol
+@nullvol:
+  lda #CHAR_DOT
+  jsr print_char_vera
+  lda #CHAR_DOT
+  jsr print_char_vera
+  rts
+@setvol:
+  jsr printhex_vera
+  rts
+
+@print_effect:
+  set_text_color #PATTERN_EFX_COLOR
+  iny
+  lda (ROW_POINTER),y
+  cmp #EFFNULL
+  bne @seteffect
+@nulleffect:
+  lda #CHAR_DOT
+  jsr print_char_vera
+  lda #CHAR_DOT
+  jsr print_char_vera
+  lda #CHAR_DOT
+  jsr print_char_vera
+  lda #CHAR_DOT
+  jsr print_char_vera
+  rts
+@seteffect:
+  jsr printhex_vera
+  iny
+  lda (ROW_POINTER),y
+  jsr printhex_vera
+  rts
+
 .endproc

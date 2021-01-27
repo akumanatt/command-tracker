@@ -13,19 +13,30 @@ DC_VIDEO = %00110001
 ISR_HANDLER = $0314
 
 ; Constants
+PATTERN_POINTER = $A000
 SCREEN_X     = $A0    ; 80 * 2 (char + color)
 SCREEN_Y     = $3F    ; 60
 SONG_TITLE_X = $09
 SONG_TITLE_Y = $01
 AUTHOR_TITLE_X = $09
 AUTHOR_TITLE_Y = $02
-CURRENT_ROW_X = $29
-CURRENT_ROW_Y = $02
+
+CURRENT_PATTERN_DISPLAY_X = $21
+CURRENT_PATTERN_DISPLAY_Y = $02
+CURRENT_ROW_DISPLAY_X = $29
+CURRENT_ROW_DISPLAY_Y = $02
+SPEED_DISPLAY_X = $21
+SPEED_DISPLAY_Y = $01
+NUMBER_OF_ORDERS_DISPLAY_X = $2C
+NUMBER_OF_ORDERS_DISPLAY_Y = $01
+CURRENT_ORDER_DISPLAY_X = $29
+CURRENT_ORDER_DISPLAY_Y = $01
 
 ; Colors
 TITLE_COLORS = $B1
 PATTERN_ROW_NUMBER_COLOR = $B1
 PATTERN_NOTE_COLOR = $B1
+PATTERN_INST_COLOR = $B3
 PATTERN_VOL_COLOR = $B5
 PATTERN_EFX_COLOR = $B8
 
@@ -37,21 +48,30 @@ CHAR_DOT = $2E
 PATTERN_SCROLL_START_H = $FF
 PATTERN_SCROLL_START_L = $00
 
-TOTAL_BYTES_PER_ROW = $02         ; total bytes per row (for skipping rows)
+TOTAL_BYTES_PER_PATTERN = $0140    ; currently 5 * 64 rows
+TOTAL_BYTES_PER_ROW = $05         ; total bytes per row (for skipping rows)
 
+; Temp Vars (these will come from the song file)
 ;SPEED = $40                ; how many vblanks to do nothing for
-SPEED = $06                ; how many vblanks to do nothing for
+;SPEED = $06                ; how many vblanks to do nothing for
+SPEED = $02                 ; how many vblanks to do nothing for
 ;SPEED = $10                ; how many vblanks to do nothing for
 ROW_MAX = $40               ; Max # of rows for our test pattern (64)
+
+; Chars
 UPPERCASE = $8E
 PETSCII_DASH = $2D
 PETSCII_PERIOD = $2E
 PETSCII_UP_ARROW = $5E
 
+; Row statuses
 NOTEREL  = $0D
 NOTEOFF  = $0E
 NOTENULL = $0F
 VOLNULL  = $FF
+INSTNULL = $FF
+EFFNULL = $FF
+END_OF_ORDER = $FF
 
 OCTAVE = $0C  ; 12
 
@@ -61,12 +81,17 @@ ROW_COUNT = $22
 NOTE_NOTE = $23
 NOTE_OCTAVE = $24
 NOTE_NUMERIC = $25
-PATTERN_POINTER = $26       ; 16-bit address to the current pattern
-ROW_POINTER = $28           ; 16-bit address of the row in the pattern
-STRING_POINTER = $2A
-PREVIOUS_ISR_HANDLER = $2C
+PATTERN_NUMBER = $26
+ORDER_NUMBER = $27
+SCROLL_ENABLE = $30
 
 
+ROW_POINTER = $2A           ; 16-bit address of the row in the pattern
+STRING_POINTER = $2C
+PREVIOUS_ISR_HANDLER = $2E
+
+; No longer needed, we know where the pattern is ($4000)
+;PATTERN_POINTER = $28       ; 16-bit address to the current pattern
 
 
 

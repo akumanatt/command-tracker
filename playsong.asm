@@ -1,8 +1,4 @@
-; You forgot to include the insturment #.....
-; You forgot to include the insturment #.....
-; You forgot to include the insturment #.....
-; You forgot to include the insturment #.....
-; You forgot to include the insturment #.....
+
 ; Also add speed readout
 
 
@@ -24,29 +20,52 @@
 .include "library/drawing/drawframe.asm"
 .include "library/math/add16.asm"
 .include "library/math/mulby12.asm"
+.include "library/math/multiply16.asm"
 .include "library/files/loadfile.asm"
 .include "library/printing/printnote.asm"
 .include "library/printing/printpattern.asm"
+.include "library/printing/printrowcount.asm"
+.include "library/printing/printspeed.asm"
+.include "library/printing/printcurrentorder.asm"
+.include "library/printing/printnumberoforders.asm"
+.include "library/printing/printcurrentpatternnumber.asm"
 .include "library/sound/decodenote.asm"
 .include "library/sound/pitch_table.inc"
 .include "library/tracker/playrow.asm"
 .include "library/tracker/getrow.asm"
 .include "library/tracker/getpattern.asm"
+.include "library/tracker/getnextpattern.asm"
+.include "library/tracker/loadpatterns.asm"
 .include "library/tracker/incrow.asm"
-.include "library/tracker/updaterowcount.asm"
-
-
 .include "variables.inc"
 
-start:
 .include "setup.asm"
+
+start:
+  jsr setup
+
+  ; Hard set scroll
+  lda #$01
+  sta SCROLL_ENABLE
+
+  ; First stuff before song starts to play
+  jsr load_patterns
   jsr enable_irq
   jsr draw_frame
+  jsr print_speed
+  jsr print_number_of_orders
 
-
-  jsr get_pattern
-  ; This would be in the order/pattern fetch code
+  ; Get the first order
+  ldy #$00
+  sty ORDER_NUMBER
+  lda order_list,y
+  sta RAM_BANK
+  sta PATTERN_NUMBER
+  jsr print_current_order
+  jsr print_current_pattern_number
   jsr print_pattern
+
+
 
 ; This is to configure the base instrument - it's a placeholder
 set_saw:
@@ -102,9 +121,12 @@ vblank:
   jsr get_row             ; get the current row of pattern, put in ROW_POINTER
   jsr play_row
   jsr scroll_pattern
-  jsr update_row_count
+  jsr print_row_count
   jsr inc_row
+  jsr get_next_pattern
   jmp @vblank_end
+
+
 
 @vblank_end:
   clc
@@ -134,8 +156,8 @@ enable_irq:
   rts
 
 .segment "DATA"
-SCROLL_ENABLE: .byte $01
-
+order_list_length: .byte $03
+order_list: .byte $01,$03,$01,$04
 
 note_names:  .byte "ccddeffggaab-^-."
 note_sharps: .byte "-#-#--#-#-#--^-."
