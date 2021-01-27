@@ -24,7 +24,7 @@ play_row:
   cmp #NOTEOFF
   beq @note_off
   cmp #NOTENULL ;if null, skip playing note
-  beq @inst
+  beq @effect
 
 @note_play:
   ;$1F9C0 - $1F9FF
@@ -45,10 +45,13 @@ play_row:
   sta VERA_addr_low
   lda #$00
   sta VERA_data0
+  iny
+  iny
+  jmp @effect
 
 @inst:
   ; placeholder, do nothing but jump past the byte
-  iny
+  ldy #$01
   ;lda (ROW_POINTER),y ;get vol from the pattern
   ;jsr printhex
 
@@ -57,17 +60,18 @@ play_row:
   ; For now we force panning to LR
   lda #$C2
   sta VERA_addr_low
-  iny
+  ldy #$02
   lda (ROW_POINTER),y ;get vol from the pattern
-  cmp VOLNULL         ; if null, skip to effect section
-  jsr @effect
+  cmp #VOLNULL         ; if null, skip to effect section
   ora #%11000000
   sta VERA_data0
-
 
 ; effect
 @effect:
   ; nothing yet
+  ldy #$03
+
+
   jmp @end
 
 @end:

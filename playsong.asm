@@ -1,9 +1,3 @@
-
-; Also add speed readout
-
-
-
-
 .include "library/preamble.asm"
 .include "library/x16.inc"
 .include "library/macros.inc"
@@ -118,12 +112,13 @@ vblank:
   ldx #0
   stx VBLANK_SKIP_COUNT
 
+jsr get_next_pattern
   jsr get_row             ; get the current row of pattern, put in ROW_POINTER
   jsr play_row
   jsr scroll_pattern
   jsr print_row_count
   jsr inc_row
-  jsr get_next_pattern
+
   jmp @vblank_end
 
 
@@ -157,7 +152,7 @@ enable_irq:
 
 .segment "DATA"
 order_list_length: .byte $03
-order_list: .byte $01,$03,$01,$04
+order_list: .byte $01,02,$03,$04
 
 note_names:  .byte "ccddeffggaab-^-."
 note_sharps: .byte "-#-#--#-#-#--^-."
@@ -167,10 +162,10 @@ note_sharps: .byte "-#-#--#-#-#--^-."
 ;frame_filename: .byte "frame.hex"
 frame_filename: .byte "frame.hex"
 heart_filename: .byte "heart.hex"
-song_title_string: .byte "first song 123!",0
+song_title_string: .byte "bad apple",0
 author_string: .byte "m00dawg",0
 
-.include "pattern.inc"
+.include "song.inc"
 
 ; [x : y : character : color], [x : y; ,...]
 file_data: .byte $01

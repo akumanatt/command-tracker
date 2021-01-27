@@ -53,8 +53,8 @@ TOTAL_BYTES_PER_ROW = $05         ; total bytes per row (for skipping rows)
 
 ; Temp Vars (these will come from the song file)
 ;SPEED = $40                ; how many vblanks to do nothing for
-;SPEED = $06                ; how many vblanks to do nothing for
-SPEED = $02                 ; how many vblanks to do nothing for
+;SPEED = $04                ; how many vblanks to do nothing for
+SPEED = $03                 ; how many vblanks to do nothing for
 ;SPEED = $10                ; how many vblanks to do nothing for
 ROW_MAX = $40               ; Max # of rows for our test pattern (64)
 

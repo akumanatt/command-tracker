@@ -5,7 +5,8 @@ setup:
   sta VERA_addr_low ; Set Primary address low byte to 0
   lda #$00
   sta VERA_addr_high ; Set primary address bank to 0, stride to 0
-  lda #RES128x128x16    ; L0 is the pattern scroll space
+  ;lda #RES128x128x256    ; L0 is the pattern scroll space
+  lda #RES128x128x16      ; L0 is the pattern scroll space
   sta VERA_L0_config
   lda #RES128x64x16
   sta VERA_L1_config    ; L1 is the UI
