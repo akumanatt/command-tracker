@@ -1,5 +1,12 @@
+
 .proc print_pattern
-  ROW_POINTER = r11 ; 16-bit address for keeping track of bytes
+  ROW_POINTER   = r11 ; 16-bit address for keeping track of bytes
+  ; Flags to indicate whether or not to highlight a major (bit 7)
+  ; or minor (bit 6) row
+  ;HIGHLIGHT_FLAGS = r12
+  ;BACKGROUND_COLOR = r13
+  BACKGROUND_COLOR = r12
+
 print_pattern:
   ; Set stride to 1, high bit to 1
   lda #$11
@@ -14,8 +21,11 @@ print_pattern:
   ; row count
   ldx #$00
 
-  ; For the loop, y is the offset of the channel data
+; For the loop, y is the offset of the channel data
 @loop:
+; First check for row highlights
+  jsr @check_highlight_rows
+
 @print_row:
   ; set position to x=0 and y=row count
   txa
@@ -23,9 +33,11 @@ print_pattern:
   lda #$00  ; set x-pos to 0
   jsr vera_goto_xy    ; y-pos is y register
 
+; Print row number
 @print_row_number:
-  ; Print row number
-  set_text_color #PATTERN_ROW_NUMBER_COLOR
+  set_background_foregound_text_color BACKGROUND_COLOR, #PATTERN_ROW_NUMBER_COLOR
+
+  ;set_text_color #PATTERN_ROW_NUMBER_COLOR
   txa ; is row number
   jsr printhex_vera
 
@@ -39,8 +51,9 @@ print_pattern:
   ; Print note
   lda (ROW_POINTER),y
 
+@note:
   jsr decode_note
-  set_text_color #PATTERN_ROW_NUMBER_COLOR
+  set_background_foregound_text_color BACKGROUND_COLOR, #PATTERN_ROW_NUMBER_COLOR
   jsr print_note
 
   jsr @print_inst
@@ -70,7 +83,7 @@ print_pattern:
   rts
 
 @print_inst:
-  set_text_color #PATTERN_INST_COLOR
+  set_background_foregound_text_color BACKGROUND_COLOR, #PATTERN_INST_COLOR
   iny
   lda (ROW_POINTER),y
   cmp #INSTNULL
@@ -87,7 +100,7 @@ print_pattern:
 
 @print_vol:
   ; Print vol
-  set_text_color #PATTERN_VOL_COLOR
+  set_background_foregound_text_color BACKGROUND_COLOR, #PATTERN_VOL_COLOR
   iny
   lda (ROW_POINTER),y
   cmp #VOLNULL
@@ -103,7 +116,7 @@ print_pattern:
   rts
 
 @print_effect:
-  set_text_color #PATTERN_EFX_COLOR
+  set_background_foregound_text_color BACKGROUND_COLOR, #PATTERN_EFX_COLOR
   iny
   lda (ROW_POINTER),y
   cmp #EFFNULL
@@ -125,4 +138,38 @@ print_pattern:
   jsr printhex_vera
   rts
 
+; Set flags for when to highlight major/minor rows
+@check_highlight_rows:
+@check_major_highlight:
+  txa   ; current row
+  sta r0
+  lda #ROW_MAJOR
+  sta r1
+  jsr mod8
+  beq @set_major_highlight
+  ;rmb7 HIGHLIGHT_FLAGS  ; clear if it's not a highlight
+  jmp @check_minor_highlight
+@set_major_highlight:
+  ;smb7 HIGHLIGHT_FLAGS
+  lda #MAJOR_HIGHLIGHT_COLOR
+  sta BACKGROUND_COLOR
+  rts
+@check_minor_highlight:
+  txa
+  sta r0
+  lda #ROW_MINOR
+  sta r1
+  jsr mod8
+  beq @set_minor_highlight
+  ;rmb6 HIGHLIGHT_FLAGS  ; clear if it's not a highlight
+  jmp @no_highlight
+@set_minor_highlight:
+  ;smb6 HIGHLIGHT_FLAGS
+  lda #MINOR_HIGHLIGHT_COLOR
+  sta BACKGROUND_COLOR
+  rts
+@no_highlight:
+  lda #PATTERN_BACKGROUND_COLOR
+  sta BACKGROUND_COLOR
+  rts
 .endproc

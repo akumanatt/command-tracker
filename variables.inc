@@ -34,11 +34,16 @@ CURRENT_ORDER_DISPLAY_Y = $01
 
 ; Colors
 TITLE_COLORS = $B1
-PATTERN_ROW_NUMBER_COLOR = $B1
-PATTERN_NOTE_COLOR = $B1
-PATTERN_INST_COLOR = $B3
-PATTERN_VOL_COLOR = $B5
-PATTERN_EFX_COLOR = $B8
+PATTERN_ROW_NUMBER_COLOR = $01    ; Foreground Only
+PATTERN_NOTE_COLOR = $01
+PATTERN_INST_COLOR = $0F
+PATTERN_VOL_COLOR = $05
+PATTERN_EFX_COLOR = $0E
+; Background
+PATTERN_BACKGROUND_COLOR = $00  ; background only (top nibble)
+MAJOR_HIGHLIGHT_COLOR = $C0     ; background only
+MINOR_HIGHLIGHT_COLOR = $B0     ; background only
+
 
 ; Characters
 CHAR_DOT = $2E
@@ -56,7 +61,11 @@ TOTAL_BYTES_PER_ROW = $05         ; total bytes per row (for skipping rows)
 ;SPEED = $04                ; how many vblanks to do nothing for
 SPEED = $03                 ; how many vblanks to do nothing for
 ;SPEED = $10                ; how many vblanks to do nothing for
+
 ROW_MAX = $40               ; Max # of rows for our test pattern (64)
+ROW_MAJOR = $10       ; Every 16 rows
+ROW_MINOR = $04       ; Every 4 rows
+
 
 ; Chars
 UPPERCASE = $8E

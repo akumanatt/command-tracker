@@ -30,3 +30,15 @@
   lda color
   sta r0
 .endmacro
+
+.macro set_background_foregound_text_color background_color, foreground_color
+  pha
+  lda foreground_color
+  sta r0
+  lda background_color
+  sta r1
+  jsr set_top_nibble
+  lda r2
+  sta r0
+  pla
+.endmacro
