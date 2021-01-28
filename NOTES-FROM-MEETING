@@ -1,0 +1,37 @@
+global_definitions.asm 
+    can remove GUI
+my_isr.asm
+    could rewrite
+    replace with current ISR, adjust counter
+pitch_data.asm 
+    actually tracker will no longer need this once it's just sending
+    notes to the synth engine
+synth_engine.asm 
+timbres.asm
+    AKA instruments
+voice.asm
+zeropage.asm
+    (ISR, remove player, plugin mine)
+    also note the use of dynamic assingment here, nifty!
+utility_macros.asm
+
+Other notes:
+Some effects (vibrato, volume slide) could be done via the tracker.
+Vibrato can adjust the pitch param in timbers. Right now it's corase
+but Carl may add fine (or perhaps I can look)
+Argp: Use pitch
+Vol Slide/Tremolo: adjust volume param directly
+    though note it influences the Other notes:
+Some effects (vibrato, volume slide) could be done via the tracker.
+Vibrato can adjust the pitch param in timbers. Right now it's corase
+but Carl may add fine (or perhaps I can look)
+Argp: Use pitch
+Vol Slide/Tremolo: adjust volume param directly
+    note doesn't overwride ADSR, it changes the max amp of the ADSR
+
+
+loading concentro GUI code into hi RAM?
+    could be a nice way to have an instrument UI before there's a 
+    native one (or concerto might be good enough)
+    Also if ROM area has some RAM-banks as Kevin hinted at, could work
+    there too.
