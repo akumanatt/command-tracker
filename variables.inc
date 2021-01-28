@@ -53,8 +53,13 @@ CHAR_DOT = $2E
 PATTERN_SCROLL_START_H = $FF
 PATTERN_SCROLL_START_L = $00
 
-TOTAL_BYTES_PER_PATTERN = $0140    ; currently 5 * 64 rows
-TOTAL_BYTES_PER_ROW = $05         ; total bytes per row (for skipping rows)
+;NUMBER_OF_CHANNELS = $01
+;TOTAL_BYTES_PER_PATTERN = $0140    ; currently 5 * 64 rows
+;TOTAL_BYTES_PER_ROW = $05         ; total bytes per row (for skipping rows)
+NUMBER_OF_CHANNELS = $02
+TOTAL_BYTES_PER_PATTERN = $0280    ; currently 5 bytes * 2 channels * 64 rows
+TOTAL_BYTES_PER_ROW = $0A         ; total bytes per row (for skipping rows)
+
 
 ; Temp Vars (these will come from the song file)
 ;SPEED = $40                ; how many vblanks to do nothing for

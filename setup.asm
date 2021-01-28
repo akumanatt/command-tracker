@@ -1,4 +1,5 @@
 setup:
+
   lda #$00
   sta VERA_ctrl ; Select primary VRAM address
   sta VERA_addr_med ; Set primary address med byte to 0
@@ -22,7 +23,6 @@ setup:
   lda #$7C
   sta VERA_L0_tilebase
 
-
   sta r0
   lda #$F0
   sta r1
@@ -38,4 +38,7 @@ setup:
   jsr clear_vram
   lda #$00
   sta VERA_addr_high
+
+  jsr vera_load_palette_16
+
   rts

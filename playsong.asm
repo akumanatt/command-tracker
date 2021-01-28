@@ -8,6 +8,7 @@
 .include "library/printing/printstring.asm"
 .include "library/drawing/clearvram.asm"
 .include "library/drawing/vera/gotoxy.asm"
+.include "library/drawing/vera/loadpalette16.asm"
 .include "library/drawing/drawcharacters.asm"
 .include "library/drawing/loadscreen.asm"
 .include "library/drawing/scrollpattern.asm"
@@ -152,22 +153,4 @@ enable_irq:
   sta VERA_ien
   rts
 
-.segment "DATA"
-order_list_length: .byte $03
-order_list: .byte $01,02,$03,$04
-
-note_names:  .byte "ccddeffggaab-^-."
-note_sharps: .byte "-#-#--#-#-#--^-."
-; "-#-#-#-36-#-#-"
-;note_names: .byte  $06,$06,$07,$07,$08,$08,$09,$0A,$0A,$0B,$0B,$0C
-;note_sharps: .byte "-#-#-#--#-#-"
-;frame_filename: .byte "frame.hex"
-frame_filename: .byte "frame.hex"
-heart_filename: .byte "heart.hex"
-song_title_string: .byte "bad apple",0
-author_string: .byte "m00dawg",0
-
-.include "song.inc"
-
-; [x : y : character : color], [x : y; ,...]
-file_data: .byte $01
+.include "data.inc"
