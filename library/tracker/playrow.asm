@@ -13,6 +13,18 @@ play_row:
   ; Get numeric value of note
   lda (ROW_POINTER),y ;get note from the pattern
   jsr decode_note
+
+; SUggestion from klip, though I need to think through this more
+; Should save quite a few cycles
+;lda octave
+;asl
+;asl
+;sta pitch
+;asl
+;clc
+;adc pitch
+;sta pitch
+
   jsr mulby12
   adc NOTE_NOTE
   sta NOTE_NUMERIC
