@@ -44,10 +44,6 @@ PATTERN_BACKGROUND_COLOR = $00  ; background only (top nibble)
 MAJOR_HIGHLIGHT_COLOR = $C0     ; background only
 MINOR_HIGHLIGHT_COLOR = $B0     ; background only
 
-
-; Characters
-CHAR_DOT = $2E
-
 ; Scroll offset to send to VERA to start the pattern in the middle
 ; of the window. Here we are using a negative number.
 PATTERN_SCROLL_START_H = $FF
@@ -68,15 +64,15 @@ SPEED = $03                 ; how many vblanks to do nothing for
 ;SPEED = $10                ; how many vblanks to do nothing for
 
 ROW_MAX = $40               ; Max # of rows for our test pattern (64)
-ROW_MAJOR = $10       ; Every 16 rows
-ROW_MINOR = $04       ; Every 4 rows
-
+ROW_MAJOR = $10             ; Every 16 rows
+ROW_MINOR = $04             ; Every 4 rows
 
 ; Chars
 UPPERCASE = $8E
 PETSCII_DASH = $2D
 PETSCII_PERIOD = $2E
 PETSCII_UP_ARROW = $5E
+CHAR_DOT = $2E
 
 ; Row statuses
 NOTEREL  = $0D
@@ -85,7 +81,6 @@ NOTENULL = $0F
 VOLNULL  = $FF
 INSTNULL = $FF
 EFFNULL = $FF
-END_OF_ORDER = $FF
 
 OCTAVE = $0C  ; 12
 

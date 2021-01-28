@@ -1,6 +1,6 @@
 ; 2 channels
 pattern1:
-.byte   $43,$01,$3F,$01,$22,$32,$04,$FF,$FF,$FF
+.byte   $43,$01,$3F,$FF,$FF,$FF,$FF,$FF,$FF,$FF
 .byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
 .byte   $45,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
 .byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
