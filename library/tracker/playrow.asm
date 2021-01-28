@@ -1,4 +1,7 @@
 .proc play_row
+  VERA_VOICE_OFFSET = r2    ; for skipping through VERA registers
+  CHANNEL_COUNT = r4   ; Counter to know when we're done with channels
+  CHANNEL_OFFSET = r6 ; bytes to skip for each channel
 play_row:
   ; Set base vera address to PSG
   lda #$01
@@ -6,12 +9,38 @@ play_row:
   lda #$F9
   sta VERA_addr_med
 
-  ; y is our offset WITHIN THE ROW
-  ldy #$00
+  lda #$00
+  sta VERA_VOICE_OFFSET
+  sta CHANNEL_OFFSET
+
+  lda #NUMBER_OF_CHANNELS
+  sta CHANNEL_COUNT
+
+@channel:
+  ldy CHANNEL_OFFSET  ; note is first byte
+  lda (ROW_POINTER),y ;get note from the pattern
+  jsr @note
+  jsr @inst
+  jsr @vol
+  jsr @effect
+
+  lda VERA_VOICE_OFFSET
+  clc
+  adc #NUM_VERA_PSG_REGISTERS
+  sta VERA_VOICE_OFFSET
+
+  lda CHANNEL_OFFSET
+  clc
+  adc #TOTAL_BYTES_PER_CHANNEL
+  sta CHANNEL_OFFSET
+
+  dec CHANNEL_COUNT
+  bne @channel
+@end:
+  rts
 
 @note:
   ; Get numeric value of note
-  lda (ROW_POINTER),y ;get note from the pattern
   jsr decode_note
 
 ; SUggestion from klip, though I need to think through this more
@@ -36,57 +65,68 @@ play_row:
   cmp #NOTEOFF
   beq @note_off
   cmp #NOTENULL ;if null, skip playing note
-  beq @effect
+  beq @note_end
 
 @note_play:
   ;$1F9C0 - $1F9FF
   ; low the low byte of Note
   lda #$C0
+  clc
+  adc VERA_VOICE_OFFSET
   sta VERA_addr_low
   lda pitch_dataL,x
   sta VERA_data0
   ; load high byte of note
   lda #$C1
+  clc
+  adc VERA_VOICE_OFFSET
   sta VERA_addr_low
   lda pitch_dataH,x
   sta VERA_data0
-  jmp @inst
+
+  jmp @note_end
 
 @note_off:
   lda #$C2
+  clc
+  adc VERA_VOICE_OFFSET
   sta VERA_addr_low
   lda #$00
   sta VERA_data0
-  iny
-  iny
-  jmp @effect
+
+@note_end:
+  rts
 
 @inst:
   ; placeholder, do nothing but jump past the byte
-  ldy #$01
-  ;lda (ROW_POINTER),y ;get vol from the pattern
-  ;jsr printhex
+  lda #$01  ; inst is second byte
+  clc
+  adc VERA_VOICE_OFFSET
+  rts
 
 @vol:
   ; Set Vol
-  ; For now we force panning to LR
+
   lda #$C2
+  clc
+  adc VERA_VOICE_OFFSET
   sta VERA_addr_low
-  ldy #$02
+
+  ldy #$02    ; vol is third byte
+  adc CHANNEL_OFFSET
   lda (ROW_POINTER),y ;get vol from the pattern
   cmp #VOLNULL         ; if null, skip to effect section
+  ; For now we force panning to LR
   ora #%11000000
   sta VERA_data0
+  rts
 
 ; effect
 @effect:
   ; nothing yet
-  ldy #$03
-
-
-  jmp @end
-
-@end:
   rts
+
+  ;jmp @end
+
 
 .endproc

@@ -43,6 +43,7 @@ PATTERN_EFX_COLOR = $0E
 PATTERN_BACKGROUND_COLOR = $00  ; background only (top nibble)
 MAJOR_HIGHLIGHT_COLOR = $C0     ; background only
 MINOR_HIGHLIGHT_COLOR = $B0     ; background only
+CURRENT_ROW_BACKGROUND_COLOR = $40 ; background only
 
 ; Scroll offset to send to VERA to start the pattern in the middle
 ; of the window. Here we are using a negative number.
@@ -55,13 +56,15 @@ PATTERN_SCROLL_START_L = $00
 NUMBER_OF_CHANNELS = $02
 TOTAL_BYTES_PER_PATTERN = $0280    ; currently 5 bytes * 2 channels * 64 rows
 TOTAL_BYTES_PER_ROW = $0A         ; total bytes per row (for skipping rows)
+TOTAL_BYTES_PER_CHANNEL = $05
+NUM_VERA_PSG_REGISTERS = $04
 
 
 ; Temp Vars (these will come from the song file)
 ;SPEED = $40                ; how many vblanks to do nothing for
-;SPEED = $04                ; how many vblanks to do nothing for
-SPEED = $03                 ; how many vblanks to do nothing for
-;SPEED = $10                ; how many vblanks to do nothing for
+SPEED = $04                ; how many vblanks to do nothing for
+;SPEED = $03                 ; how many vblanks to do nothing for
+;SPEED = $30                ; how many vblanks to do nothing for
 
 ROW_MAX = $40               ; Max # of rows for our test pattern (64)
 ROW_MAJOR = $10             ; Every 16 rows
@@ -73,6 +76,7 @@ PETSCII_DASH = $2D
 PETSCII_PERIOD = $2E
 PETSCII_UP_ARROW = $5E
 CHAR_DOT = $2E
+PETSCII_RETURN = $13
 
 ; Row statuses
 NOTEREL  = $0D

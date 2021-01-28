@@ -65,7 +65,7 @@ start:
 
 
 ; This is to configure the base instrument - it's a placeholder
-set_saw:
+set_voice_1:
   ; Set base vera address to PSG
   lda #$01
   sta VERA_addr_high
@@ -79,6 +79,22 @@ set_saw:
   sta VERA_addr_low
   lda #%01000000
   sta VERA_data0
+
+set_voice_2:
+  ; Set base vera address to PSG
+  lda #$01
+  sta VERA_addr_high
+  lda #$F9
+  sta VERA_addr_med
+  lda #$C6
+  sta VERA_addr_low
+  lda #$FF
+  sta VERA_data0
+  lda #$C7
+  sta VERA_addr_low
+  lda #%00010000
+  sta VERA_data0
+
 
 @loop:
   jmp @loop
@@ -115,8 +131,9 @@ vblank:
   ldx #0
   stx VBLANK_SKIP_COUNT
 
-jsr get_next_pattern
+  jsr get_next_pattern
   jsr get_row             ; get the current row of pattern, put in ROW_POINTER
+
   jsr play_row
   jsr scroll_pattern
   jsr print_row_count

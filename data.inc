@@ -1,6 +1,6 @@
 .segment "DATA"
 order_list_length: .byte $03
-order_list: .byte $01,02,$03,$04
+order_list: .byte $03,04,$01,$02
 
 note_names:  .byte "ccddeffggaab-^-."
 note_sharps: .byte "-#-#--#-#-#--^-."

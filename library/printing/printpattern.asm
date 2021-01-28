@@ -15,6 +15,9 @@ print_pattern:
   lda #>PATTERN_POINTER
   sta ROW_POINTER+1
 
+  lda #NUMBER_OF_CHANNELS
+  sta CHANNEL_COUNT
+
   ; row count
   ldx #$00
 
