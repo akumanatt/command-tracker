@@ -95,6 +95,22 @@ set_voice_2:
   lda #%00010000
   sta VERA_data0
 
+set_voice_3:
+  ; Set base vera address to PSG
+  lda #$01
+  sta VERA_addr_high
+  lda #$F9
+  sta VERA_addr_med
+  lda #$CA
+  sta VERA_addr_low
+  lda #$FF
+  sta VERA_data0
+  lda #$CB
+  sta VERA_addr_low
+  lda #%11000000
+  sta VERA_data0
+
+
 
 @loop:
   jmp @loop

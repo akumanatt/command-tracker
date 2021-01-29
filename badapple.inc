@@ -1,265 +1,264 @@
 ; 2 channels
 pattern1:
-.byte   $43,$01,$3F,$01,$22,$33,$01,$3F,$FF,$FF             ; 00
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $45,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $46,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $48,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $4A,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $53,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $51,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $4A,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF               ; 10
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $43,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $4A,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $48,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $46,$01,$FF,$FF,$FF,$31,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $45,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $43,$01,$FF,$FF,$FF,$2B,$FF,$FF,$FF,$FF                 ; 20
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $45,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $46,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $48,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $4A,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $48,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $46,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $45,$01,$FF,$FF,$FF,$31,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF                 ; 30
-.byte   $FE,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $45,$01,$FF,$FF,$FF,$ff,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $46,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $45,$01,$FF,$FF,$FF,$32,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $43,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $42,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $45,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FE,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF                 ; 3F
-
-pattern2:
-.byte   $43,$01,$3F,$FF,$FF,$33,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $45,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $46,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $48,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $49,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $4A,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $43,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $53,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $51,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $4A,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $43,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $4A,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $48,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $46,$01,$FF,$FF,$FF,$31,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $45,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $43,$01,$FF,$FF,$FF,$2B,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $45,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $46,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $48,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $4A,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $48,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $46,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $45,$01,$FF,$FF,$FF,$31,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FE,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $46,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FE,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $48,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FE,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $4A,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FE,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $51,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FE,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-
-pattern3:
-.byte   $51,$01,$3F,$FF,$FF,$2B,$FF,$FF,$FF,$FF        ; C#
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $53,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; D#
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $4A,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; A#
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $48,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; G#
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $4A,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; A#
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FE,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $4A,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; A#
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $51,$01,$FF,$FF,$FF,$31,$FF,$FF,$FF,$FF        ; C#
-.byte   $FE,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $51,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; C#
-.byte   $FE,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $53,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; D#
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $4A,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; A#
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $48,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; G#
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $4A,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; A#
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $48,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; G#
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $4A,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; A#
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $48,$FF,$FF,$FF,$FF,$33,$FF,$FF,$FF,$FF        ; G#
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $46,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; F#
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $45,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; F
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $41,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; C#
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $43,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; D#
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $41,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; C#
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $43,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; D#
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $45,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; F
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $46,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; F#
-.byte   $FE,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $48,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; G#
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $4A,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; A#
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $43,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; D#
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$31,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-
-pattern4:
-.byte   $51,$01,$3F,$FF,$FF,$2B,$FF,$FF,$FF,$FF        ; C#
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $53,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; D#
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $4A,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; A#
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $48,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; G#
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $4A,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; A#
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FE,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $4A,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; A#
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $51,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; C#
-.byte   $FE,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $51,$01,$FF,$FF,$FF,$31,$FF,$FF,$FF,$FF        ; C#
-.byte   $FE,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $53,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; D#
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $4A,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; A#
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $48,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; G#
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $4A,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; A#
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $53,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; D# H
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $55,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; F
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $56,$FF,$FF,$FF,$FF,$33,$FF,$FF,$FF,$FF        ; F#
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $55,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; F
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $53,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; D#
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $51,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; C#
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $4A,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; A#
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $48,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; g
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $4A,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; a#
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $48,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; g
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $46,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; F#
-.byte   $FE,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $45,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; F
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $41,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; C#
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $43,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF        ; D#
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FE,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
+.byte   $43,$01,$FF,$01,$22,$33,$01,$3F,$FF,$FF  ,$A3,$01,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF         ; 00
+.byte   $FE,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $45,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$A3,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FE,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $46,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$63,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $48,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$73,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $4A,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$A3,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$A3,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $53,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$63,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $51,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$43,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $4A,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$43,$FF,$34,$FF,$FF    ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF              ; 10
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$73,$FF,$34,$FF,$FF    ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$93,$FF,$34,$FF,$FF    ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$FF,$FF,$FF,$FF,$FF    ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $43,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$43,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$FF,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$FF,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $4A,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$43,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $48,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$53,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $46,$01,$FF,$FF,$FF,$31,$FF,$FF,$FF,$FF  ,$43,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $45,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$63,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$73,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF  
+.byte   $43,$01,$FF,$FF,$FF,$2B,$FF,$FF,$FF,$FF   ,$A3,$01,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF               ; 20
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $45,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$A3,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $46,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$63,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $48,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$73,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $4A,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$A3,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$A3,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $48,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$63,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $46,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$43,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $45,$01,$FF,$FF,$FF,$31,$FF,$FF,$FF,$FF   ,$43,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$73,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF               ; 30
+.byte   $FE,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$93,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $45,$01,$3F,$FF,$FF,$ff,$FF,$FF,$FF,$FF   ,$43,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $46,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $45,$01,$FF,$FF,$FF,$32,$FF,$FF,$FF,$FF   ,$43,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $43,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$53,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $42,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$43,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $45,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$63,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FE,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$73,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF               ; 3F
+                                                
+pattern2:                                       
+.byte   $43,$01,$3F,$FF,$FF,$33,$FF,$FF,$FF,$FF ,$A3,$01,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF   
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $45,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF ,$A3,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $46,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF ,$63,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $48,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF ,$73,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $49,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $4A,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF ,$A3,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $43,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF ,$A3,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $53,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF ,$63,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $51,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF ,$43,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $4A,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF ,$43,$FF,$34,$FF,$FF    ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF  
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF ,$73,$FF,$34,$FF,$FF    ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF ,$93,$FF,$34,$FF,$FF    ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF ,$FF,$FF,$FF,$FF,$FF    ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $43,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF ,$43,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF ,$FF,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF ,$FF,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $4A,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF ,$43,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $48,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF ,$53,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $46,$01,$FF,$FF,$FF,$31,$FF,$FF,$FF,$FF ,$43,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $45,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF ,$63,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF ,$73,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF  
+.byte   $43,$01,$FF,$FF,$FF,$2B,$FF,$FF,$FF,$FF  ,$A3,$01,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF  
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $45,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$A3,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $46,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$63,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $48,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$73,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $4A,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$A3,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$A3,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $48,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$63,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $46,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$43,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $45,$01,$FF,$FF,$FF,$31,$FF,$FF,$FF,$FF  ,$43,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$73,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF  
+.byte   $FE,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$93,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$FF,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $46,$01,$3F,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$43,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FE,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$FF,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$FF,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $48,$01,$3F,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$43,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FE,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$53,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $4A,$01,$3F,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$43,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FE,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $51,$FF,$3F,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$63,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FE,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF  ,$73,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF  
+                                                
+pattern3:                                       
+.byte   $51,$01,$3F,$FF,$FF,$2B,$FF,$FF,$FF,$FF   ,$A3,$01,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF     ; C#
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $53,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$A3,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF     ; D#
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $4A,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$63,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF     ; A#
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $48,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$73,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF     ; G#
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $4A,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$A3,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF     ; A#
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FE,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$A3,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $4A,$01,$3F,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$63,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF     ; A#
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $51,$01,$FF,$FF,$FF,$31,$FF,$FF,$FF,$FF   ,$43,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF     ; C#
+.byte   $FE,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $51,$01,$3F,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$43,$FF,$34,$FF,$FF    ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF    ; C#
+.byte   $FE,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$73,$FF,$34,$FF,$FF    ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $53,$FF,$3F,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$93,$FF,$34,$FF,$FF    ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF    ; D#
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF    ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $4A,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$43,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF     ; A#
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $48,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF     ; G#
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $4A,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$43,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF     ; A#
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$53,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $48,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$43,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF     ; G#
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $4A,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$63,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF     ; A#
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ,$73,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF  
+.byte   $48,$FF,$FF,$FF,$FF,$33,$FF,$FF,$FF,$FF    ,$A3,$01,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF    ; G#
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $46,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$A3,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF    ; F#
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $45,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$63,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF    ; F
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $41,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$73,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF    ; C#
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $43,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$A3,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF    ; D#
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$A3,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $41,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$63,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF    ; C#
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $43,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$43,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF    ; D#
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $45,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$43,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF    ; F
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$73,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF  
+.byte   $46,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$93,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF    ; F#
+.byte   $FE,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$FF,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $48,$FF,$3F,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$43,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF    ; G#
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $4A,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$FF,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF    ; A#
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$FF,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $43,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$43,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF    ; D#
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$53,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$31,$FF,$FF,$FF,$FF    ,$43,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$63,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$73,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF  
+                                                
+pattern4:                                       
+.byte   $51,$01,$3F,$FF,$FF,$2B,$FF,$FF,$FF,$FF    ,$A3,$01,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF    ; C#
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $53,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$A3,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF    ; D#
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $4A,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$63,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF    ; A#
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $48,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$73,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF    ; G#
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $4A,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$A3,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF    ; A#
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FE,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$A3,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $4A,$01,$3F,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$63,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF    ; A#
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $51,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$43,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF    ; C#
+.byte   $FE,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $51,$01,$3F,$FF,$FF,$31,$FF,$FF,$FF,$FF    ,$43,$FF,$34,$FF,$FF    ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF   ; C#
+.byte   $FE,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$73,$FF,$34,$FF,$FF    ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $53,$FF,$3F,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$93,$FF,$34,$FF,$FF    ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF   ; D#
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$FF,$FF,$FF,$FF,$FF    ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $4A,$01,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$43,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF    ; A#
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $48,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$FF,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF    ; G#
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$FF,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $4A,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$43,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF    ; A#
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$53,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $53,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$43,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF    ; D# H
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $55,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$63,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF    ; F
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF    ,$73,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF  
+.byte   $56,$FF,$FF,$FF,$FF,$33,$FF,$FF,$FF,$FF     ,$A3,$01,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF   ; F#
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF     ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $55,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF     ,$A3,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF   ; F
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF     ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $53,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF     ,$63,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF   ; D#
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF     ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $51,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF     ,$73,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF   ; C#
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF     ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $4A,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF     ,$A3,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF   ; A#
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF     ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF     ,$A3,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF     ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $48,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF     ,$63,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF   ; g
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF     ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $4A,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF     ,$43,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF   ; a#
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF     ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $48,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF     ,$43,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF   ; g
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF     ,$73,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF  
+.byte   $46,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF     ,$93,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF   ; F#
+.byte   $FE,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF     ,$FF,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $45,$FF,$3F,$FF,$FF,$FF,$FF,$FF,$FF,$FF     ,$43,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF   ; F
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF     ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $41,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF     ,$FF,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF   ; C#
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF     ,$FF,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $43,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF     ,$43,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF   ; D#
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF     ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF     ,$53,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF     ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF     ,$43,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF     ,$FE,$FF,$FF,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF     ,$63,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF 
+.byte   $FE,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF     ,$73,$FF,$34,$FF,$FF   ,$FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF, $FF,$FF,$FF,$FF,$FF  
