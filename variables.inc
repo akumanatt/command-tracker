@@ -43,10 +43,7 @@ PATTERN_EFX_COLOR = $0E
 PATTERN_BACKGROUND_COLOR = $00  ; background only (top nibble)
 MAJOR_HIGHLIGHT_COLOR = $C0     ; background only
 MINOR_HIGHLIGHT_COLOR = $B0     ; background only
-
-
-; Characters
-CHAR_DOT = $2E
+CURRENT_ROW_BACKGROUND_COLOR = $40 ; background only
 
 ; Scroll offset to send to VERA to start the pattern in the middle
 ; of the window. Here we are using a negative number.
@@ -56,27 +53,37 @@ PATTERN_SCROLL_START_L = $00
 ;NUMBER_OF_CHANNELS = $01
 ;TOTAL_BYTES_PER_PATTERN = $0140    ; currently 5 * 64 rows
 ;TOTAL_BYTES_PER_ROW = $05         ; total bytes per row (for skipping rows)
-NUMBER_OF_CHANNELS = $02
-TOTAL_BYTES_PER_PATTERN = $0280    ; currently 5 bytes * 2 channels * 64 rows
-TOTAL_BYTES_PER_ROW = $0A         ; total bytes per row (for skipping rows)
+;NUMBER_OF_CHANNELS = $02
+;TOTAL_BYTES_PER_PATTERN = $0280    ; currently 5 bytes * 2 channels * 64 rows
+;TOTAL_BYTES_PER_ROW = $0A         ; total bytes per row (for skipping rows)
+;NUMBER_OF_CHANNELS = $03
+;TOTAL_BYTES_PER_PATTERN = $03C0    ; currently 5 bytes * 3 channels * 64 rows
+;TOTAL_BYTES_PER_ROW = $0F         ; total bytes per row (for skipping rows)
+NUMBER_OF_CHANNELS = $06
+TOTAL_BYTES_PER_PATTERN = $0780    ; currently 5 bytes * 3 channels * 64 rows
+TOTAL_BYTES_PER_ROW = $1E         ; total bytes per row (for skipping rows)
+
+TOTAL_BYTES_PER_CHANNEL = $05
+NUM_VERA_PSG_REGISTERS = $04
 
 
 ; Temp Vars (these will come from the song file)
 ;SPEED = $40                ; how many vblanks to do nothing for
-;SPEED = $04                ; how many vblanks to do nothing for
-SPEED = $03                 ; how many vblanks to do nothing for
-;SPEED = $10                ; how many vblanks to do nothing for
+SPEED = $04                ; how many vblanks to do nothing for
+;SPEED = $0A                 ; how many vblanks to do nothing for
+;SPEED = $30                ; how many vblanks to do nothing for
 
 ROW_MAX = $40               ; Max # of rows for our test pattern (64)
-ROW_MAJOR = $10       ; Every 16 rows
-ROW_MINOR = $04       ; Every 4 rows
-
+ROW_MAJOR = $10             ; Every 16 rows
+ROW_MINOR = $04             ; Every 4 rows
 
 ; Chars
 UPPERCASE = $8E
 PETSCII_DASH = $2D
 PETSCII_PERIOD = $2E
 PETSCII_UP_ARROW = $5E
+CHAR_DOT = $2E
+PETSCII_RETURN = $13
 
 ; Row statuses
 NOTEREL  = $0D
@@ -85,7 +92,11 @@ NOTENULL = $0F
 VOLNULL  = $FF
 INSTNULL = $FF
 EFFNULL = $FF
-END_OF_ORDER = $FF
+NOTEOFF_FLAG = %10000000
+NOTEREL_FLAG = %01000000
+; This is when a new note is played. If so, we flag it so we know to use
+; the instrument's default volume
+NOTEPLAY_FLAG = %00010000
 
 OCTAVE = $0C  ; 12
 

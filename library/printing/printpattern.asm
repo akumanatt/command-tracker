@@ -1,11 +1,8 @@
 
 .proc print_pattern
   ROW_POINTER   = r11 ; 16-bit address for keeping track of bytes
-  ; Flags to indicate whether or not to highlight a major (bit 7)
-  ; or minor (bit 6) row
-  ;HIGHLIGHT_FLAGS = r12
-  ;BACKGROUND_COLOR = r13
-  BACKGROUND_COLOR = r12
+  BACKGROUND_COLOR = r12  ; temp storage for background color mask
+  CHANNEL_COUNT = r13    ; Counter to know when we're done with channels
 
 print_pattern:
   ; Set stride to 1, high bit to 1
@@ -17,6 +14,9 @@ print_pattern:
   sta ROW_POINTER
   lda #>PATTERN_POINTER
   sta ROW_POINTER+1
+
+  lda #NUMBER_OF_CHANNELS
+  sta CHANNEL_COUNT
 
   ; row count
   ldx #$00
@@ -32,6 +32,39 @@ print_pattern:
   tay
   lda #$00  ; set x-pos to 0
   jsr vera_goto_xy    ; y-pos is y register
+  jsr @print_row_number
+
+  ; Offset for bytes of row
+  ldy #$00  ; offset for row data
+
+@channels_loop:
+  lda (ROW_POINTER),y
+  jsr decode_note
+  set_background_foregound_text_color BACKGROUND_COLOR, #PATTERN_ROW_NUMBER_COLOR
+  jsr print_note
+  jsr @print_inst
+  jsr @print_vol
+  jsr @print_effect
+  iny ; This is for the decode_note section when we loop after the first row
+  ; Move over one (for bar on top layer)
+  lda $00
+  sta r0
+  jsr print_char_vera
+
+  dec CHANNEL_COUNT
+  bne @channels_loop
+
+  jsr @jump_to_next_row
+
+
+@inc_row_count:
+  ; remember x is row count
+  inx
+  cpx #ROW_MAX
+  bne @loop
+@end:
+  rts
+
 
 ; Print row number
 @print_row_number:
@@ -46,40 +79,9 @@ print_pattern:
   sta r0
   jsr print_char_vera
 
-  ; Offset for bytes of row
-  ldy #$00  ; offset for row data
-  ; Print note
-  lda (ROW_POINTER),y
-
-@note:
-  jsr decode_note
-  set_background_foregound_text_color BACKGROUND_COLOR, #PATTERN_ROW_NUMBER_COLOR
-  jsr print_note
-
-  jsr @print_inst
-  jsr @print_vol
-  jsr @print_effect
-
-@jump_to_next_row:
-    ; Using something like this in getrow too so probably a function?
-    clc
-    lda ROW_POINTER
-    adc #TOTAL_BYTES_PER_ROW
-    sta ROW_POINTER
-    lda ROW_POINTER+1
-    adc #$00
-    sta ROW_POINTER+1
-
-  ;lda ROW_POINTER
-  ;adc #$02
-  ;sta ROW_POINTER
-
-@inc_row_count:
-  ; remember x is row count
-  inx
-  cpx #ROW_MAX
-  bne @loop
-@end:
+  ; Reset channel counter
+  lda #NUMBER_OF_CHANNELS
+  sta CHANNEL_COUNT
   rts
 
 @print_inst:
@@ -117,8 +119,9 @@ print_pattern:
 
 @print_effect:
   set_background_foregound_text_color BACKGROUND_COLOR, #PATTERN_EFX_COLOR
-  iny
+  iny ; effect number
   lda (ROW_POINTER),y
+  iny ; effect data
   cmp #EFFNULL
   bne @seteffect
 @nulleffect:
@@ -133,10 +136,26 @@ print_pattern:
   rts
 @seteffect:
   jsr printhex_vera
-  iny
+  ;iny
   lda (ROW_POINTER),y
   jsr printhex_vera
   rts
+
+
+@jump_to_next_row:
+    ; Using something like this in getrow too so probably a function?
+    clc
+    lda ROW_POINTER
+    adc #TOTAL_BYTES_PER_ROW
+    sta ROW_POINTER
+    lda ROW_POINTER+1
+    adc #$00
+    sta ROW_POINTER+1
+
+    ; Reset channel counter
+    lda #NUMBER_OF_CHANNELS
+    sta CHANNEL_COUNT
+    rts
 
 ; Set flags for when to highlight major/minor rows
 @check_highlight_rows:
