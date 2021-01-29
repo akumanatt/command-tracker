@@ -110,14 +110,40 @@ set_voice_3:
   lda #%11000000
   sta VERA_data0
 
+; Loop on user interaction
+main_loop:
+  wai
+  jmp main_loop
 
+stop:
+  lda #$00
+  sta VERA_ien
+  cli
+stop_loop:
+  jsr GETIN  ;keyboard
+  jsr CHROUT
+  cmp #F8
+  bne stop_loop
+  jmp start
 
-@loop:
-  jmp @loop
+play_song:
+  sei
+  lda #VBLANK_MASK
+  sta VERA_ien
+  jmp start
+
 
 vblank:
   sei
 
+@check_keyboard:
+  jsr GETIN  ;keyboard
+  sta key
+  cmp #F8
+  bne @vblank_next
+  jmp stop
+
+@vblank_next:
   ; Check to see if the VBLANK was triggered. This is in case the intterupt
   ;   was triggered by something else. We just want VBLANK.
   lda VERA_isr         ; Load contents of VERA's ISR
@@ -155,13 +181,11 @@ vblank:
   jsr print_row_count
   jsr inc_row
 
-  jmp @vblank_end
-
-
-
 @vblank_end:
   clc
   jmp (PREVIOUS_ISR_HANDLER)        ; Pass control to the previous handler
+
+
 
 enable_irq:
   ; Setup irq handler
@@ -184,6 +208,10 @@ enable_irq:
   ; the VBLANK interupt
   lda #VBLANK_MASK
   sta VERA_ien
+
+@end:
   rts
+
+
 
 .include "data.inc"

@@ -2,6 +2,8 @@
 order_list_length: .byte $03
 order_list: .byte $01,02,$03,$04
 
+key: .byte $00
+
 note_names:  .byte "ccddeffggaab-^-."
 note_sharps: .byte "-#-#--#-#-#--^-."
 ; "-#-#-#-36-#-#-"
@@ -30,7 +32,7 @@ palette:
 .byte $22,$02     ; dark grey
 .byte $44,$04     ; grey
 .byte $F5,$05     ; light green
-.byte $5F,$05     ; light blue
+.byte $9F,$0A     ; light blue
 .byte $88,$08     ; light gray
 
 .include "song.inc"
