@@ -12,6 +12,15 @@ note_sharps: .byte "-#-#--#-#-#--^-."
 ;frame_filename: .byte "frame.hex"
 frame_filename: .byte "frame.hex"
 heart_filename: .byte "heart.hex"
+
+command_tracker_string: .byte "command tracker v0.000",0
+song_label: .byte "song:",0
+composer_label: .byte "by  :",0
+speed_label: .byte "spd:",0
+pattern_label: .byte "pat:",0
+order_label: .byte "ord:  /",0
+row_label: .byte "row:",0
+
 song_title: .byte "bad apple",0
 author: .byte "m00dawg",0
 
@@ -35,7 +44,7 @@ palette:
 .byte $9F,$0A     ; light blue
 .byte $88,$08     ; light gray
 
-.include "song.inc"
+; .include "song.inc"
 
 ; [x : y : character : color], [x : y; ,...]
 file_data: .byte $01

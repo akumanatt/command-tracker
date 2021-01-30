@@ -1,11 +1,12 @@
 ; Draw a line of hearts
 ; a = length, x,y = x/y screen coords
-.proc draw_line
+.proc draw_horizontal_line
   ; Vars for draw_line
-  CHAR = $53
   LENGTH = r11
-  COLOR = r4
-  draw_line:
+  COLOR = r0
+  CHAR = $43
+
+  draw_horizontal_line:
     sta LENGTH
     txa
     asl
@@ -13,9 +14,9 @@
     sty VERA_addr_med
     ldx 0
   @loop:
-    lda #HEART
+    lda #CHAR
     sta VERA_data0 ; Write chracter
-    lda #COLOR
+    lda COLOR
     sta VERA_data0 ; Write color
     inx
     cpx LENGTH
