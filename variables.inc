@@ -86,6 +86,7 @@ CHAR_DOT = $2E
 PETSCII_RETURN = $13
 F5 = $87
 F8 = $8C
+ESC = $30
 
 ; Row statuses
 NOTEREL  = $0D

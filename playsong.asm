@@ -34,11 +34,15 @@
 .include "library/tracker/getnextpattern.asm"
 .include "library/tracker/loadpatterns.asm"
 .include "library/tracker/incrow.asm"
+.include "library/tracker/setupvoices.asm"
+.include "library/tracker/stopallvoices.asm"
+
 .include "variables.inc"
 
 .include "setup.asm"
 
 start:
+  sei
   jsr setup
 
   ; Hard set scroll
@@ -46,102 +50,57 @@ start:
   sta SCROLL_ENABLE
 
   ; First stuff before song starts to play
-  jsr load_patterns
-  jsr enable_irq
   jsr draw_frame
   jsr print_speed
-  jsr print_number_of_orders
 
-  ; Get the first order
+load_song:
+  ; This seems like it would be when loading a song
+  jsr print_number_of_orders
+  jsr load_patterns
   ldy #$00
   sty ORDER_NUMBER
   lda order_list,y
+  sty ROW_COUNT
   sta RAM_BANK
   sta PATTERN_NUMBER
   jsr print_current_order
   jsr print_current_pattern_number
   jsr print_pattern
 
-
-
-; This is to configure the base instrument - it's a placeholder
-set_voice_1:
-  ; Set base vera address to PSG
-  lda #$01
-  sta VERA_addr_high
-  lda #$F9
-  sta VERA_addr_med
-  lda #$C2
-  sta VERA_addr_low
-  lda #$FF
-  sta VERA_data0
-  lda #$C3
-  sta VERA_addr_low
-  lda #%01000000
-  sta VERA_data0
-
-set_voice_2:
-  ; Set base vera address to PSG
-  lda #$01
-  sta VERA_addr_high
-  lda #$F9
-  sta VERA_addr_med
-  lda #$C6
-  sta VERA_addr_low
-  lda #$FF
-  sta VERA_data0
-  lda #$C7
-  sta VERA_addr_low
-  lda #%00010000
-  sta VERA_data0
-
-set_voice_3:
-  ; Set base vera address to PSG
-  lda #$01
-  sta VERA_addr_high
-  lda #$F9
-  sta VERA_addr_med
-  lda #$CA
-  sta VERA_addr_low
-  lda #$FF
-  sta VERA_data0
-  lda #$CB
-  sta VERA_addr_low
-  lda #%11000000
-  sta VERA_data0
+  ; Prepare for playback
+  jsr setup_voices
+  jsr enable_irq
+  cli
 
 ; Loop on user interaction
 main_loop:
   wai
+check_keyboard:
+  jsr GETIN  ;keyboard
+  cmp #F8
+  beq stop_song
+  cmp #F5
+  beq play_song
   jmp main_loop
 
-stop:
-  lda #$00
-  sta VERA_ien
+stop_song:
+  sei
+  jsr disable_irq
+  jsr stop_all_voices
+  ; Reset scroll to beginning
+  lda #PATTERN_SCROLL_START_H
+  sta VERA_L0_vscroll_h
+  lda #PATTERN_SCROLL_START_L
+  sta VERA_L0_vscroll_l
+
   cli
-stop_loop:
-  jsr GETIN  ;keyboard
-  jsr CHROUT
-  cmp #F8
-  bne stop_loop
-  jmp start
+  jmp main_loop
 
 play_song:
-  sei
-  lda #VBLANK_MASK
-  sta VERA_ien
-  jmp start
-
+  jmp load_song
 
 vblank:
   sei
-
-@check_keyboard:
-  jsr GETIN  ;keyboard
-  sta key
-  cmp #F8
-  bne @vblank_next
-  jmp stop
 
 @vblank_next:
   ; Check to see if the VBLANK was triggered. This is in case the intterupt
@@ -203,15 +162,18 @@ enable_irq:
   lda #>vblank
   sta ISR_HANDLER,x
 
-  ; Enable VBLANK Interrupt
-  ; We will use VBLANK from the VERA as our time keeper, so we enable
-  ; the VBLANK interupt
-  lda #VBLANK_MASK
-  sta VERA_ien
-
 @end:
   rts
 
+disable_irq:
+  ldx #$0
+  lda PREVIOUS_ISR_HANDLER,x
+  sta ISR_HANDLER,x
+  inx
+  lda PREVIOUS_ISR_HANDLER,x
+  sta ISR_HANDLER,x
+@end:
+  rts
 
 
 .include "data.inc"

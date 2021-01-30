@@ -41,4 +41,10 @@ setup:
 
   jsr vera_load_palette_16
 
+  ; Enable VBLANK Interrupt
+  ; We will use VBLANK from the VERA as our time keeper, so we enable
+  ; the VBLANK interupt
+  lda #VBLANK_MASK
+  sta VERA_ien
+
   rts
