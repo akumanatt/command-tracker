@@ -8,3 +8,6 @@
 .include "sound.asm"
 .include "ui.asm"
 .include "tracker.asm"
+
+.include "variables.inc"
+.include "setup.asm"

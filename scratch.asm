@@ -1,26 +1,19 @@
-.include "library/preamble.asm"
-.include "library/x16.inc"
-.include "library/macros.inc"
-.include "graphics.asm"
-
-;.include "variables.inc"
+.include "includes.inc"
 
 start:
-;  lda #$02
-;  sta r0
-;  lda #$05
-;  sta r1
-;  jsr multiply16
-;  jsr printhex
-;  tya
-;  jsr printhex
+  sei
+  jsr setup
+  rts
+  lda #$10
+  sta r0
+  sta r1
+  lda #$20
+  sta r2
+  sta r3
+  lda #$F5
+  sta r4
+  jsr graphics::drawing::draw_rounded_box
 
-;  lda RAM_BANK
-;  jsr printhex
-;  lda #$01
-;  sta RAM_BANK
-;  jsr printhex
-;  jsr load_patterns
 
 
   rts

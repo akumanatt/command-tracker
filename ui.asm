@@ -1,6 +1,7 @@
 ; Graphic routines
 
 .scope ui
+  .include "library/ui/draw_frame.asm"
   .include "library/ui/print_song_info.asm"
   .include "library/ui/print_current_pattern_number.asm"
   .include "library/ui/print_number_of_orders.asm"

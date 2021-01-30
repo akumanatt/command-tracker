@@ -20,7 +20,8 @@
     .include "library/graphics/drawing/print_hex.asm"
     .include "library/graphics/drawing/print_char.asm"
     .include "library/graphics/drawing/draw_characters.asm"
-    .include "library/graphics/drawing/draw_frame.asm"
+    ;.include "library/graphics/drawing/draw_solid_box.asm"
+    .include "library/graphics/drawing/draw_rounded_box.asm"
     .include "library/graphics/drawing/load_screen.asm"
     .include "library/graphics/drawing/print_string.asm"
   .endscope

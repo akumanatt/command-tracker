@@ -2,7 +2,7 @@
 ; a = length, x,y = x/y screen coords
 .proc draw_line
   ; Vars for draw_line
-  HEART = $53
+  CHAR = $53
   LENGTH = r11
   COLOR = r4
   draw_line:

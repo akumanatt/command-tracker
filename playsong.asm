@@ -1,6 +1,4 @@
 .include "includes.inc"
-.include "variables.inc"
-.include "setup.asm"
 
 start:
   sei
