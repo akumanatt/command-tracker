@@ -31,7 +31,7 @@ print_pattern:
   txa
   tay
   lda #$00  ; set x-pos to 0
-  jsr vera_goto_xy    ; y-pos is y register
+  jsr graphics::drawing::goto_xy    ; y-pos is y register
   jsr @print_row_number
 
   ; Offset for bytes of row
@@ -39,7 +39,7 @@ print_pattern:
 
 @channels_loop:
   lda (ROW_POINTER),y
-  jsr decode_note
+  jsr sound::decode_note
   set_background_foregound_text_color BACKGROUND_COLOR, #PATTERN_ROW_NUMBER_COLOR
   jsr print_note
   jsr @print_inst
@@ -49,7 +49,7 @@ print_pattern:
   ; Move over one (for bar on top layer)
   lda $00
   sta r0
-  jsr print_char_vera
+  jsr graphics::drawing::print_char
 
   dec CHANNEL_COUNT
   bne @channels_loop
@@ -72,12 +72,12 @@ print_pattern:
 
   ;set_text_color #PATTERN_ROW_NUMBER_COLOR
   txa ; is row number
-  jsr printhex_vera
+  jsr graphics::drawing::print_hex
 
   ; Move over one (for bar on top layer)
   lda $00
   sta r0
-  jsr print_char_vera
+  jsr graphics::drawing::print_char
 
   ; Reset channel counter
   lda #NUMBER_OF_CHANNELS
@@ -92,12 +92,12 @@ print_pattern:
   bne @setinst
 @nullinst:
   lda #CHAR_DOT
-  jsr print_char_vera
+  jsr graphics::drawing::print_char
   lda #CHAR_DOT
-  jsr print_char_vera
+  jsr graphics::drawing::print_char
   rts
 @setinst:
-  jsr printhex_vera
+  jsr graphics::drawing::print_hex
   rts
 
 @print_vol:
@@ -109,12 +109,12 @@ print_pattern:
   bne @setvol
 @nullvol:
   lda #CHAR_DOT
-  jsr print_char_vera
+  jsr graphics::drawing::print_char
   lda #CHAR_DOT
-  jsr print_char_vera
+  jsr graphics::drawing::print_char
   rts
 @setvol:
-  jsr printhex_vera
+  jsr graphics::drawing::print_hex
   rts
 
 @print_effect:
@@ -126,19 +126,19 @@ print_pattern:
   bne @seteffect
 @nulleffect:
   lda #CHAR_DOT
-  jsr print_char_vera
+  jsr graphics::drawing::print_char
   lda #CHAR_DOT
-  jsr print_char_vera
+  jsr graphics::drawing::print_char
   lda #CHAR_DOT
-  jsr print_char_vera
+  jsr graphics::drawing::print_char
   lda #CHAR_DOT
-  jsr print_char_vera
+  jsr graphics::drawing::print_char
   rts
 @seteffect:
-  jsr printhex_vera
+  jsr graphics::drawing::print_hex
   ;iny
   lda (ROW_POINTER),y
-  jsr printhex_vera
+  jsr graphics::drawing::print_hex
   rts
 
 
@@ -164,7 +164,7 @@ print_pattern:
   sta r0
   lda #ROW_MAJOR
   sta r1
-  jsr mod8
+  jsr math::mod8
   beq @set_major_highlight
   ;rmb7 HIGHLIGHT_FLAGS  ; clear if it's not a highlight
   jmp @check_minor_highlight
@@ -178,7 +178,7 @@ print_pattern:
   sta r0
   lda #ROW_MINOR
   sta r1
-  jsr mod8
+  jsr math::mod8
   beq @set_minor_highlight
   ;rmb6 HIGHLIGHT_FLAGS  ; clear if it's not a highlight
   jmp @no_highlight

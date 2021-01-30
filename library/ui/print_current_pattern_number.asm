@@ -6,10 +6,10 @@ print_current_pattern_number:
   sta VERA_addr_high
   lda #CURRENT_PATTERN_DISPLAY_X
   ldy #CURRENT_PATTERN_DISPLAY_Y
-  jsr vera_goto_xy
+  jsr graphics::drawing::goto_xy
   ; Color
   set_text_color #$B1
   lda PATTERN_NUMBER       ; Get the current row conunt
-  jsr printhex_vera        ; print it
+  jsr graphics::drawing::print_hex        ; print it
   rts
 .endproc

@@ -56,7 +56,7 @@ play_row:
 
 @note:
   ; Get numeric value of note
-  jsr decode_note
+  jsr sound::decode_note
 
 ; SUggestion from klip, though I need to think through this more
 ; Should save quite a few cycles
@@ -69,7 +69,7 @@ play_row:
 ;adc pitch
 ;sta pitch
 
-  jsr mulby12
+  jsr math::multiply_by_12
   adc NOTE_NOTE
   sta NOTE_NUMERIC
   tax
@@ -90,14 +90,14 @@ play_row:
   clc
   adc VERA_VOICE_OFFSET
   sta VERA_addr_low
-  lda pitch_dataL,x
+  lda sound::pitch_dataL,x
   sta VERA_data0
   ; set high byte of note
   lda #$C1
   clc
   adc VERA_VOICE_OFFSET
   sta VERA_addr_low
-  lda pitch_dataH,x
+  lda sound::pitch_dataH,x
   sta VERA_data0
 
   jmp @note_end

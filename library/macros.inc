@@ -37,7 +37,7 @@
   sta r0
   lda background_color
   sta r1
-  jsr set_top_nibble
+  jsr math::set_top_nibble
   lda r2
   sta r0
   pla

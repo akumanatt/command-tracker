@@ -1,15 +1,9 @@
 .include "library/preamble.asm"
 .include "library/x16.inc"
 .include "library/macros.inc"
-.include "library/printing/printhex.asm"
-.include "library/math/add16.asm"
-.include "library/math/mulby12.asm"
-.include "library/math/multiply16.asm"
-;include "library/math/mod8.asm"
-.include "library/tracker/loadpatterns.asm"
-;
+.include "graphics.asm"
 
-.include "variables.inc"
+;.include "variables.inc"
 
 start:
 ;  lda #$02
@@ -26,8 +20,9 @@ start:
 ;  lda #$01
 ;  sta RAM_BANK
 ;  jsr printhex
-  jsr load_patterns
+;  jsr load_patterns
 
 
   rts
-.include "pattern.inc"
+;.include "pattern.inc"
+.include "data.inc"

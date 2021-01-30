@@ -10,7 +10,7 @@ get_row:
   sta r0
   lda #TOTAL_BYTES_PER_ROW
   sta r1
-  jsr multiply16
+  jsr math::multiply16
   sta SKIP_BYTES
   tya
   sta SKIP_BYTES+1
@@ -25,7 +25,7 @@ get_row:
   sta r1
   lda ROW_POINTER+1
   sta r1+1
-  jsr add16
+  jsr math::add16
   lda r2
   sta ROW_POINTER
   lda r2+1

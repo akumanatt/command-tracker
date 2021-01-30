@@ -6,11 +6,11 @@ print_number_of_orders:
 
   lda #NUMBER_OF_ORDERS_DISPLAY_X
   ldy #NUMBER_OF_ORDERS_DISPLAY_Y
-  jsr vera_goto_xy
+  jsr graphics::drawing::goto_xy
 
   ; Color
   set_text_color #$B1
   lda order_list_length       ; Get the current row conunt
-  jsr printhex_vera        ; print it
+  jsr graphics::drawing::print_hex
   rts
 .endproc

@@ -1,8 +1,8 @@
 ; Note for files, seems like the first 4 bytes of the file are skipped
-.proc load_file_to_bank
+.proc load_to_bank
   ;a = filename length
   FILENAME=r0
-load_file_to_bank:
+load_to_bank:
 	ldx	r0
 	ldy	r0+1
 	jsr	SETNAM	;SETNAM A=FILE NAME LENGTH X/Y=POINTER TO FILENAME

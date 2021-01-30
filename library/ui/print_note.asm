@@ -1,3 +1,5 @@
+; Print the tracker representation of a note
+; (e.g. C-4)
 .proc print_note
   COLOR = r0
 print_note:
@@ -5,9 +7,9 @@ print_note:
   pha
   ldx NOTE_NOTE
   lda note_names,x
-  jsr print_char_vera
+  jsr graphics::drawing::print_char
   lda note_sharps,x
-  jsr print_char_vera
+  jsr graphics::drawing::print_char
   cpx #NOTEREL
   beq @print_rel_octave
   cpx #NOTEOFF
@@ -26,7 +28,7 @@ print_note:
 @print_null_octave:
   lda #PETSCII_PERIOD
 @print_note_end:
-  jsr print_char_vera
+  jsr graphics::drawing::print_char
   pla
   plx
   rts

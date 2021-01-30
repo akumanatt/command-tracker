@@ -6,11 +6,11 @@ print_speed:
 
   lda #SPEED_DISPLAY_X
   ldy #SPEED_DISPLAY_Y
-  jsr vera_goto_xy
+  jsr graphics::drawing::goto_xy
 
   ; Color
   set_text_color #$B1
   lda #SPEED       ; Get the current row conunt
-  jsr printhex_vera        ; print it
+  jsr graphics::drawing::print_hex
   rts
 .endproc

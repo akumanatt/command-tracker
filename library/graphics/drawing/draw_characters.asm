@@ -34,7 +34,7 @@ draw_panel:
 
 ; Move the reference of the character array by 4 bytes
 @skip_pointer:
-  jsr add16
+  jsr math::add16
   lda RESULT
   sta DATA
   lda RESULT+1

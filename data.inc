@@ -12,8 +12,8 @@ note_sharps: .byte "-#-#--#-#-#--^-."
 ;frame_filename: .byte "frame.hex"
 frame_filename: .byte "frame.hex"
 heart_filename: .byte "heart.hex"
-song_title_string: .byte "bad apple",0
-author_string: .byte "m00dawg",0
+song_title: .byte "bad apple",0
+author: .byte "m00dawg",0
 
 ; Override the 16 color palette
 ; gb,r

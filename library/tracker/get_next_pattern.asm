@@ -16,9 +16,9 @@ get_next_pattern:
   lda order_list,y
   sta RAM_BANK
   sta PATTERN_NUMBER
-  jsr print_pattern
-  jsr print_current_order
-  jsr print_current_pattern_number
+  jsr ui::print_pattern
+  jsr ui::print_current_order
+  jsr ui::print_current_pattern_number
   rts
 
 @start_over:

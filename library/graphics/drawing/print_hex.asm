@@ -1,12 +1,13 @@
 ; Print an 8-bit hex value stored in the accumulator to the screen
 
+
 ; .include "x16.inc"
 
 ; First we shift 4-bits to the right. This is so we can print the first
 ;   character of the number.
-.proc printhex_vera
+.proc print_hex
   COLOR = r0 ; (Called by printchar)
-printhex_vera:
+print_hex:
   phx
   pha
   vera_stride #$10
@@ -35,7 +36,7 @@ printhex_vera:
 @printc:    cmp #$0a
             bcs @printl
 @printn:    adc #CHAR0
-            jsr print_char_vera
+            jsr print_char
             ;jsr CHROUT
             ;jsr printhex
             rts
@@ -45,7 +46,7 @@ printhex_vera:
             clc
             adc #CHARAT
             ;jsr CHROUT
-            jsr print_char_vera
+            jsr print_char
 
             rts
 

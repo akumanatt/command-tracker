@@ -1,6 +1,6 @@
 ; Load 16 color palette
-.proc vera_load_palette_16
-vera_load_palette_16:
+.proc load_palette_16
+load_palette_16:
   lda #$11
   sta VERA_addr_high
   lda #$FA

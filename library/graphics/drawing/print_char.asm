@@ -1,8 +1,8 @@
 ; Print letter to VERA (which requires simple math)
 ; a = char value
-.proc print_char_vera
+.proc print_char
   COLOR = r0
-print_char_vera:
+print_char:
   cmp #$40               ; Only subtract if it's A-Z
   bmi @nosub
   sec                   ; Converting from PETSCII to Screen Codes

@@ -1,8 +1,9 @@
 ; Note for files, seems like the first 4 bytes of the file are skipped?
-.proc load_file
+; (this is some sort of header)
+.proc load
   ;a = filename length
   FILENAME=r0
-load_file:
+load:
 	ldx	r0
 	ldy	r0+1
 	jsr	SETNAM	;SETNAM A=FILE NAME LENGTH X/Y=POINTER TO FILENAME

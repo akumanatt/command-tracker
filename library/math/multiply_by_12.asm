@@ -1,6 +1,6 @@
 ; Multiply a by 12, return result as a
-.proc mulby12
-mulby12:
+.proc multiply_by_12
+multiply_by_12:
   phx
   sta r11
   ldx #$0B
