@@ -17,6 +17,8 @@ PATTERN_POINTER = $A000
 SCREEN_X     = $A0    ; 80 * 2 (char + color)
 SCREEN_Y     = $3F    ; 60
 
+; UI Locations
+;; Static Locations for Labels
 PROGRAM_TITLE_X = $05
 PROGRAM_TITLE_Y = $00
 
@@ -38,7 +40,12 @@ ORDER_LABEL_X = $24
 ORDER_LABEL_Y = $01
 ROW_LABEL_X = $24
 ROW_LABEL_Y = $02
+ROW_HEADER_X = $01
+ROW_HEADER_Y = $08
+MORE_CHANNELS_LABEL_X = $4C
+MORE_CHANNELS_LABEL_Y = $08
 
+;; Dynamic Locations
 CURRENT_PATTERN_DISPLAY_X = $20
 CURRENT_PATTERN_DISPLAY_Y = $02
 CURRENT_ROW_DISPLAY_X = $28
@@ -50,16 +57,17 @@ NUMBER_OF_ORDERS_DISPLAY_Y = $01
 CURRENT_ORDER_DISPLAY_X = $28
 CURRENT_ORDER_DISPLAY_Y = $01
 
-; Colors
+;; Colors
 HEADER_BACKGROUND_COLOR = $B0
 FRAME_COLOR = $B1
-TITLE_COLORS = $B1
+TITLE_COLORS = $BF
 PATTERN_ROW_NUMBER_COLOR = $01    ; Foreground Only
 PATTERN_NOTE_COLOR = $01
 PATTERN_INST_COLOR = $0F
 PATTERN_VOL_COLOR = $0E
 PATTERN_EFX_COLOR = $06
-; Background
+VERA_CHANNEL_COLOR = $B5
+;;; Background
 PATTERN_BACKGROUND_COLOR = $00  ; background only (top nibble)
 MAJOR_HIGHLIGHT_COLOR = $C0     ; background only
 MINOR_HIGHLIGHT_COLOR = $B0     ; background only
@@ -137,14 +145,3 @@ SCROLL_ENABLE = $30
 ROW_POINTER = $2A           ; 16-bit address of the row in the pattern
 STRING_POINTER = $2C
 PREVIOUS_ISR_HANDLER = $2E
-
-; No longer needed, we know where the pattern is ($4000)
-;PATTERN_POINTER = $28       ; 16-bit address to the current pattern
-
-
-
-
-;MAP0 = $00
-;MAP1 = $40 ; This is include, tilebase is at 7C by default
-;MAP2 = $80
-;MAP3 = $C0

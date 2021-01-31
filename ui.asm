@@ -9,6 +9,10 @@
   pattern_label: .byte "pat:",0
   order_label: .byte "ord:  /",0
   row_label: .byte "row:",0
+  more_channels_label: .byte ">>>",0
+  row_header: .byte "##",0
+
+  verasound_channel_header: .byte "vs ",0
 
   ; includes
   .include "library/ui/draw_frame.asm"

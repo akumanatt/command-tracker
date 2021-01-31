@@ -1,33 +1,30 @@
 ; Draws the lower UI element for the pattern view
+
+  CHANNEL_START = r11
+  CHANNEL_STOP = r12
 .proc draw_pattern_frame
   ; Constants
   DISPLAY_END_X = $4F
   DISPLAY_END_Y = $3B
 
-  ; Plus
+  ; Characters
   DOWN_TEE = $72
   UP_TEE = $71
   LEFT_TEE = $73
   RIGHT_TEE = $6B
   PLUS_TEE = $5B
 
+  ; Locations
   START_X = $01
   STOP_X = DISPLAY_END_X - 1
   CHANNEL_TOP_Y = $07
+  CHANNEL_HEADER = $08
   CHANNEL_BOTTOM_Y = $09
-  ;FIRST_CHANNEL_X = $03
   FIRST_CHANNEL_X = $03
   ; Distance between the lines for the channels
   CHANNEL_WIDTH = $0C
 
   NUM_CHANNEL_COLUMNS = $06
-
-  ;SECOND_CHANNEL_X = $0F
-  ;THIRD_CHANNEL_X = $1B
-  ;FOURTH_CHANNEL_X = $27
-  ;FIFTH_CHANNEL_X = $33
-  ;SIXTH_CHANNEL_X = $3F
-
   PATTERN_LINES_START_Y = $08
   ; Vars
   COLOR = r0
@@ -36,6 +33,39 @@
 
 draw_pattern_frame:
 
+@draw_labels:
+
+  print_string_macro more_channels_label, #MORE_CHANNELS_LABEL_X, #MORE_CHANNELS_LABEL_Y, #TITLE_COLORS
+  print_string_macro row_header, #ROW_HEADER_X, #ROW_HEADER_Y, #TITLE_COLORS
+
+  ldx first_channel_in_pattern_view
+  lda #FIRST_CHANNEL_X + 1
+  sta CHANNEL_START
+
+  lda first_channel_in_pattern_view
+  clc
+  adc NUM_CHANNEL_COLUMNS
+  sbc #$01
+  sta CHANNEL_STOP
+
+@channel_labels_loop:
+  print_string_macro verasound_channel_header, CHANNEL_START, #CHANNEL_HEADER, #VERA_CHANNEL_COLOR
+  lda #VERA_CHANNEL_COLOR
+  sta r0
+  phx
+  txa
+  jsr graphics::drawing::print_hex
+
+  lda CHANNEL_START
+  clc
+  adc #CHANNEL_WIDTH
+  sta CHANNEL_START
+  plx
+  inx
+
+  cpx CHANNEL_STOP
+  bne @channel_labels_loop
+
 @draw_empty_box:
   ; x-pos
   lda #$01
@@ -43,7 +73,7 @@ draw_pattern_frame:
   ; y-pos
   lda #CHANNEL_BOTTOM_Y + 1
   sta r1
-  lda #DISPLAY_END_X - 1
+  lda #DISPLAY_END_X - 5
   sta r2
   lda #(DISPLAY_END_Y - CHANNEL_BOTTOM_Y - 1)
   sta r3
@@ -85,7 +115,6 @@ draw_pattern_frame:
   ldy #CHANNEL_BOTTOM_Y
   jsr graphics::drawing::goto_xy
   print_char_with_color #LEFT_TEE, COLOR
-
 
 @draw_channel_separators:
   ldx #FIRST_CHANNEL_X
@@ -134,6 +163,6 @@ draw_pattern_frame:
   dex
   bne @draw_connectors_loop
 
-
+@end:
   rts
 .endproc

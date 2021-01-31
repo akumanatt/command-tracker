@@ -3,6 +3,7 @@ order_list_length: .byte $03
 order_list: .byte $01,02,$03,$04
 
 key: .byte $00
+first_channel_in_pattern_view: .byte $00
 
 note_names:  .byte "ccddeffggaab-^-."
 note_sharps: .byte "-#-#--#-#-#--^-."
