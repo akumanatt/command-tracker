@@ -64,6 +64,29 @@ draw_pattern_frame:
   ldy #CHANNEL_BOTTOM_Y
   jsr graphics::drawing::draw_horizontal_line
 
+; The sides of the channel lines where they touch the main frame
+@horizontal_channel_connectors:
+  lda #$00
+  ldy #CHANNEL_TOP_Y
+  jsr graphics::drawing::goto_xy
+  print_char_with_color #RIGHT_TEE, COLOR
+
+  lda #$00
+  ldy #CHANNEL_BOTTOM_Y
+  jsr graphics::drawing::goto_xy
+  print_char_with_color #RIGHT_TEE, COLOR
+
+  lda #DISPLAY_END_X
+  ldy #CHANNEL_TOP_Y
+  jsr graphics::drawing::goto_xy
+  print_char_with_color #LEFT_TEE, COLOR
+
+  lda #DISPLAY_END_X
+  ldy #CHANNEL_BOTTOM_Y
+  jsr graphics::drawing::goto_xy
+  print_char_with_color #LEFT_TEE, COLOR
+
+
 @draw_channel_separators:
   ldx #FIRST_CHANNEL_X
   ldy #NUM_CHANNEL_COLUMNS + 1
@@ -110,6 +133,7 @@ draw_pattern_frame:
   adc #CHANNEL_WIDTH
   dex
   bne @draw_connectors_loop
+
 
   rts
 .endproc

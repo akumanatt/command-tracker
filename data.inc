@@ -44,7 +44,7 @@ palette:
 .byte $9F,$0A     ; light blue
 .byte $88,$08     ; light gray
 
-; .include "song.inc"
+ .include "song.inc"
 
 ; [x : y : character : color], [x : y; ,...]
 file_data: .byte $01

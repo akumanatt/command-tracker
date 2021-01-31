@@ -9,12 +9,11 @@ start:
   sta SCROLL_ENABLE
 
   ; First stuff before song starts to play
-  jsr graphics::drawing::draw_frame
-
+  jsr ui::draw_frame
 
 load_song:
   ; This seems like it would be when loading a song
-
+  jsr ui::draw_pattern_frame
   jsr tracker::load_patterns
   ldy #$00
   sty ORDER_NUMBER
