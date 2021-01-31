@@ -17,6 +17,9 @@
   NOTE_FLAGS = r7   ; bit 7 = noteoff, bit 6 = noterel, bit 5 =
 play_row:
   ; Set base vera address to PSG
+  lda #%00000001
+  sta VERA_ctrl
+
   lda #$01
   sta VERA_addr_high
   lda #$F9
@@ -52,6 +55,8 @@ play_row:
   dec CHANNEL_COUNT
   bne @channel_loop
 @end:
+  lda #%00000000
+  sta VERA_ctrl
   rts
 
 @note:
@@ -91,14 +96,14 @@ play_row:
   adc VERA_VOICE_OFFSET
   sta VERA_addr_low
   lda sound::pitch_dataL,x
-  sta VERA_data0
+  sta VERA_data1
   ; set high byte of note
   lda #$C1
   clc
   adc VERA_VOICE_OFFSET
   sta VERA_addr_low
   lda sound::pitch_dataH,x
-  sta VERA_data0
+  sta VERA_data1
 
   jmp @note_end
 
@@ -114,7 +119,7 @@ play_row:
   ;adc VERA_VOICE_OFFSET
   ;sta VERA_addr_low
   ;lda #$00
-  ;sta VERA_data0
+  ;sta VERA_data1
 
 @note_end:
   rts
@@ -140,7 +145,7 @@ play_row:
   bit NOTE_FLAGS
   beq @set_vol_from_pattern
   lda #$00
-  sta VERA_data0
+  sta VERA_data1
   jmp @end_vol
 
 @set_vol_from_pattern:
@@ -154,7 +159,7 @@ play_row:
 
   ; For now we force panning to LR
   ora #%11000000
-  sta VERA_data0
+  sta VERA_data1
   rts
 
 ; If we played an instrument but didn't specify a volume,
@@ -165,7 +170,7 @@ play_row:
   beq @end_vol
   ; we have no instruments defined so we set to max
   lda #$FF
-  sta VERA_data0
+  sta VERA_data1
 
 @end_vol:
   rts

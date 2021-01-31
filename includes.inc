@@ -1,3 +1,4 @@
+.include "zeropage.asm"
 .include "library/preamble.asm"
 .include "library/x16.inc"
 .include "library/macros.inc"
@@ -10,4 +11,6 @@
 .include "tracker.asm"
 
 .include "variables.inc"
+
+
 .include "setup.asm"

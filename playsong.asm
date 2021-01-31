@@ -10,10 +10,14 @@ start:
 
   ; First stuff before song starts to play
   jsr ui::draw_frame
+  jsr enable_irq
 
-load_song:
-  ; This seems like it would be when loading a song
+play_song:
+  sei
+  ; First stuff before song starts to play
+  jsr ui::draw_frame
   jsr ui::draw_pattern_frame
+  jsr sound::stop_all_voices
   jsr tracker::load_patterns
   ldy #$00
   sty ORDER_NUMBER
@@ -30,20 +34,8 @@ load_song:
 
   ; Prepare for playback
   jsr sound::setup_voices
-  jsr enable_irq
-  cli
 
-; Loop on user interaction
-main_loop:
-  wai
-check_keyboard:
-  jsr GETIN  ;keyboard
-  cmp #F8
-  beq stop_song
-  cmp #F5
-  beq play_song
-  cmp #F11
-  beq order_list_pane
+  cli
   jmp main_loop
 
 stop_song:
@@ -59,8 +51,20 @@ stop_song:
   cli
   jmp main_loop
 
-play_song:
-  jmp load_song
+
+; Loop on user interaction
+main_loop:
+  wai
+check_keyboard:
+  jsr GETIN  ;keyboard
+  cmp #F8
+  beq stop_song
+  cmp #F5
+  beq play_song
+  cmp #F11
+  beq order_list_pane
+  jmp main_loop
+
 
 order_list_pane:
   jsr ui::draw_frame

@@ -1,3 +1,4 @@
+.CODE
 setup:
 
   lda #$00

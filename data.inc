@@ -1,4 +1,4 @@
-.segment "DATA"
+.DATA
 order_list_length: .byte $03
 order_list: .byte $01,02,$03,$04
 
