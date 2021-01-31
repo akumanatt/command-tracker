@@ -36,7 +36,7 @@ print_hex:
 @printc:    cmp #$0a
             bcs @printl
 @printn:    adc #CHAR0
-            jsr print_char
+            jsr print_alpha_char
             ;jsr CHROUT
             ;jsr printhex
             rts
@@ -46,7 +46,7 @@ print_hex:
             clc
             adc #CHARAT
             ;jsr CHROUT
-            jsr print_char
+            jsr print_alpha_char
 
             rts
 

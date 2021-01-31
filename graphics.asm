@@ -21,6 +21,7 @@
     .include "library/graphics/drawing/print_char.asm"
     .include "library/graphics/drawing/draw_characters.asm"
     .include "library/graphics/drawing/draw_horizontal_line.asm"
+    .include "library/graphics/drawing/draw_vertical_line.asm"
     .include "library/graphics/drawing/draw_solid_box.asm"
     .include "library/graphics/drawing/draw_rounded_box.asm"
     .include "library/graphics/drawing/load_screen.asm"

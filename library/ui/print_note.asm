@@ -7,9 +7,9 @@ print_note:
   pha
   ldx NOTE_NOTE
   lda note_names,x
-  jsr graphics::drawing::print_char
+  jsr graphics::drawing::print_alpha_char
   lda note_sharps,x
-  jsr graphics::drawing::print_char
+  jsr graphics::drawing::print_alpha_char
   cpx #NOTEREL
   beq @print_rel_octave
   cpx #NOTEOFF
@@ -28,7 +28,7 @@ print_note:
 @print_null_octave:
   lda #PETSCII_PERIOD
 @print_note_end:
-  jsr graphics::drawing::print_char
+  jsr graphics::drawing::print_alpha_char
   pla
   plx
   rts

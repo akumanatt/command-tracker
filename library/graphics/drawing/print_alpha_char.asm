@@ -1,4 +1,4 @@
-; Print raw character to VERA 
+; Print letter to VERA (which requires simple math)
 ; a = char value
 .proc print_alpha_char
   COLOR = r0

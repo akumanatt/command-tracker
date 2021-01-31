@@ -1,25 +1,28 @@
 ; Draw a line of hearts
 ; a = length, x,y = x/y screen coords
-.proc draw_horizontal_line
+.proc draw_vertical_line
   ; Vars for draw_line
   COLOR = r0
+  ; Temp Vars
   LENGTH = r11
-  CHAR = $43  ; Horizontal Line
+  ; Constants
+  CHAR = $42
 
-  draw_horizontal_line:
+  draw_vertical_line:
     sta LENGTH
     txa
-    asl
     sta VERA_addr_low
     sty VERA_addr_med
-    ldx #$00
   @loop:
+    ;a = x, y = y
+    txa
+    jsr graphics::drawing::goto_xy
     lda #CHAR
     sta VERA_data0 ; Write chracter
     lda COLOR
     sta VERA_data0 ; Write color
-    inx
-    cpx LENGTH
+    iny
+    cpy LENGTH
     bne @loop
     rts
 .endproc

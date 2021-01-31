@@ -8,8 +8,9 @@
   BOX_X_LEN = r2
   BOX_Y_LEN = r3
   COLOR = r4
+  ; Temp
   COUNT_Y = r6
-  BOX_Y_END = r7
+  ;BOX_Y_END = r7
 
   draw_solid_box:
     lda #$0

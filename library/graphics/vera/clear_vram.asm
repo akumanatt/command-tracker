@@ -23,11 +23,12 @@ clear_vram:
 clear_vram_low:
   pha
   ldx #$FF
-  lda #$00
-  sta VERA_addr_low ; Set Primary address low byte to 0
+  stz VERA_addr_low
+  ;lda #$00
+  ;sta VERA_addr_low ; Set Primary address low byte to 0
 @loop:
-  sta VERA_data0
-  sta VERA_data0
+  stz VERA_data0
+  stz VERA_data0
   dex
   beq @done
   jmp @loop

@@ -49,7 +49,7 @@ print_pattern:
   ; Move over one (for bar on top layer)
   lda $00
   sta r0
-  jsr graphics::drawing::print_char
+  jsr graphics::drawing::print_alpha_char
 
   dec CHANNEL_COUNT
   bne @channels_loop
@@ -77,7 +77,7 @@ print_pattern:
   ; Move over one (for bar on top layer)
   lda $00
   sta r0
-  jsr graphics::drawing::print_char
+  jsr graphics::drawing::print_alpha_char
 
   ; Reset channel counter
   lda #NUMBER_OF_CHANNELS
@@ -92,9 +92,9 @@ print_pattern:
   bne @setinst
 @nullinst:
   lda #CHAR_DOT
-  jsr graphics::drawing::print_char
+  jsr graphics::drawing::print_alpha_char
   lda #CHAR_DOT
-  jsr graphics::drawing::print_char
+  jsr graphics::drawing::print_alpha_char
   rts
 @setinst:
   jsr graphics::drawing::print_hex
@@ -109,9 +109,9 @@ print_pattern:
   bne @setvol
 @nullvol:
   lda #CHAR_DOT
-  jsr graphics::drawing::print_char
+  jsr graphics::drawing::print_alpha_char
   lda #CHAR_DOT
-  jsr graphics::drawing::print_char
+  jsr graphics::drawing::print_alpha_char
   rts
 @setvol:
   jsr graphics::drawing::print_hex
@@ -126,13 +126,13 @@ print_pattern:
   bne @seteffect
 @nulleffect:
   lda #CHAR_DOT
-  jsr graphics::drawing::print_char
+  jsr graphics::drawing::print_alpha_char
   lda #CHAR_DOT
-  jsr graphics::drawing::print_char
+  jsr graphics::drawing::print_alpha_char
   lda #CHAR_DOT
-  jsr graphics::drawing::print_char
+  jsr graphics::drawing::print_alpha_char
   lda #CHAR_DOT
-  jsr graphics::drawing::print_char
+  jsr graphics::drawing::print_alpha_char
   rts
 @seteffect:
   jsr graphics::drawing::print_hex
