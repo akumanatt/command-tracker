@@ -1,33 +1,17 @@
-.include "library/preamble.asm"
-.include "library/x16.inc"
-.include "library/macros.inc"
-.include "library/printing/printhex.asm"
-.include "library/math/add16.asm"
-.include "library/math/mulby12.asm"
-.include "library/math/multiply16.asm"
-;include "library/math/mod8.asm"
-.include "library/tracker/loadpatterns.asm"
-;
-
-.include "variables.inc"
+.include "includes.inc"
 
 start:
-;  lda #$02
-;  sta r0
-;  lda #$05
-;  sta r1
-;  jsr multiply16
-;  jsr printhex
-;  tya
-;  jsr printhex
+  sei
+  jsr setup
+  jsr ui::draw_frame
+  ;jsr ui::draw_pattern_frame
+  jsr ui::draw_orders_frame
 
-;  lda RAM_BANK
-;  jsr printhex
-;  lda #$01
-;  sta RAM_BANK
-;  jsr printhex
-  jsr load_patterns
-
+loop:
+  jsr GETIN  ;keyboard
+  jsr graphics::kernal::printhex
+  jmp loop
 
   rts
-.include "pattern.inc"
+;.include "pattern.inc"
+.include "data.inc"

@@ -1,45 +1,4 @@
-.include "library/preamble.asm"
-.include "library/x16.inc"
-.include "library/macros.inc"
-.include "library/printing/printhex.asm"
-.include "library/printing/vera/printhex.asm"
-.include "library/printing/vera/printchar.asm"
-.include "library/printing/printhex16.asm"
-.include "library/printing/printstring.asm"
-.include "library/drawing/clearvram.asm"
-.include "library/drawing/vera/gotoxy.asm"
-.include "library/drawing/vera/loadpalette16.asm"
-.include "library/drawing/drawcharacters.asm"
-.include "library/drawing/loadscreen.asm"
-.include "library/drawing/scrollpattern.asm"
-.include "library/drawing/drawframe.asm"
-.include "library/math/add16.asm"
-.include "library/math/mod8.asm"
-.include "library/math/mulby12.asm"
-.include "library/math/multiply16.asm"
-.include "library/math/settopnibble.asm"
-.include "library/files/loadfile.asm"
-.include "library/printing/printnote.asm"
-.include "library/printing/printpattern.asm"
-.include "library/printing/printrowcount.asm"
-.include "library/printing/printspeed.asm"
-.include "library/printing/printcurrentorder.asm"
-.include "library/printing/printnumberoforders.asm"
-.include "library/printing/printcurrentpatternnumber.asm"
-.include "library/sound/decodenote.asm"
-.include "library/sound/pitch_table.inc"
-.include "library/tracker/playrow.asm"
-.include "library/tracker/getrow.asm"
-.include "library/tracker/getpattern.asm"
-.include "library/tracker/getnextpattern.asm"
-.include "library/tracker/loadpatterns.asm"
-.include "library/tracker/incrow.asm"
-.include "library/tracker/setupvoices.asm"
-.include "library/tracker/stopallvoices.asm"
-
-.include "variables.inc"
-
-.include "setup.asm"
+.include "includes.inc"
 
 start:
   sei
@@ -50,25 +9,27 @@ start:
   sta SCROLL_ENABLE
 
   ; First stuff before song starts to play
-  jsr draw_frame
-  jsr print_speed
+  jsr ui::draw_frame
 
 load_song:
   ; This seems like it would be when loading a song
-  jsr print_number_of_orders
-  jsr load_patterns
+  jsr ui::draw_pattern_frame
+  jsr tracker::load_patterns
   ldy #$00
   sty ORDER_NUMBER
   lda order_list,y
   sty ROW_COUNT
   sta RAM_BANK
   sta PATTERN_NUMBER
-  jsr print_current_order
-  jsr print_current_pattern_number
-  jsr print_pattern
+  jsr ui::print_song_info
+  jsr ui::print_speed
+  jsr ui::print_number_of_orders
+  jsr ui::print_current_order
+  jsr ui::print_current_pattern_number
+  jsr ui::print_pattern
 
   ; Prepare for playback
-  jsr setup_voices
+  jsr sound::setup_voices
   jsr enable_irq
   cli
 
@@ -81,12 +42,14 @@ check_keyboard:
   beq stop_song
   cmp #F5
   beq play_song
+  cmp #F11
+  beq order_list_pane
   jmp main_loop
 
 stop_song:
   sei
   jsr disable_irq
-  jsr stop_all_voices
+  jsr sound::stop_all_voices
   ; Reset scroll to beginning
   lda #PATTERN_SCROLL_START_H
   sta VERA_L0_vscroll_h
@@ -98,6 +61,11 @@ stop_song:
 
 play_song:
   jmp load_song
+
+order_list_pane:
+  jsr ui::draw_frame
+  jsr ui::draw_orders_frame
+  jmp main_loop
 
 vblank:
   sei
@@ -132,13 +100,13 @@ vblank:
   ldx #0
   stx VBLANK_SKIP_COUNT
 
-  jsr get_next_pattern
-  jsr get_row             ; get the current row of pattern, put in ROW_POINTER
+  jsr tracker::get_next_pattern
+  jsr tracker::get_row             ; get the current row of pattern, put in ROW_POINTER
 
-  jsr play_row
-  jsr scroll_pattern
-  jsr print_row_count
-  jsr inc_row
+  jsr tracker::play_row
+  jsr ui::scroll_pattern
+  jsr ui::print_row_count
+  jsr tracker::inc_row
 
 @vblank_end:
   clc

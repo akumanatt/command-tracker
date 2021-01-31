@@ -3,17 +3,24 @@ order_list_length: .byte $03
 order_list: .byte $01,02,$03,$04
 
 key: .byte $00
+first_channel_in_pattern_view: .byte $00
 
 note_names:  .byte "ccddeffggaab-^-."
 note_sharps: .byte "-#-#--#-#-#--^-."
 ; "-#-#-#-36-#-#-"
 ;note_names: .byte  $06,$06,$07,$07,$08,$08,$09,$0A,$0A,$0B,$0B,$0C
 ;note_sharps: .byte "-#-#-#--#-#-"
-;frame_filename: .byte "frame.hex"
-frame_filename: .byte "frame.hex"
-heart_filename: .byte "heart.hex"
-song_title_string: .byte "bad apple",0
-author_string: .byte "m00dawg",0
+
+command_tracker_string: .byte "command tracker v0.000",0
+song_label: .byte "song:",0
+composer_label: .byte "by  :",0
+speed_label: .byte "spd:",0
+pattern_label: .byte "pat:",0
+order_label: .byte "ord:  /",0
+row_label: .byte "row:",0
+
+song_title: .byte "bad apple",0
+author: .byte "m00dawg",0
 
 ; Override the 16 color palette
 ; gb,r
@@ -35,7 +42,7 @@ palette:
 .byte $9F,$0A     ; light blue
 .byte $88,$08     ; light gray
 
-.include "song.inc"
+ .include "song.inc"
 
 ; [x : y : character : color], [x : y; ,...]
 file_data: .byte $01

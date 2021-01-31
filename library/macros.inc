@@ -1,20 +1,16 @@
-.macro  gotocoords  xpos, ypos
-    phx
-    phy
-    ldx   #xpos
-    ldy   #ypos
-    clc
-    jsr   PLOT
-    ply
-    plx
-.endmacro
-
-.macro print_string msg
+.macro print_string_macro msg, xpos, ypos, color
   lda #<msg
-  sta STRING_POINTER
+  sta r0
   lda #>msg
-  sta STRING_POINTER+1
-  jsr print_string
+  sta r0+1
+  lda xpos
+  sta r1
+  lda ypos
+  sta r2
+  lda color
+  sta r3
+  jsr graphics::drawing::print_string
+
 .endmacro
 
 .macro vera_stride stride
@@ -31,13 +27,20 @@
   sta r0
 .endmacro
 
+.macro print_char_with_color char, color
+  lda char
+  sta VERA_data0
+  lda color
+  sta VERA_data0
+.endmacro
+
 .macro set_background_foregound_text_color background_color, foreground_color
   pha
   lda foreground_color
   sta r0
   lda background_color
   sta r1
-  jsr set_top_nibble
+  jsr math::set_top_nibble
   lda r2
   sta r0
   pla

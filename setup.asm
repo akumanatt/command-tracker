@@ -26,7 +26,7 @@ setup:
   sta r0
   lda #$F0
   sta r1
-  jsr clear_vram
+  jsr graphics::vera::clear_vram
 
   ; Clear high VRAM
   lda #$01
@@ -35,11 +35,11 @@ setup:
   sta r0
   lda #$F0
   sta r1
-  jsr clear_vram
+  jsr graphics::vera::clear_vram
   lda #$00
   sta VERA_addr_high
 
-  jsr vera_load_palette_16
+  jsr graphics::vera::load_palette_16
 
   ; Enable VBLANK Interrupt
   ; We will use VBLANK from the VERA as our time keeper, so we enable
