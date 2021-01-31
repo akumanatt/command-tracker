@@ -12,11 +12,15 @@
   more_channels_label: .byte ">>>",0
   row_header: .byte "##",0
 
+  ; Order List Page Labels:
+  order_list_label: .byte "orders:",0
+  
   verasound_channel_header: .byte "vs ",0
 
   ; includes
   .include "library/ui/draw_frame.asm"
   .include "library/ui/draw_pattern_frame.asm"
+  .include "library/ui/draw_orders_frame.asm"
   .include "library/ui/print_song_info.asm"
   .include "library/ui/print_current_pattern_number.asm"
   .include "library/ui/print_number_of_orders.asm"

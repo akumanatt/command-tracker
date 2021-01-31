@@ -10,9 +10,6 @@ note_sharps: .byte "-#-#--#-#-#--^-."
 ; "-#-#-#-36-#-#-"
 ;note_names: .byte  $06,$06,$07,$07,$08,$08,$09,$0A,$0A,$0B,$0B,$0C
 ;note_sharps: .byte "-#-#-#--#-#-"
-;frame_filename: .byte "frame.hex"
-frame_filename: .byte "frame.hex"
-heart_filename: .byte "heart.hex"
 
 command_tracker_string: .byte "command tracker v0.000",0
 song_label: .byte "song:",0

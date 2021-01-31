@@ -1,6 +1,7 @@
 .proc draw_frame
   DISPLAY_END_X = $4F
   DISPLAY_END_Y = $3B
+
 draw_frame:
   ; color
   lda #FRAME_COLOR

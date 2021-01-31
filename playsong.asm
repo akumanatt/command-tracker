@@ -42,6 +42,8 @@ check_keyboard:
   beq stop_song
   cmp #F5
   beq play_song
+  cmp #F11
+  beq order_list_pane
   jmp main_loop
 
 stop_song:
@@ -59,6 +61,11 @@ stop_song:
 
 play_song:
   jmp load_song
+
+order_list_pane:
+  jsr ui::draw_frame
+  jsr ui::draw_orders_frame
+  jmp main_loop
 
 vblank:
   sei
