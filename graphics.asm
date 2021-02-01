@@ -26,6 +26,7 @@
     .include "library/graphics/drawing/draw_rounded_box.asm"
     .include "library/graphics/drawing/load_screen.asm"
     .include "library/graphics/drawing/print_string.asm"
+    .include "library/graphics/drawing/cursor.asm"
   .endscope
 
 .endscope

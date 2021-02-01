@@ -14,7 +14,7 @@
 
   ; Order List Page Labels:
   order_list_label: .byte "orders:",0
-  
+
   verasound_channel_header: .byte "vs ",0
 
   ; includes
@@ -30,6 +30,8 @@
   .include "library/ui/print_pattern.asm"
   .include "library/ui/print_note.asm"
   .include "library/ui/scroll_pattern.asm"
+
+  .include "library/ui/move_cursor.asm"
 
 
 

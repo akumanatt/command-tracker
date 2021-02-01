@@ -8,12 +8,21 @@ start:
   lda #$01
   sta SCROLL_ENABLE
 
+  ; Set state to 0 (idle/stopped)
+  lda #$00
+  sta STATE
+
   ; First stuff before song starts to play
   jsr ui::draw_frame
-  jsr enable_irq
+  ;jsr enable_irq
 
 play_song:
   sei
+  ; Check current state, if 0, don't remove ISR
+  lda STATE
+  beq start_song
+  jsr disable_irq
+start_song:
   ; First stuff before song starts to play
   jsr ui::draw_frame
   jsr ui::draw_pattern_frame
@@ -34,20 +43,28 @@ play_song:
 
   ; Prepare for playback
   jsr sound::setup_voices
+  jsr enable_irq
+
+  lda #PLAY_STATE
+  sta STATE
+
 
   cli
   jmp main_loop
 
 stop_song:
   sei
+  ; Check if we're already stopped
+  lda STATE
+  beq stopping_song
   jsr disable_irq
+stopping_song:
   jsr sound::stop_all_voices
   ; Reset scroll to beginning
   lda #PATTERN_SCROLL_START_H
   sta VERA_L0_vscroll_h
   lda #PATTERN_SCROLL_START_L
   sta VERA_L0_vscroll_l
-
   cli
   jmp main_loop
 
@@ -62,11 +79,11 @@ check_keyboard:
   cmp #F5
   beq play_song
   cmp #F11
-  beq order_list_pane
+  beq edit_order_list_pane
   jmp main_loop
 
 
-order_list_pane:
+edit_order_list_pane:
   jsr ui::draw_frame
   jsr ui::draw_orders_frame
   jmp main_loop
@@ -133,7 +150,6 @@ enable_irq:
   sta PREVIOUS_ISR_HANDLER,x
   lda #>vblank
   sta ISR_HANDLER,x
-
 @end:
   rts
 

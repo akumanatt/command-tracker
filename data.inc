@@ -3,6 +3,11 @@ order_list_length: .byte $03
 order_list: .byte $01,02,$03,$04
 
 key: .byte $00
+cursor_x: .byte $00
+cursor_y: .byte $00
+cursor_color: .byte $00
+cursor_old_color: .byte $00
+
 first_channel_in_pattern_view: .byte $00
 
 note_names:  .byte "ccddeffggaab-^-."
@@ -21,6 +26,8 @@ row_label: .byte "row:",0
 
 song_title: .byte "bad apple",0
 author: .byte "m00dawg",0
+
+order_screen_help_msg: .byte "press enter to save orders",0
 
 ; Override the 16 color palette
 ; gb,r
