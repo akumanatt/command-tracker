@@ -28,7 +28,7 @@ draw_orders_frame:
   lda #ORDER_LIST_X
   ldy #ORDER_LIST_Y
   jsr graphics::drawing::goto_xy
-  ldx order_number_start
+  ldx order_list_start
 @list_orders_loop:
   lda #ORDER_LIST_X
   jsr graphics::drawing::goto_xy

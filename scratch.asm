@@ -41,6 +41,10 @@ ORDER_LIST_Y = $0A
 ORDER_LIST_OFFSET = $08
 NUM_ORDERS_TO_SHOW = $30
 
+; How many columns we have (2)
+ORDERS_MIN_COLUMN = $00
+ORDERS_MAX_COLUMN = $01
+
 
 ; Put this elsewhere
 ; Where to start the order list display from
@@ -50,8 +54,8 @@ order_list_start: .byte $00
 ; Where the cursor is in the order list
 order_list_position: .byte $00
 
-; Which column the cursor is in (there are only 2)
-ordrer_list_column: .byte $00
+; Which column the cursor is in (there are only 2 so 0/1)
+order_list_column: .byte $00
 
 start:
   jsr setup
@@ -64,6 +68,8 @@ start:
 cursor_start_position:
   lda #$00
   sta r0
+  sta order_list_position
+  sta order_list_column
   lda #CURSOR_MIN_X
   sta cursor_x
   lda #CURSOR_MIN_Y
@@ -98,31 +104,34 @@ check_keyboard:
 ; Also update where in the order list we are.
 
 @cursor_up:
-  lda cursor_y
-  cmp #CURSOR_MIN_Y
+  lda order_list_position
+  ;cmp #$00
   beq main_loop
   jsr ui::cursor_up
+  dec order_list_position
   jmp main_loop
 @cursor_down:
-  lda cursor_y
-  cmp #CURSOR_MAX_Y
+  lda order_list_position
+  cmp #$FF
   beq main_loop
   jsr ui::cursor_down
+  inc order_list_position
   jmp main_loop
 
 ; Track the column position of the cursor here as well.
 ; Needed for further down.
 @cursor_left:
-  lda cursor_x
-  cmp #CURSOR_MIN_X
+  lda order_list_column
   beq main_loop
   jsr ui::cursor_left
+  dec order_list_column
   jmp main_loop
 @cursor_right:
-  lda cursor_x
-  cmp #CURSOR_MAX_X
+  lda order_list_column
+  cmp #ORDERS_MAX_COLUMN
   beq main_loop
   jsr ui::cursor_right
+  inc order_list_column
   jmp main_loop
 
 ; Print the # the user typed. If ordrer_list_column is 1, we are in the
@@ -150,10 +159,14 @@ check_keyboard:
 
   ; If we printed a character, and we're not at the last column
   ; move to the right
-  lda cursor_x
-  cmp #CURSOR_MAX_X
-  beq @print_end
+  lda order_list_column
+  cmp #ORDERS_MAX_COLUMN
+  beq @order_max_column
   jsr ui::cursor_right
+  inc order_list_column
+  jmp @print_end
+@order_max_column:  
+  jsr graphics::drawing::cursor_plot
 @print_end:
   jmp main_loop
 
