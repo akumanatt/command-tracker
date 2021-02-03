@@ -3,7 +3,6 @@
   ; Constants
   ORDERS_HEADER_X = $20
   ORDERS_HEADER_Y = $08
-  NUM_ORDERS = $20
 
 draw_orders_frame:
   ; X/Y Start
@@ -21,39 +20,33 @@ draw_orders_frame:
   sta r4
   jsr graphics::drawing::draw_solid_box
 
-
 @print_labels:
   print_string_macro order_list_label, #ORDERS_HEADER_X, #ORDERS_HEADER_Y, #TITLE_COLORS
-  print_string_macro order_screen_help_msg, #$18, #$30, #TITLE_COLORS
+  print_string_macro order_screen_help_msg, #$18, #$36, #TITLE_COLORS
 
 @list_orders:
-  lda #ORDERS_HEADER_X
-  ldy #$00
+  lda #ORDER_LIST_X
+  ldy #ORDER_LIST_Y
   jsr graphics::drawing::goto_xy
+  ldx order_number_start
 @list_orders_loop:
-  phy
-  tya
-  clc
-  adc #ORDERS_HEADER_Y + 2
-  tay
-  lda #ORDERS_HEADER_X
+  lda #ORDER_LIST_X
   jsr graphics::drawing::goto_xy
-
   lda #TITLE_COLORS
   sta r0
-  ply
-  tya
+  txa
   jsr graphics::drawing::print_hex
 
   print_char_with_color #COLON, #TITLE_COLORS
   print_char_with_color #SPACE, #TITLE_COLORS
-
   ; Do this up to the song's current orders
-  cpy order_list_length
+  cpx order_list_length
   bpl @done_with_user_orders
+  lda order_list,x
+  pha
   lda #EDITABLE_TEXT_COLORS
   sta r0
-  lda order_list,y
+  pla
   jsr graphics::drawing::print_hex
   jmp @end_loop
 
@@ -62,8 +55,9 @@ draw_orders_frame:
   print_char_with_color #PETSCII_DASH, #EDITABLE_TEXT_COLORS
   print_char_with_color #PETSCII_DASH, #EDITABLE_TEXT_COLORS
 @end_loop:
+  inx
   iny
-  cpy #NUM_ORDERS
+  cpy #NUM_ORDERS_TO_SHOW
   bne @list_orders_loop
 
 ;order_list_length: .byte $03

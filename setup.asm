@@ -9,10 +9,12 @@ setup:
   sta VERA_addr_high ; Set primary address bank to 0, stride to 0
   ;lda #RES128x128x256    ; L0 is the pattern scroll space
   lda #RES128x128x16      ; L0 is the pattern scroll space
+  ;lda #RES128x256x16      ; L0 is the pattern scroll space
+  ;lda #RES128x128x256    ; L0 is the pattern scroll space
   sta VERA_L0_config
   lda #RES128x64x16
   sta VERA_L1_config    ; L1 is the UI
-  ; enables 2nd layer (which is currently busted)
+  ; enables 2nd layer
   lda #DC_VIDEO
   sta VERA_dc_video
   lda #$80              ; $10000 (start of HiRAM)
@@ -26,6 +28,7 @@ setup:
 
   sta r0
   lda #$F0
+  ;lda #$F6
   sta r1
   jsr graphics::vera::clear_vram
 

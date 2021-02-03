@@ -3,7 +3,7 @@ order_list_length: .byte $03
 ; Order list is assumed to be up to 256 ($FF)
 ; we're manually loading it here, but reserving the rest
 ; so we don't run out of RAM while testing stuffs
-order_list: .byte $01,02,$03,$04
+order_list: .byte $01,$02,$03,$04
 .res $FC
 
 key: .byte $00

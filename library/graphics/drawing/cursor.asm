@@ -2,9 +2,10 @@
 ; (https://github.com/commanderx16/x16-demo/blob/master/petdrawx16/petdrawx16.asm)
 
 .proc cursor_plot
+  LAYER = r0
   TEMP = r15
 cursor_plot:
-	LDA	#00
+	LDA	LAYER
 	STA	VERA_addr_high	;INCREMENT SET TO ZERO
 	LDA	cursor_y
 	STA	VERA_addr_med
@@ -30,8 +31,9 @@ cursor_plot:
 .endproc
 
 .proc cursor_unplot
+  LAYER = r0
 cursor_unplot:
-	LDA	#00
+	LDA	LAYER
 	STA	VERA_addr_high	;INCREMENT SET TO ZERO
 	LDA	cursor_y
 	STA	VERA_addr_med

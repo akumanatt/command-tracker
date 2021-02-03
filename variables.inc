@@ -3,6 +3,7 @@
 VBLANK_MASK  = %00000001
 RES128x64x256 = %01101000
 RES128x128x256  = %10101000
+RES128x256x16  = %10111000
 RES128x64x16  = %01100000
 RES128x128x16  = %10100000
 
@@ -100,6 +101,7 @@ NUM_VERA_PSG_REGISTERS = $04
 ; Temp Vars (these will come from the song file)
 ;SPEED = $40                ; how many vblanks to do nothing for
 SPEED = $04                ; how many vblanks to do nothing for
+;SPEED = $01
 ;SPEED = $0A                 ; how many vblanks to do nothing for
 ;SPEED = $30                ; how many vblanks to do nothing for
 
