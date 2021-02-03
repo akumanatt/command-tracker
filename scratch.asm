@@ -1,3 +1,25 @@
+; How to save the order list:
+; - Track cursor position in 0,1
+; - WHen moving left or right, check 0,1
+; - If a char was typed at pos 1, read line. If it's a valid number, store it
+; - The cursor should be relative to the order list (I tink?)
+;   + That is, drawing the order list should be decoupled. We place the
+;     cursor where it needs to go.
+;   + This is because arrow up/down vs pg up/dn will be different anyway
+
+; pg up/dn, we redraw the entire list, skipping by the number of rows
+; displayed AND update the cursor (most of the time the cursor won't
+; move unless we're close to the end)
+
+; For arrow up/dn, if we're at the bottom or top of the current list,
+; we redraw the list by one (if there is more orders in the desired direction)
+; We don't need to move the cursor, but do need to update its order list
+; position
+
+; SO in other words, the cursor is always matched to the order number
+; and not the position on the screen.
+
+
 .include "includes.inc"
 
 KEY_UP = $91
@@ -24,6 +46,12 @@ NUM_ORDERS_TO_SHOW = $30
 ; Where to start the order list display from
 ; (such as if we're scrolled further down)
 order_list_start: .byte $00
+
+; Where the cursor is in the order list
+order_list_position: .byte $00
+
+; Which column the cursor is in (there are only 2)
+ordrer_list_column: .byte $00
 
 start:
   jsr setup
@@ -64,6 +92,11 @@ check_keyboard:
   bpl @print_alphanumeric
   jmp main_loop
 
+; On up/down check if we are at the end of the entire list
+; and if we are at the end of the view.
+; If at the end of the view, will need to redraw the list
+; Also update where in the order list we are.
+
 @cursor_up:
   lda cursor_y
   cmp #CURSOR_MIN_Y
@@ -76,6 +109,9 @@ check_keyboard:
   beq main_loop
   jsr ui::cursor_down
   jmp main_loop
+
+; Track the column position of the cursor here as well.
+; Needed for further down.
 @cursor_left:
   lda cursor_x
   cmp #CURSOR_MIN_X
@@ -89,6 +125,9 @@ check_keyboard:
   jsr ui::cursor_right
   jmp main_loop
 
+; Print the # the user typed. If ordrer_list_column is 1, we are in the
+; second column, so we need to see if it's a valid pattern number and, if so,
+; we need to call a routine to update the order list array.
 @print_alphanumeric:
   pha
   lda cursor_x
@@ -118,6 +157,7 @@ check_keyboard:
 @print_end:
   jmp main_loop
 
+; See above instructions. This will have to be rewritten.
 ; Save the order the cursor is at, after the user puts in the
 ; two characters.
 ;
