@@ -51,4 +51,8 @@ setup:
   lda #VBLANK_MASK
   sta VERA_ien
 
+  ; Set state to 0 (idle/stopped)
+  lda #$00
+  sta STATE
+
   rts

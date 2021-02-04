@@ -34,14 +34,6 @@ note_sharps: .byte "-#-#--#-#-#--^-."
 ;note_names: .byte  $06,$06,$07,$07,$08,$08,$09,$0A,$0A,$0B,$0B,$0C
 ;note_sharps: .byte "-#-#-#--#-#-"
 
-command_tracker_string: .byte "command tracker v0.000",0
-song_label: .byte "song:",0
-composer_label: .byte "by  :",0
-speed_label: .byte "spd:",0
-pattern_label: .byte "pat:",0
-order_label: .byte "ord:  /",0
-row_label: .byte "row:",0
-
 song_title: .byte "bad apple",0
 author: .byte "m00dawg",0
 

@@ -19,17 +19,7 @@
 ; SO in other words, the cursor is always matched to the order number
 ; and not the position on the screen.
 
-
-.include "includes.inc"
-
-KEY_UP = $91
-KEY_DOWN = $11
-KEY_LEFT = $9D
-KEY_RIGHT = $1D
-ENTER = $0D
-
-PETSCII_AT = $40 ;@ sign
-PETSCII_G = $47
+.proc orders
 
 ; Constrain movement of the cursor to only the order list
 CURSOR_START_X = $24
@@ -40,11 +30,9 @@ CURSOR_START_Y = $0A
 ORDERS_MIN_COLUMN = $00
 ORDERS_MAX_COLUMN = $01
 
-
-
 start:
-  jsr setup
-  jsr ui::draw_frame
+  ;jsr setup
+  ;jsr ui::draw_frame
 
   lda #$00
   sta r1
@@ -61,13 +49,19 @@ cursor_start_position:
   sta cursor_y
   jsr graphics::drawing::cursor_plot
 
-main_loop:
+@main_orders_loop:
   wai
-check_keyboard:
+@check_keyboard:
   ; Returns 0 is no input
   jsr GETIN  ;keyboard
   cmp #$00
-  beq main_loop
+  beq @main_orders_loop
+  cmp #F1
+  beq @help_module
+  cmp #F8
+  beq @stop_song
+  cmp #F5
+  beq @play_song_module
 
   cmp #KEY_UP
   beq @cursor_up
@@ -81,7 +75,18 @@ check_keyboard:
   beq start
   cmp #$30
   bpl @print_alphanumeric
-  jmp main_loop
+  jmp @main_orders_loop
+
+@help_module:
+  jmp main
+
+@stop_song:
+  jsr tracker::stop_song
+  jmp @main_orders_loop
+@play_song_module:
+  jmp tracker::modules::play_song
+
+
 
 ; On up/down check if we are at the end of the entire list
 ; and if we are at the end of the view.
@@ -90,33 +95,33 @@ check_keyboard:
 
 @cursor_up:
   lda order_list_position
-  beq main_loop
+  beq @main_orders_loop
   jsr ui::cursor_up
   dec order_list_position
-  jmp main_loop
+  jmp @main_orders_loop
 @cursor_down:
   lda order_list_position
   cmp #$FF
-  beq main_loop
+  beq @main_orders_loop
   jsr ui::cursor_down
   inc order_list_position
-  jmp main_loop
+  jmp @main_orders_loop
 
 ; Track the column position of the cursor here as well.
 ; Needed for further down.
 @cursor_left:
   lda order_list_column
-  beq main_loop
+  beq @main_orders_loop
   jsr ui::cursor_left
   dec order_list_column
-  jmp main_loop
+  jmp @main_orders_loop
 @cursor_right:
   lda order_list_column
   cmp #ORDERS_MAX_COLUMN
-  beq main_loop
+  beq @main_orders_loop
   jsr ui::cursor_right
   inc order_list_column
-  jmp main_loop
+  jmp @main_orders_loop
 
 ; Print the # the user typed. If ordrer_list_column is 1, we are in the
 ; second column, so we need to see if it's a valid pattern number and, if so,
@@ -192,8 +197,7 @@ check_keyboard:
  sta order_list,y
 
 @print_end:
-  jmp main_loop
-
+  jmp @main_orders_loop
 
 ; I don't know why it does this but it's using the high characters
 ; but only for the letters?
@@ -207,6 +211,4 @@ check_for_high_screencode:
 @unreverse_end:
   rts
 
-
-;.include "pattern.inc"
-.include "data.inc"
+.endproc
