@@ -47,11 +47,12 @@ draw_orders_frame:
   lda #EDITABLE_TEXT_COLORS
   sta r0
   pla
+  beq @zero_order
   jsr graphics::drawing::print_hex
   jmp @end_loop
 
-; Done with real orders, so add dashes to the rest of the list
-@done_with_user_orders:
+; Add dashes to orders with 00
+@zero_order:
   print_char_with_color #PETSCII_DASH, #EDITABLE_TEXT_COLORS
   print_char_with_color #PETSCII_DASH, #EDITABLE_TEXT_COLORS
 @end_loop:
@@ -59,9 +60,6 @@ draw_orders_frame:
   iny
   cpy #NUM_ORDERS_TO_SHOW
   bne @list_orders_loop
-
-;order_list_length: .byte $03
-;order_list: .byte $01,02,$03,$04
 
 @end:
   rts

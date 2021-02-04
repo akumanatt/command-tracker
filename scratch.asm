@@ -33,9 +33,8 @@ PETSCII_G = $47
 
 ; Constrain movement of the cursor to only the order list
 CURSOR_START_X = $24
-CURSOR_START_Y = $25
-
-
+;CURSOR_START_Y = $25
+CURSOR_START_Y = $0A
 
 ; How many columns we have (2)
 ORDERS_MIN_COLUMN = $00
