@@ -9,7 +9,6 @@ start:
 
 ; Main module
 main:
-
   jsr ui::draw_help_frame
 
 main_application_loop:

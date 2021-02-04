@@ -10,6 +10,8 @@ play_song:
   beq start_song
   jsr disable_irq
 start_song:
+  lda #PLAY_STATE
+  sta STATE
   ; First stuff before song starts to play
   jsr ui::draw_frame
   jsr ui::draw_pattern_frame
@@ -31,9 +33,6 @@ start_song:
   ; Prepare for playback
   jsr sound::setup_voices
   jsr enable_irq
-
-  lda #PLAY_STATE
-  sta STATE
 
   cli
   jmp main_play_loop

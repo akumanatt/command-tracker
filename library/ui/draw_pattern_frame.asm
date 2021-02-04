@@ -163,6 +163,22 @@ draw_pattern_frame:
   dex
   bne @draw_connectors_loop
 
+; If the song is playing, be sure to draw the playback lines
+; FIX ME TO BE BETTER
+@draw_playback_marker:
+  lda #$01
+  sta r0
+  lda STATE
+  beq @end
+  lda #$4F
+  ldx #$00
+  ldy #$1F
+  jsr graphics::drawing::draw_horizontal_line
+  lda #$4F
+  ldx #$00
+  ldy #$21
+  jsr graphics::drawing::draw_horizontal_line
+
 @end:
   rts
 .endproc
