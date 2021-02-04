@@ -5,12 +5,12 @@ get_next_pattern:
   adc #$01
   cmp #ROW_MAX
   bne @return
-  ; If we're on the last order, start over
+  ; If the order value is 00, we're at the end so start over
   ldy ORDER_NUMBER
-  cpy order_list_length
+  iny
+  lda order_list,y
   beq @start_over
   ; Otherwise go to the next order
-  iny
 @load_next_pattern:
   sty ORDER_NUMBER
   lda order_list,y

@@ -27,6 +27,7 @@
     .include "library/graphics/drawing/load_screen.asm"
     .include "library/graphics/drawing/print_string.asm"
     .include "library/graphics/drawing/cursor.asm"
+    .include "library/graphics/drawing/chars_to_number.asm"
   .endscope
 
 .endscope

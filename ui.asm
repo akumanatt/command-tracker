@@ -1,13 +1,13 @@
 ; Graphic routines
 
 .scope ui
-  ; data
+  ; Top Header Labels
   command_tracker_string: .byte "command tracker v0.000",0
   song_label: .byte "song:",0
   composer_label: .byte "by  :",0
   speed_label: .byte "spd:",0
   pattern_label: .byte "pat:",0
-  order_label: .byte "ord:  /",0
+  order_label: .byte "ord:",0
   row_label: .byte "row:",0
   more_channels_label: .byte ">>>",0
   row_header: .byte "##",0
@@ -21,6 +21,7 @@
   .include "library/ui/draw_frame.asm"
   .include "library/ui/draw_pattern_frame.asm"
   .include "library/ui/draw_orders_frame.asm"
+  .include "library/ui/draw_help_frame.asm"
   .include "library/ui/print_song_info.asm"
   .include "library/ui/print_current_pattern_number.asm"
   .include "library/ui/print_number_of_orders.asm"

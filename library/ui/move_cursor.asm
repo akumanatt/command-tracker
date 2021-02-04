@@ -6,7 +6,7 @@ cursor_up:
   sbc #$00
   sta cursor_y
   jsr graphics::drawing::cursor_plot
-  jsr inc_vera
+  ;jsr inc_vera
   rts
 .endproc
 
@@ -18,7 +18,7 @@ cursor_down:
   adc #$01
   sta cursor_y
   jsr graphics::drawing::cursor_plot
-  jsr inc_vera
+  ;jsr inc_vera
   rts
 .endproc
 
@@ -29,7 +29,7 @@ cursor_left:
   sbc #$00
   sta cursor_x
   jsr graphics::drawing::cursor_plot
-  jsr inc_vera
+  ;jsr dec_vera
   rts
 .endproc
 
@@ -41,12 +41,18 @@ cursor_right:
   adc #$01
   sta cursor_x
   jsr graphics::drawing::cursor_plot
-  jsr inc_vera
+  ;jsr inc_vera
   rts
 .endproc
 
 inc_vera:
   ldx VERA_addr_low
   inx
+  stx VERA_addr_low
+  rts
+
+dec_vera:
+  ldx VERA_addr_low
+  dex
   stx VERA_addr_low
   rts

@@ -3,6 +3,7 @@
 VBLANK_MASK  = %00000001
 RES128x64x256 = %01101000
 RES128x128x256  = %10101000
+RES128x256x16  = %10111000
 RES128x64x16  = %01100000
 RES128x128x16  = %10100000
 
@@ -100,6 +101,7 @@ NUM_VERA_PSG_REGISTERS = $04
 ; Temp Vars (these will come from the song file)
 ;SPEED = $40                ; how many vblanks to do nothing for
 SPEED = $04                ; how many vblanks to do nothing for
+;SPEED = $01
 ;SPEED = $0A                 ; how many vblanks to do nothing for
 ;SPEED = $30                ; how many vblanks to do nothing for
 
@@ -107,7 +109,15 @@ ROW_MAX = $40               ; Max # of rows for our test pattern (64)
 ROW_MAJOR = $10             ; Every 16 rows
 ROW_MINOR = $04             ; Every 4 rows
 
-; Chars
+
+; Place to start the orders list
+ORDER_LIST_X = $20
+ORDER_LIST_Y = $0A
+; How many characters over the patterns are
+ORDER_LIST_OFFSET = $08
+NUM_ORDERS_TO_SHOW = $30
+
+; Chars and Keys
 UPPERCASE = $8E
 PETSCII_DASH = $2D
 PETSCII_PERIOD = $2E
@@ -116,10 +126,21 @@ PETSCII_RETURN = $13
 CHAR_DOT = $2E
 COLON = $3A
 SPACE = $20
+F1 = $85
 F5 = $87
 F8 = $8C
 F11 = $16
 ESC = $30
+
+KEY_UP = $91
+KEY_DOWN = $11
+KEY_LEFT = $9D
+KEY_RIGHT = $1D
+ENTER = $0D
+
+PETSCII_AT = $40 ;@ sign
+PETSCII_G = $47
+
 
 ; Row statuses
 NOTEREL  = $0D

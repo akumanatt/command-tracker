@@ -4,7 +4,7 @@
 .proc cursor_plot
   TEMP = r15
 cursor_plot:
-	LDA	#00
+	LDA	cursor_layer
 	STA	VERA_addr_high	;INCREMENT SET TO ZERO
 	LDA	cursor_y
 	STA	VERA_addr_med
@@ -31,7 +31,7 @@ cursor_plot:
 
 .proc cursor_unplot
 cursor_unplot:
-	LDA	#00
+	LDA	cursor_layer
 	STA	VERA_addr_high	;INCREMENT SET TO ZERO
 	LDA	cursor_y
 	STA	VERA_addr_med
