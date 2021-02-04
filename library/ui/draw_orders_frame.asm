@@ -40,8 +40,8 @@ draw_orders_frame:
   print_char_with_color #COLON, #TITLE_COLORS
   print_char_with_color #SPACE, #TITLE_COLORS
   ; Do this up to the song's current orders
-  cpx order_list_length
-  bpl @done_with_user_orders
+  ;cpx order_list_length
+  ;bpl @done_with_user_orders
   lda order_list,x
   pha
   lda #EDITABLE_TEXT_COLORS

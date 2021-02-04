@@ -10,7 +10,9 @@ print_number_of_orders:
 
   ; Color
   set_text_color #$B1
-  lda order_list_length       ; Get the current row conunt
+  ; Removed order length for now so this doesn't matter
+  ; lda order_list_length       ; Get the current row conunt
+  lda #$FF
   jsr graphics::drawing::print_hex
   rts
 .endproc

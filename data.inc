@@ -7,6 +7,18 @@
 order_list: .byte $01,$02,$03,$04
 .res $FC
 
+; Where to start the order list display from
+; (such as if we're scrolled further down)
+order_list_start: .byte $00
+
+; Where the cursor is in the order list
+order_list_position: .byte $00
+
+; Which column the cursor is in (there are only 2 so 0/1)
+order_list_column: .byte $00
+
+
+
 key: .byte $00
 cursor_x: .byte $00
 cursor_y: .byte $00

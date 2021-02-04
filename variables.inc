@@ -109,6 +109,14 @@ ROW_MAX = $40               ; Max # of rows for our test pattern (64)
 ROW_MAJOR = $10             ; Every 16 rows
 ROW_MINOR = $04             ; Every 4 rows
 
+
+; Place to start the orders list
+ORDER_LIST_X = $20
+ORDER_LIST_Y = $0A
+; How many characters over the patterns are
+ORDER_LIST_OFFSET = $08
+NUM_ORDERS_TO_SHOW = $30
+
 ; Chars
 UPPERCASE = $8E
 PETSCII_DASH = $2D

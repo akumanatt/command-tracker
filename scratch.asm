@@ -32,32 +32,16 @@ PETSCII_AT = $40 ;@ sign
 PETSCII_G = $47
 
 ; Constrain movement of the cursor to only the order list
-CURSOR_MIN_X = $24
-CURSOR_MAX_X = $25
-CURSOR_MIN_Y = $0A
-CURSOR_MAX_Y = $3A
+CURSOR_START_X = $24
+CURSOR_START_Y = $25
 
-; Place to start the orders list
-ORDER_LIST_X = $20
-ORDER_LIST_Y = $0A
-; How many characters over the patterns are
-ORDER_LIST_OFFSET = $08
-NUM_ORDERS_TO_SHOW = $30
+
 
 ; How many columns we have (2)
 ORDERS_MIN_COLUMN = $00
 ORDERS_MAX_COLUMN = $01
 
-; Put this elsewhere
-; Where to start the order list display from
-; (such as if we're scrolled further down)
-order_list_start: .byte $00
 
-; Where the cursor is in the order list
-order_list_position: .byte $00
-
-; Which column the cursor is in (there are only 2 so 0/1)
-order_list_column: .byte $00
 
 start:
   jsr setup
@@ -72,9 +56,9 @@ cursor_start_position:
   sta cursor_layer
   sta order_list_position
   sta order_list_column
-  lda #CURSOR_MIN_X
+  lda #CURSOR_START_X
   sta cursor_x
-  lda #CURSOR_MIN_Y
+  lda #CURSOR_START_Y
   sta cursor_y
   jsr graphics::drawing::cursor_plot
 
