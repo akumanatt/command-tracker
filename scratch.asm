@@ -28,6 +28,9 @@ KEY_LEFT = $9D
 KEY_RIGHT = $1D
 ENTER = $0D
 
+PETSCII_AT = $40 ;@ sign
+PETSCII_G = $47
+
 ; Constrain movement of the cursor to only the order list
 CURSOR_MIN_X = $24
 CURSOR_MAX_X = $25
@@ -44,7 +47,6 @@ NUM_ORDERS_TO_SHOW = $30
 ; How many columns we have (2)
 ORDERS_MIN_COLUMN = $00
 ORDERS_MAX_COLUMN = $01
-
 
 ; Put this elsewhere
 ; Where to start the order list display from
@@ -67,7 +69,7 @@ start:
 
 cursor_start_position:
   lda #$00
-  sta r0
+  sta cursor_layer
   sta order_list_position
   sta order_list_column
   lda #CURSOR_MIN_X
@@ -93,7 +95,7 @@ check_keyboard:
   cmp #KEY_RIGHT
   beq @cursor_right
   cmp #ENTER
-  beq @save_orders
+  beq start
   cmp #$30
   bpl @print_alphanumeric
   jmp main_loop
@@ -105,7 +107,6 @@ check_keyboard:
 
 @cursor_up:
   lda order_list_position
-  ;cmp #$00
   beq main_loop
   jsr ui::cursor_up
   dec order_list_position
@@ -143,9 +144,9 @@ check_keyboard:
   ldy cursor_y
   jsr graphics::drawing::goto_xy
   pla
-  cmp #$40
+  cmp #PETSCII_AT
   bmi @print_numeric
-  cmp #$47
+  cmp #PETSCII_G
   bpl @print_end
 @print_alpha:
   clc
@@ -161,69 +162,67 @@ check_keyboard:
   ; move to the right
   lda order_list_column
   cmp #ORDERS_MAX_COLUMN
-  beq @order_max_column
+  ;beq @save_order
+  beq @save_order
   jsr ui::cursor_right
   inc order_list_column
   jmp @print_end
-@order_max_column:  
-  jsr graphics::drawing::cursor_plot
-@print_end:
-  jmp main_loop
-
-; See above instructions. This will have to be rewritten.
-; Save the order the cursor is at, after the user puts in the
-; two characters.
-;
-; - Get the cursor X/Y
-; - Determine the offset of the cursor in the list
-;   as this gives the line of the order and pattern number
-; - Save pattern at the index
-;
-
+; If we're already on the last column,
+; check to see if we should save the order
+; Move back to the first colum so we can read the full value
 @save_order:
+  jsr ui::cursor_left
+  dec order_list_column
+  ;jmp @print_end works to this point
 
 
-; Saves all the visible orders. However, this doesn't make a lot
-; of sense UI wise. Better to save an order when the user inputs it?
-@save_orders:
+  ; Y-pos
+  ldy cursor_y
+  sty VERA_addr_med
+  ; X-pos of first digit
+  lda cursor_x
+  asl ; because 2 bytes per X pos (second being color)
+  sta VERA_addr_low
+
+  ; Since we're already on the second digit, we can find the first
   lda #$20  ; skip over colors
   sta VERA_addr_high
-  ; Y-pos
-  ldy #ORDER_LIST_Y
-  sty VERA_addr_med
-  ; X-pos (shfiting due to colors, then adding offset to actual user number)
-  lda #ORDER_LIST_X
-  asl
-  clc
-  adc #ORDER_LIST_OFFSET
-  sta VERA_addr_low
-  ; The first order that starts the list on the screen
-  ldx order_list_start
-
-@save_orders_loop:
-  ; y pos
-  sty VERA_addr_med
-  ; x pos (constant as we're just going down the list)
-  ;ldx
-  stx VERA_addr_low   ; x
 
   ; First character
   lda VERA_data0
+  jsr check_for_high_screencode
   sta r0
 
   ; Second character
   lda VERA_data0
+  jsr check_for_high_screencode
   sta r1
-  jsr graphics::drawing::chars_to_number
-  ;jsr graphics::drawing::print_hex
-  jsr graphics::kernal::printhex
-  iny
-  cpy #NUM_ORDERS_TO_SHOW
-  bne @save_orders_loop
-@save_orders_end:
-  lda #$00  ; Revert skip
+
+  ; Disable stride
+  lda #00  ; skip over colors
   sta VERA_addr_high
+
+ jsr graphics::drawing::chars_to_number
+
+ ; Finally save the order
+ ldy order_list_position
+ sta order_list,y
+
+@print_end:
   jmp main_loop
+
+
+; I don't know why it does this but it's using the high characters
+; but only for the letters?
+; See http://sta.c64.org/cbm64scr.html
+check_for_high_screencode:
+  cmp #$80
+  bpl @unreverse
+  jmp @unreverse_end
+@unreverse:
+  sbc #$80
+@unreverse_end:
+  rts
 
 
 ;.include "pattern.inc"

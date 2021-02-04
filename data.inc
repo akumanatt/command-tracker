@@ -1,5 +1,6 @@
 .DATA
-order_list_length: .byte $03
+; Don't think we need this anymore - we just stop at the first 00
+;order_list_length: .byte $03
 ; Order list is assumed to be up to 256 ($FF)
 ; we're manually loading it here, but reserving the rest
 ; so we don't run out of RAM while testing stuffs
@@ -11,6 +12,7 @@ cursor_x: .byte $00
 cursor_y: .byte $00
 cursor_color: .byte $00
 cursor_old_color: .byte $00
+cursor_layer: .byte $00
 
 first_channel_in_pattern_view: .byte $00
 
