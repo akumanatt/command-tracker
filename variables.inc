@@ -127,6 +127,7 @@ CHAR_DOT = $2E
 COLON = $3A
 SPACE = $20
 F1 = $85
+F2 = $89
 F5 = $87
 F8 = $8C
 F11 = $16

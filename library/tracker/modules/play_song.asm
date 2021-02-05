@@ -13,7 +13,7 @@ start_song:
   lda #PLAY_STATE
   sta STATE
   ; First stuff before song starts to play
-  jsr ui::draw_frame
+  ;jsr ui::draw_frame
   jsr ui::draw_pattern_frame
   jsr sound::stop_all_voices
   jsr tracker::load_patterns

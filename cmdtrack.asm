@@ -18,8 +18,8 @@ check_keyboard:
   jsr GETIN  ;keyboard
   ;cmp #F1
   ;beq
-  cmp #F8
-  beq @stop_song
+  cmp #F2
+  beq @edit_pattern_module
   cmp #F5
   beq @play_song_module
   cmp #F8
@@ -29,6 +29,9 @@ check_keyboard:
   jmp main_application_loop
 
 ; Jump to order list module
+@edit_pattern_module:
+  jmp tracker::modules::edit_pattern
+
 @play_song_module:
   jmp tracker::modules::play_song
 

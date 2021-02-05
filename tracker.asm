@@ -12,6 +12,7 @@
   .scope modules
     .include "library/tracker/modules/orders.asm"
     .include "library/tracker/modules/play_song.asm"
+    .include "library/tracker/modules/edit_pattern.asm"
   .endscope
 
 .endscope

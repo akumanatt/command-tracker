@@ -1,6 +1,4 @@
 .DATA
-; Don't think we need this anymore - we just stop at the first 00
-;order_list_length: .byte $03
 ; Order list is assumed to be up to 256 ($FF)
 ; we're manually loading it here, but reserving the rest
 ; so we don't run out of RAM while testing stuffs
@@ -17,6 +15,8 @@ order_list_position: .byte $00
 ; Which column the cursor is in (there are only 2 so 0/1)
 order_list_column: .byte $00
 
+; The current pattern being edited
+; pattern_being_edited: .byte $00
 
 
 key: .byte $00

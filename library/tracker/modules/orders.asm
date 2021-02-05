@@ -58,6 +58,8 @@ cursor_start_position:
   beq @main_orders_loop
   cmp #F1
   beq @help_module
+  cmp #F2
+  beq @edit_pattern_module
   cmp #F8
   beq @stop_song
   cmp #F5
@@ -79,7 +81,8 @@ cursor_start_position:
 
 @help_module:
   jmp main
-
+@edit_pattern_module:
+  jmp tracker::modules::edit_pattern
 @stop_song:
   jsr tracker::stop_song
   jmp @main_orders_loop
