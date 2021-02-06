@@ -16,7 +16,6 @@ start_song:
   ;jsr ui::draw_frame
   jsr ui::draw_pattern_frame
   jsr sound::stop_all_voices
-  jsr tracker::load_patterns
   ldy #$00
   sty ORDER_NUMBER
   lda order_list,y

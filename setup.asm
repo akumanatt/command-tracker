@@ -55,4 +55,6 @@ setup:
   lda #$00
   sta STATE
 
+  jsr tracker::load_patterns
+
   rts

@@ -20,10 +20,10 @@
 ; and not the position on the screen.
 
 .proc orders
+  ORDER_LIST_POSITION = r14
 
 ; Constrain movement of the cursor to only the order list
 CURSOR_START_X = $24
-;CURSOR_START_Y = $25
 CURSOR_START_Y = $0A
 
 ; How many columns we have (2)
@@ -31,9 +31,6 @@ ORDERS_MIN_COLUMN = $00
 ORDERS_MAX_COLUMN = $01
 
 start:
-  ;jsr setup
-  ;jsr ui::draw_frame
-
   lda #$00
   sta r1
   jsr ui::draw_orders_frame
@@ -41,7 +38,7 @@ start:
 cursor_start_position:
   lda #$00
   sta cursor_layer
-  sta order_list_position
+  sta ORDER_LIST_POSITION
   sta order_list_column
   lda #CURSOR_START_X
   sta cursor_x
@@ -97,17 +94,17 @@ cursor_start_position:
 ; Also update where in the order list we are.
 
 @cursor_up:
-  lda order_list_position
+  lda ORDER_LIST_POSITION
   beq @main_orders_loop
   jsr ui::cursor_up
-  dec order_list_position
+  dec ORDER_LIST_POSITION
   jmp @main_orders_loop
 @cursor_down:
-  lda order_list_position
+  lda ORDER_LIST_POSITION
   cmp #$FF
   beq @main_orders_loop
   jsr ui::cursor_down
-  inc order_list_position
+  inc ORDER_LIST_POSITION
   jmp @main_orders_loop
 
 ; Track the column position of the cursor here as well.
@@ -140,10 +137,8 @@ cursor_start_position:
   cmp #PETSCII_G
   bpl @print_end
 @print_alpha:
-  clc
-  adc #$40  ; add 40 to get to the letter screencodes, then fall through
+  sbc #$3F  ; add 40 to get to the letter screencodes, then fall through
 @print_numeric:
-  pha
   sta VERA_data0
   inc VERA_addr_low
   lda #EDITABLE_TEXT_COLORS
@@ -181,12 +176,10 @@ cursor_start_position:
 
   ; First character
   lda VERA_data0
-  jsr check_for_high_screencode
   sta r0
 
   ; Second character
   lda VERA_data0
-  jsr check_for_high_screencode
   sta r1
 
   ; Disable stride
@@ -196,22 +189,10 @@ cursor_start_position:
  jsr graphics::drawing::chars_to_number
 
  ; Finally save the order
- ldy order_list_position
+ ldy ORDER_LIST_POSITION
  sta order_list,y
 
 @print_end:
   jmp @main_orders_loop
-
-; I don't know why it does this but it's using the high characters
-; but only for the letters?
-; See http://sta.c64.org/cbm64scr.html
-check_for_high_screencode:
-  cmp #$80
-  bpl @unreverse
-  jmp @unreverse_end
-@unreverse:
-  sbc #$80
-@unreverse_end:
-  rts
 
 .endproc

@@ -29,6 +29,8 @@
   .include "library/ui/print_speed.asm"
   .include "library/ui/print_row_count.asm"
   .include "library/ui/print_pattern.asm"
+  ;.include "library/ui/print_playing_pattern.asm"
+  ;.include "library/ui/print_edit_pattern.asm"
   .include "library/ui/print_note.asm"
   .include "library/ui/scroll_pattern.asm"
 

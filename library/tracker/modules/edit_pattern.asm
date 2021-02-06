@@ -5,8 +5,9 @@
 
 edit_pattern:
   ;jsr draw_solid_box
-  jsr ui::print_pattern
+
   jsr ui::draw_pattern_frame
+  jsr ui::print_pattern
 
 @edit_pattern_loop:
   cli

@@ -81,6 +81,11 @@ CURRENT_ROW_BACKGROUND_COLOR = $40 ; background only
 PATTERN_SCROLL_START_H = $FF
 PATTERN_SCROLL_START_L = $00
 
+; Position the pattern so it's at the top of the pattern UI
+; This is for when not scrolling, or when editing a pattern
+STATIC_PATTERN_SCROLL_H = $FF
+STATIC_PATTERN_SCROLL_L = $B0
+
 ;NUMBER_OF_CHANNELS = $01
 ;TOTAL_BYTES_PER_PATTERN = $0140    ; currently 5 * 64 rows
 ;TOTAL_BYTES_PER_ROW = $05         ; total bytes per row (for skipping rows)

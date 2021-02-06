@@ -10,13 +10,13 @@ order_list: .byte $01,$02,$03,$04
 order_list_start: .byte $00
 
 ; Where the cursor is in the order list
-order_list_position: .byte $00
+;order_list_position: .byte $00
 
 ; Which column the cursor is in (there are only 2 so 0/1)
 order_list_column: .byte $00
 
 ; The current pattern being edited
-; pattern_being_edited: .byte $00
+pattern_being_edited: .byte $02
 
 
 key: .byte $00
