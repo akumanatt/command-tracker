@@ -20,10 +20,8 @@ pattern_being_edited: .byte $02
 
 ; Current Octave User Has Specified
 user_octave:   .byte $04
-
-; Keeping track of the note the user entered from the keyboard
-; First By = Note (letter), Second = Sharp
-user_note:  .byte $00, $00, $00
+; User's current instrument
+user_instrument: .byte $01
 
 
 key: .byte $00
@@ -35,12 +33,11 @@ cursor_layer: .byte $00
 
 first_channel_in_pattern_view: .byte $00
 
+; Note value to name lookup
 note_names:  .byte "ccddeffggaab-^-."
 note_sharps: .byte "-#-#--#-#-#--^-."
-; "-#-#-#-36-#-#-"
-;note_names: .byte  $06,$06,$07,$07,$08,$08,$09,$0A,$0A,$0B,$0B,$0C
-;note_sharps: .byte "-#-#-#--#-#-"
 
+; PETSCII to pattern note lookup
 ; Subtract $30 from PETSCII code
 ; Map the PETSCII values to the pattern storage format
 ; (oct, note #)

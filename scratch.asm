@@ -217,7 +217,6 @@ edit_pattern_loop:
   ; move to the right
   lda COLUMN_POS
   cmp #LAST_COLUMN_POSITION
-  ;beq @save_order
   beq @print_end
   jsr ui::cursor_right
   inc COLUMN_POS
@@ -230,13 +229,9 @@ edit_pattern_loop:
   sta VERA_addr_high
   pla
   jsr @key_to_note
-  jsr ui::cursor_right
-  jsr ui::cursor_right
-  jsr ui::cursor_right
-  lda #$03
-  sta COLUMN_POS
   lda #$01
   sta VERA_addr_high
+  jmp @cursor_down
 
 @print_end:
   jmp edit_pattern_loop
@@ -251,7 +246,6 @@ edit_pattern_loop:
   adc user_octave
   sta NOTE_OCTAVE
   jsr ui::print_note
-  ;jsr sound::pl
   rts
 
 .include "data.inc"
