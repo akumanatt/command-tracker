@@ -122,32 +122,6 @@ ORDER_LIST_Y = $0A
 ORDER_LIST_OFFSET = $08
 NUM_ORDERS_TO_SHOW = $30
 
-; Chars and Keys
-UPPERCASE = $8E
-PETSCII_DASH = $2D
-PETSCII_PERIOD = $2E
-PETSCII_UP_ARROW = $5E
-PETSCII_RETURN = $13
-CHAR_DOT = $2E
-COLON = $3A
-SPACE = $20
-F1 = $85
-F2 = $89
-F5 = $87
-F8 = $8C
-F11 = $16
-ESC = $30
-
-KEY_UP = $91
-KEY_DOWN = $11
-KEY_LEFT = $9D
-KEY_RIGHT = $1D
-ENTER = $0D
-
-PETSCII_AT = $40 ;@ sign
-PETSCII_G = $47
-
-
 ; Row statuses
 NOTEREL  = $0D
 NOTEOFF  = $0E
@@ -161,7 +135,12 @@ NOTEREL_FLAG = %01000000
 ; the instrument's default volume
 NOTEPLAY_FLAG = %00010000
 
+; How many values an Octave is
 OCTAVE = $0C  ; 12
+
+; Max allowable octave
+MAX_OCTAVE = $09
+
 
 ; States
 STOP_STATE = $00

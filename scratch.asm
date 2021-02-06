@@ -23,7 +23,6 @@ EFFECT_COLUMN_POSITIION = $07
 EFFECT_VALUE_COLUMN_POSITIION = $09
 LAST_COLUMN_POSITION = $0A
 
-
 ; Vars
 COLOR       = r0
 PATTERN_ROW = r13
@@ -63,17 +62,69 @@ main:
 edit_pattern_loop:
   wai
   jsr GETIN  ;keyboard
+  cmp #$00
+  beq edit_pattern_loop
+  cmp #F1
+  beq @help_module
+  ;cmp #F2
+  ;beq @edit_pattern_module
+  cmp #F5
+  beq @play_song_module
+  cmp #F8
+  beq @stop_song
   cmp #KEY_UP
-  beq @cursor_up
+  beq @cursor_up_jump
   cmp #KEY_DOWN
-  beq @cursor_down
+  beq @cursor_down_jump
   cmp #KEY_LEFT
-  beq @cursor_left
+  beq @cursor_left_jump
   cmp #KEY_RIGHT
-  beq @cursor_right
+  beq @cursor_right_jump
+  cmp #PETSCII_BRACKET_LEFT
+  beq @decrease_octave
+  cmp #PETSCII_BRACKET_RIGHT
+  beq @increase_octave
   cmp #$30
-  bpl @print_note_or_alphanumeric
+  bpl @print_note_or_alphanumeric_jump
   jmp edit_pattern_loop
+
+@cursor_up_jump:
+  jmp @cursor_up
+@cursor_down_jump:
+  jmp @cursor_down
+@cursor_left_jump:
+  jmp @cursor_left
+@cursor_right_jump:
+  jmp @cursor_right
+
+@print_note_or_alphanumeric_jump:
+  jmp @print_note_or_alphanumeric
+@help_module:
+  jmp main
+@stop_song:
+  jsr tracker::stop_song
+  jmp edit_pattern_loop
+@play_song_module:
+  jmp tracker::modules::play_song
+
+; Inc/Dec octave and update UI
+@decrease_octave:
+  lda user_octave
+  beq @update_octave_end
+  dec user_octave
+  jmp @update_ui_octave
+@increase_octave:
+  lda user_octave
+  cmp #MAX_OCTAVE
+  beq @update_octave_end
+  inc user_octave
+  jmp @update_ui_octave
+; TBD
+@update_ui_octave:
+
+@update_octave_end:
+  jmp edit_pattern_loop
+
 
 @cursor_up:
   lda PATTERN_ROW
@@ -82,18 +133,10 @@ edit_pattern_loop:
   dec PATTERN_ROW
   jmp edit_pattern_loop
 @cursor_down:
-  ;lda order_list_position
-  ;cmp #$FF
-  ;beq @main_orders_loop
   jsr ui::cursor_down
   inc PATTERN_ROW
   jmp edit_pattern_loop
-
 @cursor_left:
-
-  ;lda order_list_column
-  ;cmp #ORDERS_MAX_COLUMN
-  ;beq @main_orders_loop
   lda COLUMN_POS
   beq @cursor_left_channel
   cmp #INSTRUMENT_COLUMN_POSITIION
@@ -112,18 +155,16 @@ edit_pattern_loop:
 
 @cursor_left_channel:
   lda CHANNEL
-  beq edit_pattern_loop
+  beq @cursor_left_end
   jsr ui::cursor_left
   jsr ui::cursor_left
   lda #LAST_COLUMN_POSITION
   sta COLUMN_POS
   dec CHANNEL
+@cursor_left_end:
   jmp edit_pattern_loop
 
 @cursor_right:
-  ;lda order_list_column
-  ;cmp #ORDERS_MAX_COLUMN
-  ;beq @main_orders_loop
   lda COLUMN_POS
   beq @cursor_right_note
   cmp #LAST_COLUMN_POSITION
@@ -188,12 +229,7 @@ edit_pattern_loop:
   lda #$11
   sta VERA_addr_high
   pla
-  tax
-  jsr graphics::drawing::print_alpha_char
-  txa
-  jsr graphics::drawing::print_alpha_char
-  txa
-  jsr graphics::drawing::print_alpha_char
+  jsr @key_to_note
   jsr ui::cursor_right
   jsr ui::cursor_right
   jsr ui::cursor_right
@@ -205,5 +241,17 @@ edit_pattern_loop:
 @print_end:
   jmp edit_pattern_loop
 
+@key_to_note:
+  sbc #$2F      ; Subtract 30 as our LUT starts at '0'
+  tay
+  lda petscii_to_note,y
+  jsr sound::decode_note
+  lda NOTE_OCTAVE
+  clc
+  adc user_octave
+  sta NOTE_OCTAVE
+  jsr ui::print_note
+  ;jsr sound::pl
+  rts
 
 .include "data.inc"

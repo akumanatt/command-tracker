@@ -18,6 +18,13 @@ order_list_column: .byte $00
 ; The current pattern being edited
 pattern_being_edited: .byte $02
 
+; Current Octave User Has Specified
+user_octave:   .byte $04
+
+; Keeping track of the note the user entered from the keyboard
+; First By = Note (letter), Second = Sharp
+user_note:  .byte $00, $00, $00
+
 
 key: .byte $00
 cursor_x: .byte $00
@@ -33,6 +40,25 @@ note_sharps: .byte "-#-#--#-#-#--^-."
 ; "-#-#-#-36-#-#-"
 ;note_names: .byte  $06,$06,$07,$07,$08,$08,$09,$0A,$0A,$0B,$0B,$0C
 ;note_sharps: .byte "-#-#-#--#-#-"
+
+; Subtract $30 from PETSCII code
+; Map the PETSCII values to the pattern storage format
+; (oct, note #)
+petscii_to_note:
+  ; Numbers 0-9
+      ; D#2, OFF, C#1, D#1, NOP, F#1, G#1, A#1, NOP, C#2
+  .byte $23, $0E, $11, $13, $FF, $16, $18, $1A, $FF, $21
+  ; Unused Keys (:, ;, ... 'a')
+  .byte $00, $00, $00, $00, $00, $00, $00, $00
+  ; 'b' through 'l'
+  ;     G-0, E-0, D#0, E-1, NOP, F#0, G#0, C-2, A#0, NOP, NOP
+  .byte $07, $04, $03, $14, $FF, $06, $08, $20, $0A, $FF, $FF
+  ; 'm' through 'w'
+;       B-1, A-1, D-2, E-2, C-1, F-1, C#0, G-1, B-1, F-0, D-1
+  .byte $1B, $19, $22, $24, $10, $15, $01, $17, $1B, $05, $12
+  ; 'x-z, special chars, then left arrow
+  ;     D-0, A-1, C-0, NOP, NOP, NOP, NOP, REL
+  .byte $02, $19, $00, $FF, $FF, $FF, $FF, $0D
 
 song_title: .byte "bad apple",0
 author: .byte "m00dawg",0
