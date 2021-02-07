@@ -37,6 +37,12 @@ first_channel_in_pattern_view: .byte $00
 note_names:  .byte "ccddeffggaab-^-."
 note_sharps: .byte "-#-#--#-#-#--^-."
 
+; Screencode to note number
+; Note, if the actual note has a #, we add 1 to the value
+screencode_to_note:
+      ; NUL, A    B    C    D    E    F    G
+  .byte $FF, $09, $0B, $00, $02, $04, $05, $07
+
 ; PETSCII to pattern note lookup
 ; Subtract $30 from PETSCII code
 ; Map the PETSCII values to the pattern storage format

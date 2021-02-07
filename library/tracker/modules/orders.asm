@@ -183,7 +183,7 @@ cursor_start_position:
   sta r1
 
   ; Disable stride
-  lda #00  ; skip over colors
+  lda #00
   sta VERA_addr_high
 
  jsr graphics::drawing::chars_to_number

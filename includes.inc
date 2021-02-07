@@ -2,6 +2,7 @@
 .include "library/preamble.asm"
 .include "library/x16.inc"
 .include "library/keyboard.inc"
+.include "library/screencodes.inc"
 .include "library/macros.inc"
 
 .include "math.asm"
