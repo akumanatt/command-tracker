@@ -64,7 +64,7 @@ vblank:
 
   jsr tracker::play_row
   jsr ui::scroll_pattern
-  jsr ui::print_row_count
+  jsr ui::print_row_number
   jsr tracker::inc_row
 
 @vblank_end:

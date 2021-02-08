@@ -1,6 +1,6 @@
 .proc get_next_pattern
 get_next_pattern:
-  lda ROW_COUNT
+  lda ROW_NUMBER
   clc
   adc #$01
   cmp #ROW_MAX

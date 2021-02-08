@@ -5,7 +5,7 @@
 get_row:
   ; take the row count, add the number of bytes per row to get the
   ; next row
-  lda ROW_COUNT
+  lda ROW_NUMBER
   jsr @reset_pointer
   sta r0
   lda #TOTAL_BYTES_PER_ROW

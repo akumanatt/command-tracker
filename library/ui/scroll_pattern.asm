@@ -6,7 +6,7 @@ scroll_pattern:
   beq @end
 
   ; if we're on row 0, we need to set the scroll, other we jump past it
-  lda ROW_COUNT
+  lda ROW_NUMBER
   bne @scrolling
 
 @initial_scroll:

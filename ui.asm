@@ -19,6 +19,7 @@
 
   ; includes
   .include "library/ui/draw_frame.asm"
+  .include "library/ui/clear_lower_frame.asm"
   .include "library/ui/draw_pattern_frame.asm"
   .include "library/ui/draw_orders_frame.asm"
   .include "library/ui/draw_help_frame.asm"

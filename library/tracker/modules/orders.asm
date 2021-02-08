@@ -31,6 +31,9 @@ ORDERS_MIN_COLUMN = $00
 ORDERS_MAX_COLUMN = $01
 
 start:
+  lda #$10
+  sta VERA_addr_high ; Set primary address bank to 0, stride to 1
+  jsr ui::clear_lower_frame
   lda #$00
   sta r1
   jsr ui::draw_orders_frame
@@ -56,7 +59,7 @@ cursor_start_position:
   cmp #F1
   beq @help_module
   cmp #F2
-  beq @edit_pattern_module
+  beq @edit_pattern
   cmp #F8
   beq @stop_song
   cmp #F5
@@ -72,14 +75,14 @@ cursor_start_position:
   beq @cursor_right
   cmp #ENTER
   beq start
+  cmp #PETSCII_G
+  beq @edit_pattern
   cmp #$30
   bpl @print_alphanumeric
   jmp @main_orders_loop
 
 @help_module:
   jmp main
-@edit_pattern_module:
-  jmp tracker::modules::edit_pattern
 @stop_song:
   jsr tracker::stop_song
   jmp @main_orders_loop
@@ -123,6 +126,38 @@ cursor_start_position:
   inc order_list_column
   jmp @main_orders_loop
 
+; Edit pattern specified at cursor
+@edit_pattern:
+  ; If we're on the second column, move over one
+  lda order_list_column
+  beq @get_pattern_at_cursor
+  jsr ui::cursor_left
+  dec order_list_column
+@get_pattern_at_cursor:
+  lda #$20  ; skip over colors
+  sta VERA_addr_high
+
+  ldy cursor_y
+  sty VERA_addr_med
+  ; X-pos of first digit
+  lda cursor_x
+  asl ; because 2 bytes per X pos (second being color)
+  sta VERA_addr_low
+
+  ; First character
+  lda VERA_data0
+  sta r0
+
+  ; Second character
+  lda VERA_data0
+  sta r1
+
+  jsr graphics::drawing::chars_to_number
+  sta PATTERN_NUMBER
+  jsr tracker::stop_song
+  jmp tracker::modules::edit_pattern
+
+
 ; Print the # the user typed. If ordrer_list_column is 1, we are in the
 ; second column, so we need to see if it's a valid pattern number and, if so,
 ; we need to call a routine to update the order list array.
@@ -160,7 +195,6 @@ cursor_start_position:
   jsr ui::cursor_left
   dec order_list_column
   ;jmp @print_end works to this point
-
 
   ; Y-pos
   ldy cursor_y

@@ -12,6 +12,8 @@ stopping_song:
   sta VERA_L0_vscroll_h
   lda #PATTERN_SCROLL_START_L
   sta VERA_L0_vscroll_l
+  stz STATE
+
   cli
   rts
 

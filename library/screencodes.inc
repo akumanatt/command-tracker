@@ -3,3 +3,4 @@
 
 ; Chars and Keys
 SCREENCODE_HASH = $23
+SCREENCODE_PERIOD = $2E

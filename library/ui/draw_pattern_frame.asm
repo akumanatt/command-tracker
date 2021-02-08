@@ -4,9 +4,6 @@
   CHANNEL_STOP = r12
 .proc draw_pattern_frame
   ; Constants
-  DISPLAY_END_X = $4F
-  DISPLAY_END_Y = $3B
-
   ; Characters
   DOWN_TEE = $72
   UP_TEE = $71
@@ -32,6 +29,7 @@
   COUNT = r15
 
 draw_pattern_frame:
+  jsr ui::clear_lower_frame
 
 @draw_labels:
 
@@ -66,7 +64,7 @@ draw_pattern_frame:
   cpx CHANNEL_STOP
   bne @channel_labels_loop
 
-@draw_empty_box:
+@draw_empty_lower_box:
   ; x-pos
   lda #$01
   sta r0

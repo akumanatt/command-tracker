@@ -1,5 +1,5 @@
-.proc print_row_count
-print_row_count:
+.proc print_row_number
+print_row_number:
   ; Set stride to 1, high bit to 0
   lda #$10
   sta VERA_addr_high
@@ -10,7 +10,7 @@ print_row_count:
 
   ; Color
   set_text_color #$B1
-  lda ROW_COUNT       ; Get the current row conunt
+  lda ROW_NUMBER       ; Get the current row conunt
   jsr graphics::drawing::print_hex
   rts
 .endproc

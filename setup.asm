@@ -55,6 +55,10 @@ setup:
   lda #$00
   sta STATE
 
+  ; Start at first pattern
+  lda #$05
+  sta PATTERN_NUMBER
+
   jsr tracker::load_patterns
 
   rts

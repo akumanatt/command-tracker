@@ -5,11 +5,12 @@
 RESERVED: .res $22
 
 VBLANK_SKIP_COUNT: .byte 0   ; Count of current VBLANK skip
-ROW_COUNT: .byte 0
 NOTE_NOTE: .byte 0
 NOTE_OCTAVE: .byte 0
 NOTE_NUMERIC: .byte 0
 PATTERN_NUMBER: .byte 0
+ROW_NUMBER: .byte 0
+CHANNEL_NUMBER: .byte 0
 ORDER_NUMBER: .byte 0
 SCROLL_ENABLE: .byte 0
 

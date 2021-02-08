@@ -30,6 +30,7 @@ check_keyboard:
 
 ; Jump to order list module
 @edit_pattern_module:
+  jsr tracker::stop_song
   jmp tracker::modules::edit_pattern
 
 @play_song_module:

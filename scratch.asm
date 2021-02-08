@@ -14,7 +14,7 @@ EFFECT_VALUE  = $04
 ; If 5 vol
 ; 7 eff
 ; 9 eff val
-; 10 end of that PATTERN_CHANNEL (skip 2)
+; 10 end of that CHANNEL_NUMBER (skip 2)
 
 NOTE_COLUMN_POSITIION = $00
 INSTRUMENT_COLUMN_POSITIION = $03
@@ -25,15 +25,10 @@ LAST_COLUMN_POSITION = $0A
 
 ; Vars
 COLOR           = r0
-; Actual row # irrespective of screen scroll
-PATTERN_ROW     = r1
 ; Screen row pos (may differ from pattern when scrolling)
-SCREEN_ROW      = r1 + 1
-; Actual Channel #
-PATTERN_CHANNEL = r2        ; Actual channel
-; Relative Channel position # (0-5) when tabbing over
-SCREEN_CHANNEL  = r2 + 1
-COLUMN_POS      = r3       ; Note, Inst, Vol, Eff, Effect Value
+SCREEN_ROW      = r5
+SCREEN_CHANNEL  = r5 + 1
+COLUMN_POS      = r6       ; Note, Inst, Vol, Eff, Effect Value
 
 ; Initial run once stuff
 start:
@@ -62,8 +57,8 @@ main:
   ;jsr ui::draw_help_frame
 
   lda #$00
-  sta PATTERN_ROW
-  sta PATTERN_CHANNEL
+  sta ROW_NUMBER
+  sta CHANNEL_NUMBER
   sta SCREEN_ROW
   sta SCREEN_CHANNEL
   sta COLUMN_POS
@@ -136,16 +131,16 @@ edit_pattern_loop:
 
 
 @cursor_up:
-  lda PATTERN_ROW
+  lda  ROW_NUMBER
   beq edit_pattern_loop
   jsr ui::cursor_up
-  dec PATTERN_ROW
+  dec  ROW_NUMBER
   dec SCREEN_ROW
   jmp edit_pattern_loop
 
 @cursor_down:
   jsr ui::cursor_down
-  inc PATTERN_ROW
+  inc  ROW_NUMBER
   inc SCREEN_ROW
   jmp edit_pattern_loop
 
@@ -165,13 +160,13 @@ edit_pattern_loop:
   sta COLUMN_POS
   jmp edit_pattern_loop
 @cursor_left_channel:
-  lda PATTERN_CHANNEL
+  lda CHANNEL_NUMBER
   beq @cursor_left_end
   jsr ui::cursor_left
   jsr ui::cursor_left
   lda #LAST_COLUMN_POSITION
   sta COLUMN_POS
-  dec PATTERN_CHANNEL
+  dec CHANNEL_NUMBER
   dec SCREEN_CHANNEL
 @cursor_left_end:
   jmp edit_pattern_loop
@@ -196,7 +191,7 @@ edit_pattern_loop:
   jsr ui::cursor_right
   lda #$00
   sta COLUMN_POS
-  inc PATTERN_CHANNEL
+  inc CHANNEL_NUMBER
   inc SCREEN_CHANNEL
   jmp edit_pattern_loop
 
@@ -271,11 +266,25 @@ edit_pattern_loop:
 
 ; Write the current row we are on to the pattern
 ; This pulls the values from VRAM by figuring out
-; which PATTERN_CHANNEL offset we are on, finding the beginning
-; of that PATTERN_CHANNEL in VRAM, pulling the values, converting
+; which CHANNEL_NUMBER offset we are on, finding the beginning
+; of that CHANNEL_NUMBER in VRAM, pulling the values, converting
 ; them and finally storing them back into the pattern data.
 @save_row_channel:
-  ; First find where we are on the screen
+  ; First, figure out where we are in the pattern
+  lda ROW_NUMBER
+  jsr tracker::get_row
+  ; Now skip over to the channel we are on
+  lda #TOTAL_BYTES_PER_CHANNEL
+  ldx CHANNEL_NUMBER
+@channel_skip_loop:
+  rol
+  dex
+  bne @channel_skip_loop
+@store_channel:
+  ; This is our channel offset
+  pha
+
+  ; Then find where we are on the screen
   lda SCREEN_CHANNEL
   jsr math::multiply_by_12
   clc
@@ -285,29 +294,23 @@ edit_pattern_loop:
 
   lda #$21
   sta VERA_addr_high
-
-  ; Grab the values
-  ; 3 bytes is the note, which we need to decode
-  ;lda VERA_data0
-  ;jsr graphics::kernal::printhex
-  ;lda VERA_data0
-  ;jsr graphics::kernal::printhex
-  ;lda VERA_data0
-  ;jsr graphics::drawing::print_hex
   ldx VERA_data0
 
   lda screencode_to_note,x
   ldy VERA_data0
+  ; If there is a #, add one as it is a sharp
   cpy #SCREENCODE_HASH
-  bne @save_row_channel_not_sharp
+  bne @not_sharp
+  ; sharp, so add 1 to value
   clc
   adc #$01
-@save_row_channel_not_sharp:
-  jsr graphics::kernal::printhex
+@not_sharp:
+  ; This was our channel offset from above
+  ply
+  sta (ROW_POINTER),y
 
-  ; Now look at the absolute position within the pattern
-  lda PATTERN_ROW
-  ldy PATTERN_CHANNEL
+
+  ;ldy CHANNEL_NUMBER
 
 
   ; convert note
@@ -322,5 +325,3 @@ edit_pattern_loop:
   sta VERA_addr_high
 
   rts
-
-.include "data.inc"

@@ -2,8 +2,8 @@
 ; Order list is assumed to be up to 256 ($FF)
 ; we're manually loading it here, but reserving the rest
 ; so we don't run out of RAM while testing stuffs
-order_list: .byte $01,$02,$03,$04
-.res $FC
+order_list: .byte $05, $01,$02,$03,$04
+.res $FB
 
 ; Where to start the order list display from
 ; (such as if we're scrolled further down)
@@ -14,9 +14,6 @@ order_list_start: .byte $00
 
 ; Which column the cursor is in (there are only 2 so 0/1)
 order_list_column: .byte $00
-
-; The current pattern being edited
-pattern_being_edited: .byte $02
 
 ; Current Octave User Has Specified
 user_octave:   .byte $04

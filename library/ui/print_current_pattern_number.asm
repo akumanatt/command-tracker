@@ -9,7 +9,7 @@ print_current_pattern_number:
   jsr graphics::drawing::goto_xy
   ; Color
   set_text_color #$B1
-  lda PATTERN_NUMBER       ; Get the current row conunt
+  lda PATTERN_NUMBER       ; Get the current pattern
   jsr graphics::drawing::print_hex        ; print it
   rts
 .endproc

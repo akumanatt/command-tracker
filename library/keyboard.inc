@@ -1,6 +1,8 @@
 ; Constants for keyboard hex values
 
 ; Chars and Keys
+PETSCII_BACKSPACE = $14
+PETSCII_SHIFT_BACKSPACE = $94
 UPPERCASE = $8E
 PETSCII_DASH = $2D
 PETSCII_PERIOD = $2E

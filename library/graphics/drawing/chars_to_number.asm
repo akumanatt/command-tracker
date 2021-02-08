@@ -36,7 +36,8 @@ convert_to_number:
   adc #$09 ; Add 9
   rts
 @number:
-  sbc #$30 ; Subtract $30 (incl. carry)
+  ;sbc #$30 ; Subtract $30
+  sbc #$30 ; Subtract $30
   rts
 
 .endproc

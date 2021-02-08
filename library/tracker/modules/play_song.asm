@@ -19,7 +19,7 @@ start_song:
   ldy #$00
   sty ORDER_NUMBER
   lda order_list,y
-  sty ROW_COUNT
+  sty ROW_NUMBER
   sta RAM_BANK
   sta PATTERN_NUMBER
   jsr ui::print_song_info
@@ -43,6 +43,8 @@ check_keyboard:
   jsr GETIN  ;keyboard
   cmp #F1
   beq @help_module
+  cmp #F2
+  beq @edit_pattern_module
   cmp #F8
   beq @stop_song
   cmp #F5
@@ -53,6 +55,11 @@ check_keyboard:
 
 @help_module:
   jmp main
+
+; Jump to order list module
+@edit_pattern_module:
+  jsr tracker::stop_song
+  jmp tracker::modules::edit_pattern
 
 @play_song_module:
   jmp tracker::modules::play_song
