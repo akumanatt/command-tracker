@@ -2,7 +2,7 @@
 ; Order list is assumed to be up to 256 ($FF)
 ; we're manually loading it here, but reserving the rest
 ; so we don't run out of RAM while testing stuffs
-order_list: .byte $05, $01,$02,$03,$04
+order_list: .byte $01, $02,$03,$04
 .res $FB
 
 ; Where to start the order list display from
@@ -63,8 +63,6 @@ petscii_to_note:
 song_title: .byte "bad apple",0
 author: .byte "m00dawg",0
 
-order_screen_help_msg: .byte "press enter to save orders",0
-
 ; Override the 16 color palette
 ; gb,r
 palette:
@@ -85,7 +83,4 @@ palette:
 .byte $9F,$0A     ; light blue
 .byte $88,$08     ; light gray
 
- .include "song.inc"
-
-; [x : y : character : color], [x : y; ,...]
-file_data: .byte $01
+.include "song.inc"

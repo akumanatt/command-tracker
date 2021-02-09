@@ -3,8 +3,14 @@
   ; Constants
   ORDERS_HEADER_X = $20
   ORDERS_HEADER_Y = $08
+  ORDERS_STOP_Y = $3A
 
 draw_orders_frame:
+  ; Set stride/address
+  ; Orders are draw on top layer
+  lda #$10
+  sta VERA_addr_high
+
   ; X/Y Start
   lda #$01
   sta r0
@@ -22,7 +28,7 @@ draw_orders_frame:
 
 @print_labels:
   print_string_macro order_list_label, #ORDERS_HEADER_X, #ORDERS_HEADER_Y, #TITLE_COLORS
-  print_string_macro order_screen_help_msg, #$18, #$36, #TITLE_COLORS
+  print_string_macro goto_pattern_message, #$28, #20, #TITLE_COLORS
 
 @list_orders:
   lda #ORDER_LIST_X
@@ -58,9 +64,10 @@ draw_orders_frame:
 @end_loop:
   inx
   iny
-  cpy #NUM_ORDERS_TO_SHOW
+  cpy #ORDERS_STOP_Y
   bne @list_orders_loop
 
 @end:
   rts
+
 .endproc

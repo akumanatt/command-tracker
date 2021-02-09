@@ -122,7 +122,7 @@ ORDER_LIST_X = $20
 ORDER_LIST_Y = $0A
 ; How many characters over the patterns are
 ORDER_LIST_OFFSET = $08
-NUM_ORDERS_TO_SHOW = $30
+MAX_ORDERS = $FF
 
 ; Row statuses
 NOTEREL  = $0D

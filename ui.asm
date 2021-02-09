@@ -14,6 +14,7 @@
 
   ; Order List Page Labels:
   order_list_label: .byte "orders:",0
+  goto_pattern_message: .byte "press g to edit pattern",0
 
   verasound_channel_header: .byte "vs ",0
 

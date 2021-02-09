@@ -1,11 +1,4 @@
 pitch_dataH:
-  ; added 5 notes which are lower than the vera can play but make life easier
-  ; by aligning octaves in chunks of 12
-  .byte 0
-  .byte 0
-  .byte 0
-  .byte 0
-  .byte 0
    .byte 0
    .byte 0
    .byte 0
@@ -146,20 +139,14 @@ pitch_dataH:
    .byte 234
    .byte 248
 pitch_dataL:
-; added these to help with the odd starting of ocatve 0
-.byte 0
-.byte 0
-.byte 0
-.byte 0
-.byte 0
-   .byte 21 ; F-0, offset 0
-   .byte 23 ; F#0, offset 1
-   .byte 24 ; G-0, offset 2
-   .byte 26 ; G#0
-   .byte 27 ; A-0
-   .byte 29 ; A#0
-   .byte 31 ; B-0
-   .byte 32 ; C-1
+   .byte 21
+   .byte 23
+   .byte 24
+   .byte 26
+   .byte 27
+   .byte 29
+   .byte 31
+   .byte 32
    .byte 34
    .byte 36
    .byte 39

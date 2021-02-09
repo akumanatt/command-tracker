@@ -20,11 +20,13 @@
 ; and not the position on the screen.
 
 .proc orders
+  ; Relative position we are in the order list on screen
   ORDER_LIST_POSITION = r14
 
 ; Constrain movement of the cursor to only the order list
 CURSOR_START_X = $24
 CURSOR_START_Y = $0A
+CURSOR_STOP_Y = $2F
 
 ; How many columns we have (2)
 ORDERS_MIN_COLUMN = $00
@@ -36,13 +38,15 @@ start:
   jsr ui::clear_lower_frame
   lda #$00
   sta r1
-  jsr ui::draw_orders_frame
-
-cursor_start_position:
-  lda #$00
-  sta cursor_layer
+  sta order_list_start
   sta ORDER_LIST_POSITION
   sta order_list_column
+  jsr ui::draw_orders_frame
+
+@cursor_start_position:
+  lda #$00
+  sta cursor_layer
+
   lda #CURSOR_START_X
   sta cursor_x
   lda #CURSOR_START_Y
@@ -59,7 +63,7 @@ cursor_start_position:
   cmp #F1
   beq @help_module
   cmp #F2
-  beq @edit_pattern
+  beq @edit_pattern_jump
   cmp #F8
   beq @stop_song
   cmp #F5
@@ -76,7 +80,7 @@ cursor_start_position:
   cmp #ENTER
   beq start
   cmp #PETSCII_G
-  beq @edit_pattern
+  beq @edit_pattern_jump
   cmp #$30
   bpl @print_alphanumeric
   jmp @main_orders_loop
@@ -89,7 +93,8 @@ cursor_start_position:
 @play_song_module:
   jmp tracker::modules::play_song
 
-
+@edit_pattern_jump:
+  jmp @edit_pattern
 
 ; On up/down check if we are at the end of the entire list
 ; and if we are at the end of the view.
@@ -98,17 +103,23 @@ cursor_start_position:
 
 @cursor_up:
   lda ORDER_LIST_POSITION
-  beq @main_orders_loop
+  beq @cursor_scroll_up_jump
   jsr ui::cursor_up
   dec ORDER_LIST_POSITION
   jmp @main_orders_loop
+@cursor_scroll_up_jump:
+  jmp @scroll_orders_up
+
 @cursor_down:
   lda ORDER_LIST_POSITION
-  cmp #$FF
-  beq @main_orders_loop
+  cmp #CURSOR_STOP_Y
+  beq @cursor_scroll_down_jump
   jsr ui::cursor_down
   inc ORDER_LIST_POSITION
   jmp @main_orders_loop
+  ; If we're at the bottom of the screen, scroll the orders
+@cursor_scroll_down_jump:
+  jmp @scroll_orders_down
 
 ; Track the column position of the cursor here as well.
 ; Needed for further down.
@@ -125,38 +136,6 @@ cursor_start_position:
   jsr ui::cursor_right
   inc order_list_column
   jmp @main_orders_loop
-
-; Edit pattern specified at cursor
-@edit_pattern:
-  ; If we're on the second column, move over one
-  lda order_list_column
-  beq @get_pattern_at_cursor
-  jsr ui::cursor_left
-  dec order_list_column
-@get_pattern_at_cursor:
-  lda #$20  ; skip over colors
-  sta VERA_addr_high
-
-  ldy cursor_y
-  sty VERA_addr_med
-  ; X-pos of first digit
-  lda cursor_x
-  asl ; because 2 bytes per X pos (second being color)
-  sta VERA_addr_low
-
-  ; First character
-  lda VERA_data0
-  sta r0
-
-  ; Second character
-  lda VERA_data0
-  sta r1
-
-  jsr graphics::drawing::chars_to_number
-  sta PATTERN_NUMBER
-  jsr tracker::stop_song
-  jmp tracker::modules::edit_pattern
-
 
 ; Print the # the user typed. If ordrer_list_column is 1, we are in the
 ; second column, so we need to see if it's a valid pattern number and, if so,
@@ -228,5 +207,65 @@ cursor_start_position:
 
 @print_end:
   jmp @main_orders_loop
+
+; If we're at the top of the screen, but we have more
+; orders, scroll the order list
+@scroll_orders_up:
+  ; Commented out because now it just loops around that's kinda cool
+  ; ORDER_LIST_POSITION already in a
+  ; If we're at the min order, no more scrolling for you!
+  ; cmp #$00
+  ; beq @main_orders_loop_jump
+  dec order_list_start
+  jsr ui::draw_orders_frame
+  jsr graphics::drawing::cursor_plot
+  jmp @main_orders_loop
+
+; If we're at the bottom of the screen, but we have more
+; orders, scroll the order list
+@scroll_orders_down:
+  ; Commented out because now it just loops around that's kinda cool
+  ; ORDER_LIST_POSITION already in a
+  ; If we're at the max order, no more scrolling for you!
+  ;cmp #MAX_ORDERS
+  ;beq @main_orders_loop_jump
+  inc order_list_start
+  jsr ui::draw_orders_frame
+  jsr graphics::drawing::cursor_plot
+  jmp @main_orders_loop
+
+@main_orders_loop_jump:
+  jmp @main_orders_loop
+
+; Edit pattern specified at cursor
+@edit_pattern:
+  ; If we're on the second column, move over one
+  lda order_list_column
+  beq @get_pattern_at_cursor
+  jsr ui::cursor_left
+  dec order_list_column
+@get_pattern_at_cursor:
+  lda #$20  ; skip over colors
+  sta VERA_addr_high
+
+  ldy cursor_y
+  sty VERA_addr_med
+  ; X-pos of first digit
+  lda cursor_x
+  asl ; because 2 bytes per X pos (second being color)
+  sta VERA_addr_low
+
+  ; First character
+  lda VERA_data0
+  sta r0
+
+  ; Second character
+  lda VERA_data0
+  sta r1
+
+  jsr graphics::drawing::chars_to_number
+  sta PATTERN_NUMBER
+  jsr tracker::stop_song
+  jmp tracker::modules::edit_pattern
 
 .endproc

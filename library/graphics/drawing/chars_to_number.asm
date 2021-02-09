@@ -36,8 +36,9 @@ convert_to_number:
   adc #$09 ; Add 9
   rts
 @number:
-  ;sbc #$30 ; Subtract $30
-  sbc #$30 ; Subtract $30
+  ; Ignore the top half (we only care about 0-9)
+  ; This sorta subtracts by $30 (or rather just ignores it)
+  and #%00001111
   rts
 
 .endproc
