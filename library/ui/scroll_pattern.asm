@@ -5,7 +5,7 @@ scroll_pattern:
   lda SCROLL_ENABLE
   beq @end
 
-  ; if we're on row 0, we need to set the scroll, other we jump past it
+  ; if we're on row 0, we need to set the scroll, otherwise we jump past it
   lda ROW_NUMBER
   bne @scrolling
 
@@ -30,7 +30,15 @@ scroll_pattern:
   rts
 
 @scrolling:
-  ; Add 8 to scroll
+  jsr ui::scroll_pattern_up
+
+@end:
+  rts
+
+.endproc
+
+.proc scroll_pattern_up
+scroll_pattern_up:
   clc
   lda VERA_L0_vscroll_l
   adc #$08
@@ -38,9 +46,17 @@ scroll_pattern:
   lda VERA_L0_vscroll_h
   adc #$00
   sta VERA_L0_vscroll_h
-
-@end:
   rts
+.endproc
 
-
+.proc scroll_pattern_down
+scroll_pattern_down:
+  sec
+  lda VERA_L0_vscroll_l
+  sbc #$08
+  sta VERA_L0_vscroll_l
+  lda VERA_L0_vscroll_h
+  sbc #$00
+  sta VERA_L0_vscroll_h
+  rts
 .endproc

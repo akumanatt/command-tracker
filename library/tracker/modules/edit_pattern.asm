@@ -8,13 +8,15 @@ VOLULME       = $02
 EFFECT        = $03
 EFFECT_VALUE  = $04
 
+SCREEN_ROW_MAX = $30
+
+
 ; If col pos is 0, note
 ; If 3 inst
 ; If 5 vol
 ; 7 eff
 ; 9 eff val
 ; 10 end of that CHANNEL_NUMBER (skip 2)
-
 NOTE_COLUMN_POSITIION = $00
 INSTRUMENT_COLUMN_POSITIION = $03
 VOLUMNE_COLUMN_POSITIION = $05
@@ -38,30 +40,18 @@ edit_pattern:
   jsr ui::draw_pattern_frame
   jsr ui::print_pattern
   jsr ui::print_current_pattern_number
+
+  lda #$00
+  sta CHANNEL_NUMBER
+  sta SCREEN_CHANNEL
+  sta COLUMN_POS
+  jsr ui::print_row_number
+
   lda #$FF
   sta VERA_L0_hscroll_h
   lda #$F8
   sta VERA_L0_hscroll_l
-  lda #STATIC_PATTERN_SCROLL_H
-  sta VERA_L0_vscroll_h
-  lda #STATIC_PATTERN_SCROLL_L
-  sta VERA_L0_vscroll_l
-
-  ; We're editing the lower layer where the pattern is
-  lda #$01
-  sta cursor_layer
-  lda #$03
-  sta cursor_x
-  lda #$00
-  sta cursor_y
-  jsr graphics::drawing::cursor_plot
-
-  lda #$00
-  sta ROW_NUMBER
-  sta CHANNEL_NUMBER
-  sta SCREEN_ROW
-  sta SCREEN_CHANNEL
-  sta COLUMN_POS
+  jsr reset_scroll_position
 
 edit_pattern_loop:
   wai
@@ -135,17 +125,59 @@ edit_pattern_loop:
 
 
 @cursor_up:
-  lda ROW_NUMBER
-  beq edit_pattern_loop
   jsr ui::cursor_up
+  lda ROW_NUMBER
+  beq @cursor_up_goto_bottom_of_pattern
+  lda SCREEN_ROW
+  beq @cursor_up_scroll_down
   dec ROW_NUMBER
   dec SCREEN_ROW
+  jsr ui::print_row_number
+  jmp @cursor_up_end
+@cursor_up_goto_bottom_of_pattern:
+  lda #$00
+  sta VERA_L0_vscroll_h
+  lda #$28    ; Roll pattern up so the bottom of the pattern is at the bottom of screen
+  sta VERA_L0_vscroll_l
+  lda #ROW_MAX - 1
+  sta ROW_NUMBER
+  lda #SCREEN_ROW_MAX
+  sta SCREEN_ROW
+  lda #$01
+  sta cursor_layer
+  lda #$03
+  sta cursor_x
+  lda #$3F
+  sta cursor_y
+  jsr graphics::drawing::cursor_plot
+  jmp @cursor_up_end
+@cursor_up_scroll_down:
+  jsr ui::scroll_pattern_down
+  dec ROW_NUMBER
+@cursor_up_end:
+  jsr ui::print_row_number
   jmp edit_pattern_loop
+
 
 @cursor_down:
   jsr ui::cursor_down
   inc ROW_NUMBER
+  lda ROW_NUMBER
+  cmp #ROW_MAX
+  beq @cursor_down_goto_top_of_pattern
+  ;jsr ui::print_row_number
+  lda SCREEN_ROW
+  cmp #SCREEN_ROW_MAX
+  beq @cursor_down_scroll_up
   inc SCREEN_ROW
+  jmp @cursor_down_end
+@cursor_down_goto_top_of_pattern:
+  jsr reset_scroll_position
+  jmp @cursor_down_end
+@cursor_down_scroll_up:
+  jsr ui::scroll_pattern_up
+@cursor_down_end:
+  jsr ui::print_row_number
   jmp edit_pattern_loop
 
 @cursor_left:
@@ -435,5 +467,22 @@ edit_pattern_loop:
   cli
   rts
 
+; Reset pattern scroll/position
+reset_scroll_position:
+  lda #STATIC_PATTERN_SCROLL_H
+  sta VERA_L0_vscroll_h
+  lda #STATIC_PATTERN_SCROLL_L
+  sta VERA_L0_vscroll_l
+  stz ROW_NUMBER
+  stz SCREEN_ROW
+
+  lda #$01
+  sta cursor_layer
+  lda #$03
+  sta cursor_x
+  lda #$00
+  sta cursor_y
+  jsr graphics::drawing::cursor_plot
+  rts
 
 .endproc
