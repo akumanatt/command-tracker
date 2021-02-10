@@ -28,6 +28,7 @@ COLOR           = r0
 SCREEN_ROW      = r5
 SCREEN_CHANNEL  = r5 + 1
 COLUMN_POS      = r6       ; Note, Inst, Vol, Eff, Effect Value
+PITCH_TEMP      = r7
 
 ; Initial run once stuff
 edit_pattern:
@@ -69,8 +70,8 @@ edit_pattern_loop:
   beq edit_pattern_loop
   cmp #F1
   beq @help_module
-  ;cmp #F2
-  ;beq @edit_pattern_module
+  cmp #F2
+  beq edit_pattern
   cmp #F5
   beq @play_song_module
   cmp #F11
@@ -89,7 +90,6 @@ edit_pattern_loop:
   beq @increase_octave
   cmp #PETSCII_SHIFT_BACKSPACE
   beq @delete_channel_row_jump
-  ;cmp #$30
   cmp #$2E    ; Alphanumeric, period, and a few things we don't want
   bpl @print_note_or_alphanumeric_jump
   jmp edit_pattern_loop
@@ -144,7 +144,7 @@ edit_pattern_loop:
 
 @cursor_down:
   jsr ui::cursor_down
-  inc  ROW_NUMBER
+  inc ROW_NUMBER
   inc SCREEN_ROW
   jmp edit_pattern_loop
 
@@ -232,6 +232,7 @@ edit_pattern_loop:
 ; If we're in the note column, print a note
 ; Otherwise print the hex-number the user typed
 @print_note_or_alphanumeric:
+  sei
   pha
   lda cursor_x
   ldy cursor_y
@@ -284,6 +285,7 @@ edit_pattern_loop:
 
 @print_end:
   jsr @save_row_channel
+  cli
   jmp edit_pattern_loop
 
 @key_to_note:
@@ -306,9 +308,14 @@ edit_pattern_loop:
 ; of that CHANNEL_NUMBER in VRAM, pulling the values, converting
 ; them and finally storing them back into the pattern data.
 @save_row_channel:
+  ; Do not interrupt saving
+  sei
+
   ; First, figure out where we are in the pattern
   lda ROW_NUMBER
   jsr tracker::get_row
+
+  ; If we already on channel 0 don't do any math
   lda #$00
   ldx CHANNEL_NUMBER
   beq @store_channel
@@ -328,25 +335,41 @@ edit_pattern_loop:
   clc
   adc #$03  ; For skipping past row numbers
   ldy SCREEN_ROW
+
   jsr graphics::drawing::goto_xy
 
   ; Skip over colors
   lda #$21
   sta VERA_addr_high
 
+  ; Read three to characters of note
+  ; We do this first since we want to keep aligned with the rest of the
+  ; pattern data (though if we find nulls, we'll skip some things)
   ldx VERA_data0
-  lda screencode_to_note,x
   ldy VERA_data0
+  lda VERA_data0
+  sta PITCH_TEMP
+
+  cpx #SCREENCODE_PERIOD
+  beq @note_null
+  cpx #SCREENCODE_DASH
+  beq @note_off
+  cpx #SCREENCODE_ARROW_UP
+  beq @note_rel
+
+  lda screencode_to_note,x
   ; If there is a #, add one as it is a sharp
   cpy #SCREENCODE_HASH
   bne @not_sharp
   ; sharp, so add 1 to value
   clc
   adc #$01
-  sta NOTE_NOTE
+
 @not_sharp:
-  ; Now add the pitch
-  lda VERA_data0
+  sta NOTE_NOTE
+  ; Now add the pitch, noting that the pitch is actually the top nibble
+  ; when stored in the pattern data
+  lda PITCH_TEMP
   ; We can grab the numbers from the lower nibble and just ignore
   ; the top
   asl
@@ -354,9 +377,21 @@ edit_pattern_loop:
   asl
   asl
   ora NOTE_NOTE
+  jmp @store_note
 
+@note_null:
+  lda #NOTENULL
+  jmp @store_note
+@note_off:
+  lda #NOTEOFF
+  jmp @store_note
+@note_rel:
+  lda #NOTEREL
+
+@store_note:
   ; This was our channel offset from above
   ply
+  ; Store note
   sta (ROW_POINTER),y
 
   ; The next values are all 2-digit hex values
@@ -365,19 +400,26 @@ edit_pattern_loop:
   ; Loop for instrument, volume, effect, and effect value
   ldx #$04
 @store_rest_of_row_loop:
+  ; Grab next two values in pattern VRAM
   lda VERA_data0
-  cmp #SCREENCODE_PERIOD
-  beq @store_null
   sta r0
-
   lda VERA_data0
-  cmp #SCREENCODE_PERIOD
-  beq @store_null
   sta r1
+
+  ; Compare r1, if period, jump to storing null
+  cmp #SCREENCODE_PERIOD
+  beq @null_found
+
+  ; Compare r0, if period, jump to storing null
+  lda r0
+  cmp #SCREENCODE_PERIOD
+  beq @null_found
+
+  ; If nulls were not found, convert value
   jsr graphics::drawing::chars_to_number
   jmp @inc_row_pointer
 
-@store_null:
+@null_found:
   lda #EFFNULL
 
 @inc_row_pointer:
@@ -386,8 +428,11 @@ edit_pattern_loop:
   sta (ROW_POINTER),y
   dex
   bne @store_rest_of_row_loop
+
+@done_save:
   lda #$01
   sta VERA_addr_high
+  cli
   rts
 
 

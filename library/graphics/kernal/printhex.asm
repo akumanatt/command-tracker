@@ -6,9 +6,11 @@
 ;   character of the number.
 printhex:
   phx
+  phy
   pha
   jsr @main
   pla
+  ply
   plx
   rts
 

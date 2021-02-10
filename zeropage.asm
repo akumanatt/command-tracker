@@ -14,6 +14,8 @@ CHANNEL_NUMBER: .byte 0
 ORDER_NUMBER: .byte 0
 SCROLL_ENABLE: .byte 0
 
+NOTE_TEMP: .byte 0
+
 ; Track the state of the tracker engine
 ; 0 = Stopped
 ; 1 = Playing
