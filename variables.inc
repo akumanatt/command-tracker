@@ -97,9 +97,17 @@ STATIC_PATTERN_SCROLL_L = $B0
 ;NUMBER_OF_CHANNELS = $03
 ;TOTAL_BYTES_PER_PATTERN = $03C0    ; currently 5 bytes * 3 channels * 64 rows
 ;TOTAL_BYTES_PER_ROW = $0F         ; total bytes per row (for skipping rows)
-NUMBER_OF_CHANNELS = $06
-TOTAL_BYTES_PER_PATTERN = $0780    ; currently 5 bytes * 3 channels * 64 rows
-TOTAL_BYTES_PER_ROW = $1E         ; total bytes per row (for skipping rows)
+;NUMBER_OF_CHANNELS = $06
+;TOTAL_BYTES_PER_PATTERN = $0780    ; currently 5 bytes * 6 channels * 64 rows
+;TOTAL_BYTES_PER_ROW = $1E         ; total bytes per row (for skipping rows)
+;NUMBER_OF_CHANNELS = $07
+;TOTAL_BYTES_PER_PATTERN = $08C0    ; currently 5 bytes * 7 channels * 64 rows
+;TOTAL_BYTES_PER_ROW = $1E         ; total bytes per row (for skipping rows)
+NUMBER_OF_CHANNELS = $19
+TOTAL_BYTES_PER_PATTERN = $1F40    ; currently 5 bytes * 25 channels * 64 rows
+TOTAL_BYTES_PER_ROW = $7D         ; total bytes per row (for skipping rows), 5*25
+
+
 
 TOTAL_BYTES_PER_CHANNEL = $05
 NUM_VERA_PSG_REGISTERS = $04

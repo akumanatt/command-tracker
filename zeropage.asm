@@ -14,6 +14,9 @@ CHANNEL_NUMBER: .byte 0
 ORDER_NUMBER: .byte 0
 SCROLL_ENABLE: .byte 0
 
+; Channel to start when displaying the pattern on screen
+START_CHANNEL: .byte 0
+
 ; Track the state of the tracker engine
 ; 0 = Stopped
 ; 1 = Playing

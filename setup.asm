@@ -1,12 +1,9 @@
 .CODE
 setup:
-
-  lda #$00
-  sta VERA_ctrl ; Select primary VRAM address
-  sta VERA_addr_med ; Set primary address med byte to 0
-  sta VERA_addr_low ; Set Primary address low byte to 0
-  lda #$00
-  sta VERA_addr_high ; Set primary address bank to 0, stride to 0
+  stz VERA_ctrl ; Select primary VRAM address
+  stz VERA_addr_med ; Set primary address med byte to 0
+  stz VERA_addr_low ; Set Primary address low byte to 0
+  stz VERA_addr_high ; Set primary address bank to 0, stride to 0
   ;lda #RES128x128x256    ; L0 is the pattern scroll space
   lda #RES128x128x16      ; L0 is the pattern scroll space
   ;lda #RES128x256x16      ; L0 is the pattern scroll space
@@ -19,8 +16,7 @@ setup:
   sta VERA_dc_video
   lda #$80              ; $10000 (start of HiRAM)
   sta VERA_L0_mapbase
-  lda #$00
-  sta VERA_L1_mapbase
+  stz VERA_L1_mapbase
 
   ; Load the default character tiles on layer 0 (the pattern layer)
   lda #$7C
@@ -35,13 +31,11 @@ setup:
   ; Clear high VRAM
   lda #$01
   sta VERA_addr_high
-  lda #$00
-  sta r0
+  stz r0
   lda #$F0
   sta r1
   jsr graphics::vera::clear_vram
-  lda #$00
-  sta VERA_addr_high
+  stz VERA_addr_high
 
   jsr graphics::vera::load_palette_16
 
@@ -52,8 +46,10 @@ setup:
   sta VERA_ien
 
   ; Set state to 0 (idle/stopped)
-  lda #$00
-  sta STATE
+  stz STATE
+
+  ; Set start channel to 0
+  stz START_CHANNEL
 
   ; Start at first pattern
   lda #$05

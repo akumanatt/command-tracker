@@ -1,8 +1,14 @@
 
 .proc print_pattern
+  ; Constants
+  NUM_CHANNELS_VISIBLE = $03 ; Number of channels to see at once
+
+  ; Vars
   ROW_POINTER   = r11 ; 16-bit address for keeping track of bytes
   BACKGROUND_COLOR = r12  ; temp storage for background color mask
-  CHANNEL_COUNT = r13    ; Counter to know when we're done with channels
+  CHANNEL_COUNTER = r5    ; Counter to know when we're done with channels
+
+
 
 print_pattern:
   ; Set stride to 1, high bit to 1
@@ -15,16 +21,22 @@ print_pattern:
   lda #>PATTERN_POINTER
   sta ROW_POINTER+1
 
-  lda #NUMBER_OF_CHANNELS
-  sta CHANNEL_COUNT
+  ;lda #NUM_CHANNELS_VISIBLE
+  ;sta CHANNEL_COUNT
+  ldx #$02
+  stx CHANNEL_COUNTER
 
   ; row count
   ldx #$00
 
 ; For the loop, y is the offset of the channel data
-@loop:
+@row_loop:
 ; First check for row highlights
   jsr @check_highlight_rows
+
+; If the channel isn't 00, we have to skip past X channels
+; before we start to draw the channels
+; @skip_channel...
 
 @print_row:
   ; set position to x=0 and y=row count
@@ -50,18 +62,15 @@ print_pattern:
   lda $00
   sta r0
   jsr graphics::drawing::print_alpha_char
-
-  dec CHANNEL_COUNT
+  dec CHANNEL_COUNTER
   bne @channels_loop
-
   jsr @jump_to_next_row
-
 
 @inc_row_count:
   ; remember x is row count
   inx
   cpx #ROW_MAX
-  bne @loop
+  bne @row_loop
 @end:
   rts
 
@@ -80,8 +89,9 @@ print_pattern:
   jsr graphics::drawing::print_alpha_char
 
   ; Reset channel counter
-  lda #NUMBER_OF_CHANNELS
-  sta CHANNEL_COUNT
+  lda #NUM_CHANNELS_VISIBLE
+  ;sta CHANNEL_COUNT
+  sta CHANNEL_COUNTER
   rts
 
 @print_inst:
@@ -152,9 +162,6 @@ print_pattern:
     adc #$00
     sta ROW_POINTER+1
 
-    ; Reset channel counter
-    lda #NUMBER_OF_CHANNELS
-    sta CHANNEL_COUNT
     rts
 
 ; Set flags for when to highlight major/minor rows

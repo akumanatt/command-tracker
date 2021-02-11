@@ -7,9 +7,7 @@ INSTRUMENT    = $01
 VOLULME       = $02
 EFFECT        = $03
 EFFECT_VALUE  = $04
-
 SCREEN_ROW_MAX = $30
-
 
 ; If col pos is 0, note
 ; If 3 inst
@@ -47,6 +45,9 @@ edit_pattern:
   sta COLUMN_POS
   jsr ui::print_row_number
 
+
+  lda #$03
+  sta cursor_x
   lda #$FF
   sta VERA_L0_hscroll_h
   lda #$F8
@@ -74,6 +75,8 @@ edit_pattern_loop:
   beq @cursor_left_jump
   cmp #KEY_RIGHT
   beq @cursor_right_jump
+  cmp #KEY_TAB
+  beq @cursor_tab_right_jump
   cmp #PETSCII_BRACKET_LEFT
   beq @decrease_octave
   cmp #PETSCII_BRACKET_RIGHT
@@ -92,6 +95,8 @@ edit_pattern_loop:
   jmp @cursor_left
 @cursor_right_jump:
   jmp @cursor_right
+@cursor_tab_right_jump:
+  jmp @cursor_tab_right
 
 @delete_channel_row_jump:
   jmp @delete_channel_row
@@ -123,7 +128,6 @@ edit_pattern_loop:
 @update_octave_end:
   jmp edit_pattern_loop
 
-
 @cursor_up:
   jsr ui::cursor_up
   lda ROW_NUMBER
@@ -145,8 +149,7 @@ edit_pattern_loop:
   sta SCREEN_ROW
   lda #$01
   sta cursor_layer
-  lda #$03
-  sta cursor_x
+  lda cursor_x
   lda #$3F
   sta cursor_y
   jsr graphics::drawing::cursor_plot
@@ -158,14 +161,12 @@ edit_pattern_loop:
   jsr ui::print_row_number
   jmp edit_pattern_loop
 
-
 @cursor_down:
   jsr ui::cursor_down
   inc ROW_NUMBER
   lda ROW_NUMBER
   cmp #ROW_MAX
   beq @cursor_down_goto_top_of_pattern
-  ;jsr ui::print_row_number
   lda SCREEN_ROW
   cmp #SCREEN_ROW_MAX
   beq @cursor_down_scroll_up
@@ -229,6 +230,17 @@ edit_pattern_loop:
   sta COLUMN_POS
   inc CHANNEL_NUMBER
   inc SCREEN_CHANNEL
+  jmp edit_pattern_loop
+
+@cursor_tab_right:
+  ldx #$0C
+  inc CHANNEL_NUMBER
+  inc SCREEN_CHANNEL
+@cursor_tab_right_loop:
+  jsr ui::cursor_right
+  ;inc COLUMN_POS
+  dex
+  bne @cursor_tab_right_loop
   jmp edit_pattern_loop
 
 ; Delete the entire channel/row
@@ -478,8 +490,7 @@ reset_scroll_position:
 
   lda #$01
   sta cursor_layer
-  lda #$03
-  sta cursor_x
+  lda cursor_x
   lda #$00
   sta cursor_y
   jsr graphics::drawing::cursor_plot
