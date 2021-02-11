@@ -34,15 +34,15 @@ PITCH_TEMP      = r7
 edit_pattern:
   lda PATTERN_NUMBER
   sta RAM_BANK
+  stz START_CHANNEL
   jsr ui::clear_lower_frame
   jsr ui::draw_pattern_frame
   jsr ui::print_pattern
-  jsr ui::print_current_pattern_number
 
-  lda #$00
-  sta CHANNEL_NUMBER
-  sta SCREEN_CHANNEL
-  sta COLUMN_POS
+  stz CHANNEL_NUMBER
+  stz SCREEN_CHANNEL
+  stz COLUMN_POS
+  jsr ui::print_current_pattern_number
   jsr ui::print_row_number
 
 

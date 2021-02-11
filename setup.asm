@@ -49,7 +49,9 @@ setup:
   stz STATE
 
   ; Set start channel to 0
-  stz START_CHANNEL
+  ;stz START_CHANNEL
+  lda #$00
+  sta START_CHANNEL
 
   ; Start at first pattern
   lda #$05

@@ -36,11 +36,11 @@ draw_pattern_frame:
   print_string_macro more_channels_label, #MORE_CHANNELS_LABEL_X, #MORE_CHANNELS_LABEL_Y, #TITLE_COLORS
   print_string_macro row_header, #ROW_HEADER_X, #ROW_HEADER_Y, #TITLE_COLORS
 
-  ldx first_channel_in_pattern_view
+  ldx START_CHANNEL
   lda #FIRST_CHANNEL_X + 1
   sta CHANNEL_START
 
-  lda first_channel_in_pattern_view
+  lda START_CHANNEL
   clc
   adc NUM_CHANNEL_COLUMNS
   sbc #$01

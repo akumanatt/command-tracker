@@ -28,7 +28,8 @@ cursor_color: .byte $00
 cursor_old_color: .byte $00
 cursor_layer: .byte $00
 
-first_channel_in_pattern_view: .byte $00
+; Moved to ZP
+; first_channel_in_pattern_view: .byte $00
 
 ; Note value to name lookup
 note_names:  .byte "ccddeffggaab-^-."
@@ -82,5 +83,3 @@ palette:
 .byte $F5,$05     ; light green
 .byte $9F,$0A     ; light blue
 .byte $88,$08     ; light gray
-
-; .include "song.inc"

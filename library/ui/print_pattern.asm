@@ -1,14 +1,13 @@
 
 .proc print_pattern
   ; Constants
-  NUM_CHANNELS_VISIBLE = $03 ; Number of channels to see at once
+  NUM_CHANNELS_VISIBLE = $06 ; Number of channels to see at once
 
   ; Vars
   ROW_POINTER   = r11 ; 16-bit address for keeping track of bytes
   BACKGROUND_COLOR = r12  ; temp storage for background color mask
   CHANNEL_COUNTER = r5    ; Counter to know when we're done with channels
-
-
+  SKIP_CHANNEL_COUNTER = r5 + 1
 
 print_pattern:
   ; Set stride to 1, high bit to 1
@@ -21,11 +20,6 @@ print_pattern:
   lda #>PATTERN_POINTER
   sta ROW_POINTER+1
 
-  ;lda #NUM_CHANNELS_VISIBLE
-  ;sta CHANNEL_COUNT
-  ldx #$02
-  stx CHANNEL_COUNTER
-
   ; row count
   ldx #$00
 
@@ -34,10 +28,7 @@ print_pattern:
 ; First check for row highlights
   jsr @check_highlight_rows
 
-; If the channel isn't 00, we have to skip past X channels
-; before we start to draw the channels
-; @skip_channel...
-
+; Start printing row
 @print_row:
   ; set position to x=0 and y=row count
   txa
@@ -46,10 +37,34 @@ print_pattern:
   jsr graphics::drawing::goto_xy    ; y-pos is y register
   jsr @print_row_number
 
-  ; Offset for bytes of row
+; If the channel isn't 00, we have to skip past X channels
+; before we start to draw the channels
+@skip_channels:
+  lda START_CHANNEL
+  ; If start channel is not zero, we have some bytes to skip
+  bne @skip_channels_preloop
+  ; If start channel is zero, proceed normally
   ldy #$00  ; offset for row data
+  jmp @channels_loop
+
+@skip_channels_preloop:
+  sta SKIP_CHANNEL_COUNTER
+  lda #$00
+; Otherwise add the total bytes per channels we are skipping to
+; and store in y
+@skip_channel_loop:
+  clc
+  adc #TOTAL_BYTES_PER_CHANNEL
+
+  ;txa
+  ;jsr graphics::kernal::printhex
+
+  dec SKIP_CHANNEL_COUNTER
+  bne @skip_channel_loop
+  tay
 
 @channels_loop:
+
   lda (ROW_POINTER),y
   jsr sound::decode_note
   set_background_foregound_text_color BACKGROUND_COLOR, #PATTERN_ROW_NUMBER_COLOR
@@ -90,7 +105,6 @@ print_pattern:
 
   ; Reset channel counter
   lda #NUM_CHANNELS_VISIBLE
-  ;sta CHANNEL_COUNT
   sta CHANNEL_COUNTER
   rts
 
