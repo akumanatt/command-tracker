@@ -236,7 +236,7 @@ edit_pattern_loop:
   ; Check if we're not on the max possible channel
   lda START_CHANNEL
   clc
-  adc #NUM_CHANNELS_VISIBLE
+  adc #NUM_CHANNELS_VISIBLE - 1
   cmp #NUMBER_OF_CHANNELS
   bne @not_at_last_channel
   jmp edit_pattern_loop

@@ -21,6 +21,9 @@
   ; Distance between the lines for the channels
   CHANNEL_WIDTH = $0C
 
+  FM_CHANNEL_START = $10
+  PCM_CHANNEL_START = $19
+
   NUM_CHANNEL_COLUMNS = $06
   PATTERN_LINES_START_Y = $08
   ; Vars
@@ -32,7 +35,6 @@ draw_pattern_frame:
   jsr ui::clear_lower_frame
 
 @draw_labels:
-
   print_string_macro more_channels_label, #MORE_CHANNELS_LABEL_X, #MORE_CHANNELS_LABEL_Y, #TITLE_COLORS
   print_string_macro row_header, #ROW_HEADER_X, #ROW_HEADER_Y, #TITLE_COLORS
 
@@ -47,8 +49,22 @@ draw_pattern_frame:
   sta CHANNEL_STOP
 
 @channel_labels_loop:
+  cpx #FM_CHANNEL_START
+  bpl @fm_channel_label
+@psg_channel_label:
   print_string_macro verasound_channel_header, CHANNEL_START, #CHANNEL_HEADER, #VERA_CHANNEL_COLOR
   lda #VERA_CHANNEL_COLOR
+  jmp @print_channel_label
+@fm_channel_label:
+  cpx #PCM_CHANNEL_START
+  bpl @pcm_channel_label
+  print_string_macro ym_channel_header, CHANNEL_START, #CHANNEL_HEADER, #YM_CHANNEL_COLOR
+  lda #YM_CHANNEL_COLOR
+  jmp @print_channel_label
+@pcm_channel_label:
+  print_string_macro pcm_channel_header, CHANNEL_START, #CHANNEL_HEADER, #PCM_CHANNEL_COLOR
+  lda #PCM_CHANNEL_COLOR
+@print_channel_label:
   sta r0
   phx
   txa

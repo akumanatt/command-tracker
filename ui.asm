@@ -17,6 +17,8 @@
   goto_pattern_message: .byte "press g to edit pattern",0
 
   verasound_channel_header: .byte "vs ",0
+  ym_channel_header: .byte "ym ",0
+  pcm_channel_header: .byte "pcm ",0
 
   ; includes
   .include "library/ui/draw_frame.asm"
