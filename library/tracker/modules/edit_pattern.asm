@@ -80,8 +80,9 @@ edit_pattern_loop:
   beq @cursor_left_jump
   cmp #KEY_RIGHT
   beq @cursor_right_jump
-  cmp #KEY_TAB
-  beq @cursor_tab_right_jump
+  ; Disable tabbing for now becuase channel advancing doesn't work here
+  ;cmp #KEY_TAB
+  ;beq @cursor_tab_right_jump
   cmp #PETSCII_BRACKET_LEFT
   beq @decrease_octave
   cmp #PETSCII_BRACKET_RIGHT
@@ -127,9 +128,9 @@ edit_pattern_loop:
   beq @update_octave_end
   inc user_octave
   jmp @update_ui_octave
+
 ; TBD
 @update_ui_octave:
-
 @update_octave_end:
   jmp edit_pattern_loop
 
@@ -201,15 +202,36 @@ edit_pattern_loop:
   stz COLUMN_POS
   jmp edit_pattern_loop
 @cursor_left_channel:
-  lda CHANNEL_NUMBER
-  beq @cursor_left_end
+  ; If we're at the 0th screen channel, check to see if we're on the
+  ; 0th actual channel and, if so, we're already as far left as we can go.
+  ; Otherwise, go left normally
+  lda SCREEN_CHANNEL
+  bne @cursor_move_left_channel
+  ; If we're already at channel 0, we can't go left anymore
+  lda START_CHANNEL
+  beq @cursor_left_channel_end
+  ; If we're on the first column but our left-most channel isn't zero,
+  ; we need to move the pattern view over
+@cursor_left_at_first_channel:
+  dec START_CHANNEL
+  jsr ui::draw_pattern_frame
+  jsr ui::print_pattern
+  ; Move to beginning of shifted channel
+  lda #CURSOR_X_START
+  sta cursor_x
+  jsr graphics::drawing::cursor_plot
+  stz COLUMN_POS
+  dec CHANNEL_NUMBER
+  jmp @cursor_left_channel_end
+@cursor_move_left_channel:
   jsr ui::cursor_left
   jsr ui::cursor_left
+  dec SCREEN_CHANNEL
+  dec CHANNEL_NUMBER
+  ; We're moving to the last column of the previous channel
   lda #LAST_COLUMN_POSITION
   sta COLUMN_POS
-  dec CHANNEL_NUMBER
-  dec SCREEN_CHANNEL
-@cursor_left_end:
+@cursor_left_channel_end:
   jmp edit_pattern_loop
 
 @cursor_right:
@@ -238,10 +260,10 @@ edit_pattern_loop:
   clc
   adc #NUM_CHANNELS_VISIBLE - 1
   cmp #NUMBER_OF_CHANNELS
-  bne @not_at_last_channel
+  bne @cursor_right_not_at_last_channel
   jmp edit_pattern_loop
 
-@not_at_last_channel:
+@cursor_right_not_at_last_channel:
   inc START_CHANNEL
   jsr ui::draw_pattern_frame
   jsr ui::print_pattern
@@ -263,12 +285,13 @@ edit_pattern_loop:
 @cursor_tab_right:
   ldx #$0C
   inc CHANNEL_NUMBER
+  lda SCREEN_CHANNEL
   inc SCREEN_CHANNEL
 @cursor_tab_right_loop:
   jsr ui::cursor_right
-  ;inc COLUMN_POS
   dex
   bne @cursor_tab_right_loop
+@cursor_tab_right_end:
   jmp edit_pattern_loop
 
 ; Delete the entire channel/row

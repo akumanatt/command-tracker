@@ -1,7 +1,9 @@
 ; Graphic routines
 
+
 .scope ui
   ; Top Header Labels
+
   command_tracker_string: .byte "command tracker v0.000",0
   song_label: .byte "song:",0
   composer_label: .byte "by  :",0
