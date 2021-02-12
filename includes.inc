@@ -11,6 +11,7 @@
 .include "sound.asm"
 .include "ui.asm"
 .include "tracker.asm"
+.include "debug.asm"
 
 .include "variables.inc"
 

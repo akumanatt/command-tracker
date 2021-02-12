@@ -7,13 +7,6 @@
     .include "library/graphics/vera/load_palette16.asm"
   .endscope
 
-  ; Kernal specific routines (as in not vera)
-  ; will likely not be used after a certain point
-  .scope kernal
-    ;.include "library/graphics/kernal/clearscreen.asm"
-    .include "library/graphics/kernal/printhex.asm"
-  .endscope
-
   ; Drawing rountines
   .scope drawing
     .include "library/graphics/drawing/goto_xy.asm"
