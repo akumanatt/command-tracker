@@ -49,12 +49,10 @@ setup:
   stz STATE
 
   ; Set start channel to 0
-  ;stz START_CHANNEL
-  lda #$00
-  sta START_CHANNEL
+  stz START_CHANNEL
 
   ; Start at first pattern
-  lda #$05
+  lda #$01
   sta PATTERN_NUMBER
 
   jsr tracker::load_patterns

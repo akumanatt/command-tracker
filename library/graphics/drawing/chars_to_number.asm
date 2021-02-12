@@ -8,7 +8,7 @@
 
   ; Vars
   HIGH_BYTE = r0
-  LOW_BYTE = r1
+  LOW_BYTE = r0+1
   TEMP = r15
   ; Returns result in a
 

@@ -30,6 +30,10 @@ get_row:
   sta ROW_POINTER
   lda r2+1
   sta ROW_POINTER+1
+  ;lda ROW_POINTER+1
+  ;jsr graphics::kernal::printhex
+  ;lda ROW_POINTER
+  ;jsr graphics::kernal::printhex
   ;tax;
   ;lda ROW_POINTER
   ;adc SKIP_BYTES

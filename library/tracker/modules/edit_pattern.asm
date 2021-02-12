@@ -30,10 +30,16 @@ LAST_COLUMN_POSITION = $0A
 ; Vars
 COLOR           = r0
 ; Screen row pos (may differ from pattern when scrolling)
-COLUMN_POS      = r6       ; Note, Inst, Vol, Eff, Effect Value
-PITCH_TEMP      = r7
-SCREEN_ROW      = r9
-SCREEN_CHANNEL  = r9 + 1
+;COLUMN_POS      = r6       ; Note, Inst, Vol, Eff, Effect Value
+;PITCH_TEMP      = r7
+;SCREEN_ROW      = r9
+;SCREEN_CHANNEL  = r9 + 1
+
+COLUMN_POS      = TMP1       ; Note, Inst, Vol, Eff, Effect Value
+PITCH_TEMP      = TMP2
+SCREEN_ROW      = TMP3
+SCREEN_CHANNEL  = TMP4
+
 
 ; Initial run once stuff
 edit_pattern:
@@ -380,6 +386,7 @@ edit_pattern_loop:
 
 @print_end:
   jsr @save_row_channel
+
   cli
   jmp edit_pattern_loop
 
@@ -429,7 +436,14 @@ edit_pattern_loop:
   jsr math::multiply_by_12
   clc
   adc #$03  ; For skipping past row numbers
-  ldy SCREEN_ROW
+
+  ; Load the ROW not the screen!
+  ; Previous this was a really hard to catch bug. All rows fit in VRAM so
+  ; the screen position doesn't matter for storing the actual values.
+  ; Previously, SCREEN_ROW was being used here and that mean it kept just
+  ; reading the same screen-row and storing it in the actual row. It was
+  ; very confusing as it only came up when scrolling.
+  ldy ROW_NUMBER
 
   jsr graphics::drawing::goto_xy
 
@@ -472,6 +486,7 @@ edit_pattern_loop:
   asl
   asl
   ora NOTE_NOTE
+
   jmp @store_note
 
 @note_null:
@@ -486,6 +501,10 @@ edit_pattern_loop:
 @store_note:
   ; This was our channel offset from above
   ply
+
+  ;tya
+  ;jsr graphics::kernal::printhex
+
   ; Store note
   sta (ROW_POINTER),y
 
@@ -520,11 +539,16 @@ edit_pattern_loop:
 @inc_row_pointer:
   ; Inc our row pointer
   iny
+
   sta (ROW_POINTER),y
   dex
   bne @store_rest_of_row_loop
 
 @done_save:
+  ;lda NOTE_NOTE
+  ;jsr graphics::kernal::printhex
+
+
   lda #$01
   sta VERA_addr_high
   cli
