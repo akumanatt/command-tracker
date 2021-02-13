@@ -62,7 +62,7 @@ petscii_to_note:
   .byte $02, $19, $00, $FF, $FF, $FF, $FF, $0D
 
 song_title: .byte "bad apple",0
-author: .byte "m00dawg",0
+composer: .byte "m00dawg",0
 
 ; Override the 16 color palette
 ; gb,r

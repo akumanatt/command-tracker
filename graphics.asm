@@ -11,7 +11,7 @@
   .scope drawing
     .include "library/graphics/drawing/goto_xy.asm"
     .include "library/graphics/drawing/print_hex.asm"
-    .include "library/graphics/drawing/print_char.asm"
+    .include "library/graphics/drawing/print_alpha_char.asm"
     .include "library/graphics/drawing/draw_characters.asm"
     .include "library/graphics/drawing/draw_horizontal_line.asm"
     .include "library/graphics/drawing/draw_vertical_line.asm"

@@ -14,14 +14,20 @@ on some random page of RAM or something (or don't load it at all unless
 requested and read it from the file at that point).
 
 ```
+HEADER: 2 bytes (unused)
 VERSION: 1 byte
 SPEED: 1 byte
 TEMPO: 1 byte
 TITLE: Null Terminated String
 ARTIST: Null Terminated String
-DESCRIPTION: Null Terminated String
 ORDER LIST: Array of patterns to play in order, terminated by 0xFF
 
+
+
+```
+
+Old/future format
+```
 VERASOUND INSTRUMENT DATA:
   INST #: 0x00-0xFE
   INST NAME: Null Terminated String

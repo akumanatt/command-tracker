@@ -76,6 +76,8 @@ edit_pattern_loop:
   beq edit_pattern
   cmp #F5
   beq @play_song_module
+  cmp #F10
+  beq @save_song
   cmp #F11
   beq @order_list_module
   cmp #KEY_UP
@@ -119,6 +121,8 @@ edit_pattern_loop:
   jmp main
 @play_song_module:
   jmp tracker::modules::play_song
+@save_song:
+  jmp tracker::modules::save_song
 @order_list_module:
   jmp tracker::modules::orders
 

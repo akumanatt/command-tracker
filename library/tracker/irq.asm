@@ -44,7 +44,7 @@ vblank:
   sta VERA_isr
 
   ldx VBLANK_SKIP_COUNT
-  cpx #SPEED
+  cpx SPEED
   beq @vblank_work
 
 @inc_vblank_skip:

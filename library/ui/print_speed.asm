@@ -10,7 +10,7 @@ print_speed:
 
   ; Color
   set_text_color #$B1
-  lda #SPEED       ; Get the current row conunt
+  lda SPEED       ; Get the current row conunt
   jsr graphics::drawing::print_hex
   rts
 .endproc

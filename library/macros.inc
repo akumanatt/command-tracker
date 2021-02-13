@@ -16,7 +16,7 @@
 .macro vera_stride stride
   pha
   lda VERA_addr_high
-  and #%00011111
+  and #%00001111
   ora stride
   sta VERA_addr_high
   pla
@@ -44,4 +44,9 @@
   lda r2
   sta r0
   pla
+.endmacro
+
+.macro global_keyboard_shortcuts
+
+
 .endmacro

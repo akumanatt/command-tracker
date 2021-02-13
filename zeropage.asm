@@ -4,6 +4,7 @@
 ; Reserved by X16 Kernel
 RESERVED: .res $22
 
+SPEED: .byte 0
 VBLANK_SKIP_COUNT: .byte 0   ; Count of current VBLANK skip
 NOTE_NOTE: .byte 0
 NOTE_OCTAVE: .byte 0

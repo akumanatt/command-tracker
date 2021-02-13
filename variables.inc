@@ -112,14 +112,6 @@ TOTAL_BYTES_PER_ROW = $7D         ; total bytes per row (for skipping rows), 5*2
 TOTAL_BYTES_PER_CHANNEL = $05
 NUM_VERA_PSG_REGISTERS = $04
 
-
-; Temp Vars (these will come from the song file)
-;SPEED = $40                ; how many vblanks to do nothing for
-SPEED = $04                ; how many vblanks to do nothing for
-;SPEED = $01
-;SPEED = $0A                 ; how many vblanks to do nothing for
-;SPEED = $30                ; how many vblanks to do nothing for
-
 ROW_MAX = $40               ; Max # of rows for our test pattern (64)
 ROW_MAJOR = $10             ; Every 16 rows
 ROW_MINOR = $04             ; Every 4 rows

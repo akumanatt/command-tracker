@@ -4,6 +4,8 @@
 
 ; First we shift 4-bits to the right. This is so we can print the first
 ;   character of the number.
+.proc printhex
+
 printhex:
   phx
   phy
@@ -43,3 +45,5 @@ printhex:
             adc #CHARAT
             jsr CHROUT
             rts
+
+.endproc

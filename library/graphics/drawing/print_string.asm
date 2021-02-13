@@ -15,14 +15,27 @@ print:
 @loop:
   lda (STRING_POINTER),y
   beq @end
+  cmp #$0D                ; If return is found, go down a row
+  beq @return
   cmp #$40               ; Only subtract if it's A-Z
   bmi @nosub
   sec                   ; Converting from PETSCII to Screen Codes
   sbc #$40
+  jmp @nosub
+@return:
+  lda X_POS
+  asl               ; shift because second byte is color
+  sta VERA_addr_low
+  ldx Y_POS        ; y coord
+  inx
+  stx VERA_addr_med
+  stx Y_POS
+  jmp @loop_end
 @nosub:
   sta VERA_data0
   lda COLOR
   sta VERA_data0
+@loop_end:
   iny
   bne   @loop
 @end:

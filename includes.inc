@@ -5,13 +5,14 @@
 .include "library/screencodes.inc"
 .include "library/macros.inc"
 
+.include "debug.asm"
 .include "math.asm"
 ;.include "files.asm"
 .include "graphics.asm"
 .include "sound.asm"
 .include "ui.asm"
 .include "tracker.asm"
-.include "debug.asm"
+
 
 .include "variables.inc"
 

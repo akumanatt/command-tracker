@@ -4,7 +4,7 @@ start:
 main:
   wai
   jsr GETIN  ;keyboard
-  jsr graphics::kernal::printhex
+  jsr debug::printhex
   jmp main
 
 .include "data.inc"

@@ -24,6 +24,8 @@ check_keyboard:
   beq @play_song_module
   cmp #F8
   beq @stop_song
+  cmp #F10
+  beq @save_song
   cmp #F11
   beq @order_list_module
   jmp main_application_loop
@@ -39,6 +41,9 @@ check_keyboard:
 @stop_song:
   jsr tracker::stop_song
   jmp main_application_loop
+
+@save_song:
+  jmp tracker::modules::save_song
 
 @order_list_module:
   jmp tracker::modules::orders
