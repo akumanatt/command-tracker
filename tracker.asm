@@ -8,6 +8,7 @@
   .include "library/tracker/inc_row.asm"
   .include "library/tracker/play_row.asm"
   .include "library/tracker/stop_song.asm"
+  .include "library/tracker/save_song.asm"
   .include "library/tracker/irq.asm"
   .scope modules
     .include "library/tracker/modules/orders.asm"

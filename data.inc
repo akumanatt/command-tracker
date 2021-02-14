@@ -28,9 +28,6 @@ cursor_color: .byte $00
 cursor_old_color: .byte $00
 cursor_layer: .byte $00
 
-; Moved to ZP
-; first_channel_in_pattern_view: .byte $00
-
 ; Note value to name lookup
 note_names:  .byte "ccddeffggaab-^-."
 note_sharps: .byte "-#-#--#-#-#--^-."
@@ -61,8 +58,11 @@ petscii_to_note:
   ;     D-0, A-1, C-0, NOP, NOP, NOP, NOP, REL
   .byte $02, $19, $00, $FF, $FF, $FF, $FF, $0D
 
+; Will likely align these to say 16 charactes
 song_title: .byte "bad apple",0
 composer: .byte "m00dawg",0
+; .cmt will be added at end
+filename: .byte "song"
 
 ; Override the 16 color palette
 ; gb,r
