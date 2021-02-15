@@ -15,9 +15,9 @@ print_pattern:
   sta VERA_addr_high
 
   ; Start at the first row
-  lda #<PATTERN_POINTER
+  lda #<PATTERN_ADDRESS
   sta ROW_POINTER
-  lda #>PATTERN_POINTER
+  lda #>PATTERN_ADDRESS
   sta ROW_POINTER+1
 
   ; row count

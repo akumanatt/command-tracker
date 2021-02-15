@@ -47,9 +47,9 @@ get_row:
 
 @reset_pointer:
   pha
-  lda #<PATTERN_POINTER
+  lda #<PATTERN_ADDRESS
   sta ROW_POINTER
-  lda #>PATTERN_POINTER
+  lda #>PATTERN_ADDRESS
   sta ROW_POINTER+1
   pla
   rts

@@ -16,7 +16,6 @@ DC_VIDEO = %00110001
 ISR_HANDLER = $0314
 
 ; Constants
-PATTERN_POINTER = $A000
 SCREEN_X     = $A0    ; 80 * 2 (char + color)
 SCREEN_Y     = $3F    ; 60
 
@@ -108,6 +107,11 @@ STATIC_PATTERN_SCROLL_L = $B0
 NUMBER_OF_CHANNELS = $19
 TOTAL_BYTES_PER_PATTERN = $1F40    ; currently 5 bytes * 25 channels * 64 rows
 TOTAL_BYTES_PER_ROW = $7D         ; total bytes per row (for skipping rows), 5*25
+; 8000 bytes
+TOTAL_PATTERN_SIZE_HIGH = $1F
+TOTAL_PATTERN_SIZE_LOW = $40
+PATTERN_ADDRESS = $A000
+
 
 TOTAL_BYTES_PER_CHANNEL = $05
 NUM_VERA_PSG_REGISTERS = $04
@@ -143,7 +147,9 @@ OCTAVE = $0C  ; 12
 ; Max allowable octave
 MAX_OCTAVE = $09
 
-
 ; States
 STOP_STATE = $00
 PLAY_STATE = $01
+
+; File Info
+FILE_VERSION = $00

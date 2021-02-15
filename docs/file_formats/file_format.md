@@ -13,21 +13,35 @@ arrays for the title and artist and load description into a string say
 on some random page of RAM or something (or don't load it at all unless
 requested and read it from the file at that point).
 
+*The most basic and wasteful format:*
+
+Here we are storing all data, regardless of if it was used or not. For instance,
+we store all the pages in himem instead of looking to see which patterns are
+actually used and storing only those. But this works for now.
+
 ```
-HEADER: 2 bytes (unused)
+ADDRESS HEADER: 2 bytes (Unused)
 VERSION: 1 byte
 SPEED: 1 byte
-TEMPO: 1 byte
-TITLE: Null Terminated String
-ARTIST: Null Terminated String
-ORDER LIST: Array of patterns to play in order, terminated by 0xFF
-
-
+TITLE: 16 bytes
+ARTIST: 16 bytes
+ORDER LIST: 255 bytes
+PATTERNS: $1F40 bytes * $FE pages
 
 ```
+*Old/future format*
 
-Old/future format
 ```
+ADDRESS HEADER: 2 bytes (Unused)
+VERSION: 1 byte
+SPEED: 1 byte
+TITLE: 0 terminated string
+ARTIST: 0 terminated string
+ORDER LIST: orders, terminated by FF
+PATTERNS:
+
+
+
 VERASOUND INSTRUMENT DATA:
   INST #: 0x00-0xFE
   INST NAME: Null Terminated String

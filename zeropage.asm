@@ -24,6 +24,8 @@ START_CHANNEL: .byte 0
 STATE: .byte 0
 
 ROW_POINTER: .word $0000           ; 16-bit address of the row in the pattern
+; Basically just A000
+PATTERN_POINTER: .word $0000
 STRING_POINTER: .word $0000
 PREVIOUS_ISR_HANDLER: .word $0000
 

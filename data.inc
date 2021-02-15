@@ -58,11 +58,11 @@ petscii_to_note:
   ;     D-0, A-1, C-0, NOP, NOP, NOP, NOP, REL
   .byte $02, $19, $00, $FF, $FF, $FF, $FF, $0D
 
-; Will likely align these to say 16 charactes
-song_title: .byte "bad apple",0
-composer: .byte "m00dawg",0
+; Will likely align these to say 15 charactes
+song_title: .byte "bad apple       "
+composer:   .byte "m00dawg         "
 ; .cmt will be added at end
-filename: .byte "song"
+filename: .byte "@:song"
 
 ; Override the 16 color palette
 ; gb,r
@@ -83,3 +83,5 @@ palette:
 .byte $F5,$05     ; light green
 .byte $9F,$0A     ; light blue
 .byte $88,$08     ; light gray
+
+.include "song.inc"

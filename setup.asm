@@ -51,6 +51,12 @@ setup:
   ; Set start channel to 0
   stz START_CHANNEL
 
+  ; Set pattern pointer
+  lda #<PATTERN_ADDRESS
+  sta PATTERN_POINTER
+  lda #>PATTERN_ADDRESS
+  sta PATTERN_POINTER + 1
+
   ; Start at first pattern
   lda #$01
   sta PATTERN_NUMBER

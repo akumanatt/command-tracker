@@ -4,6 +4,7 @@
 
 ; Con
 start:
+  jsr setup
 main:
   jsr tracker::save_song
   rts
