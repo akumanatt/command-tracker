@@ -18,6 +18,31 @@
   DEVICE = $08  ; set to 8 for host system (emulator)
   SECONDARY_ADDR = $01 ; Ignore file header
 
+; Sort the order list first, which will be used to store only the patterns
+; that have been defined in the order list
+@sort_order_list:
+  ; Copy order list to the sorted area
+  lda #<order_list
+  sta r0
+  lda #>order_list
+  sta r0+1
+  lda #<order_list_sorted
+  ; r1 is used by MEMORY_COPY
+  ; r13 is used by math::sort8
+  ; Just trying to save a few cycles by doing this all at once
+  sta r1
+  sta r13
+  lda #>order_list_sorted
+  sta r1+1
+  sta r13+1
+  lda #$FF
+  ; Same as above, r2 used by MEMORY_COPY, r14 by sort8
+  sta r2
+  sta r14
+  jsr MEMORY_COPY
+  jsr math::sort8
+
+; FIX ME: Hardcoded song name for now
 @set_filename:
   lda #$06    ; hardcoded since 'song' is 4 characaters
   ldx #<filename

@@ -13,20 +13,19 @@ main:
   lda #>order_list
   sta r0+1
   lda #<order_list_sorted
+  ; r1 is used by MEMORY_COPY
+  ; r13 is used by math::sort8
+  ; Just trying to save a few cycles by doing this all at once
   sta r1
-  lda #>order_list_sorted
-  sta r1+1
-  lda #$FF
-  sta r2
-  jsr MEMORY_COPY
-
-  ; Now prep for sorting the list
-  lda #<order_list_sorted
   sta r13
   lda #>order_list_sorted
+  sta r1+1
   sta r13+1
   lda #$FF
+  ; Same as above, r2 used by MEMORY_COPY, r14 by sort8
+  sta r2
   sta r14
+  jsr MEMORY_COPY
   jsr math::sort8
 
   ; Now verify sort
