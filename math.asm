@@ -5,6 +5,7 @@
   .include "library/math/mod8.asm"
   .include "library/math/multiply_by_12.asm"
   .include "library/math/multiply16.asm"
-  .include "library/math/set_top_nibble.asm"  
+  .include "library/math/set_top_nibble.asm"
+  .include "library/math/sort8.asm"  
 
 .endscope

@@ -2,8 +2,13 @@
 ; Order list is assumed to be up to 256 ($FF)
 ; we're manually loading it here, but reserving the rest
 ; so we don't run out of RAM while testing stuffs
-order_list: .byte $01, $02,$03,$04
+;order_list: .byte $01, $02,$03,$04
+order_list: .byte $09, $02,$05,$04
 .res $FB
+
+; An array to store the sorted order list - this is temporary data for when
+; saving a song
+order_list_sorted: .res $FF
 
 ; Where to start the order list display from
 ; (such as if we're scrolled further down)
