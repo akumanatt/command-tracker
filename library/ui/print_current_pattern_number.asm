@@ -8,7 +8,7 @@ print_current_pattern_number:
   ldy #CURRENT_PATTERN_DISPLAY_Y
   jsr graphics::drawing::goto_xy
   ; Color
-  set_text_color #$B1
+  set_text_color #TEXT_COLORS
   lda PATTERN_NUMBER       ; Get the current pattern
   jsr graphics::drawing::print_hex        ; print it
   rts

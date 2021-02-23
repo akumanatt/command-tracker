@@ -153,3 +153,9 @@ PLAY_STATE = $01
 
 ; File Info
 FILE_VERSION = $00
+
+; Lengths of things
+SONG_TITLE_MAX_LENGTH = $0F
+COMPOSER_MAX_LENGTH = $0F
+; Including "@:"
+FILENAME_MAX_LENGTH = $11

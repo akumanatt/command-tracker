@@ -20,6 +20,7 @@
 ; and not the position on the screen.
 
 .proc orders
+  ; Temp vars used: r0, r1
   ; Relative position we are in the order list on screen
   ORDER_LIST_POSITION = r14
 

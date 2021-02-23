@@ -25,6 +25,10 @@ KEY_DOWN = $11
 KEY_LEFT = $9D
 KEY_RIGHT = $1D
 
+; Command / Alt S and L for save and load
+COMMAND_S = $AE
+COMMAND_L = $B6
+
 ENTER = $0D
 
 PETSCII_AT = $40 ;@ sign

@@ -26,7 +26,13 @@ SPEED: 1 byte
 TITLE: 16 bytes
 ARTIST: 16 bytes
 ORDER LIST: 255 bytes
-PATTERNS: $1F40 bytes * $FE pages
+PATTERNS:
+  Pattern #: (1 byte)
+  Pattern Data: $1F40 bytes
+  ...
+  Pattern n...
+
+  Patterns End: $00 (1 byte)
 
 ```
 *Old/future format*

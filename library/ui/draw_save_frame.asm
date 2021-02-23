@@ -27,7 +27,6 @@
 start:
   print_string_macro save_header, #SAVE_HEADER_X, #SAVE_HEADER_Y, #TITLE_COLORS
   print_string_macro input_titles, #INPUT_TITLES_X, #INPUT_TITLES_Y, #TITLE_COLORS
-  print_string_macro filename_ext_header, #FILENAME_EXT_HEADER_X, #FILENAME_EXT_HEADER_Y, #TITLE_COLORS
 
   print_string_macro song_title, #SONG_TITLE_INPUT_X, #SONG_TITLE_INPUT_Y, #EDITABLE_TEXT_COLORS
   print_string_macro composer, #COMPOSER_INPUT_X, #COMPOSER_INPUT_Y, #EDITABLE_TEXT_COLORS
@@ -47,15 +46,15 @@ start:
 end:
   rts
 
-save_header: .byte "save song",0
+save_header: .byte "load/save song",0
 input_titles:
   .byte "title:", $0D
   .byte "composer:",$0D
   .byte "start speed:", $0D
   .byte "filename:", $0D
   .byte $0D,$0D,$0D,$0D
-  .byte "press enter on filename to save"
+  .byte "cmd-s: save", $0D
+  .byte "cmd-l: load", $0D
   .byte 0
-filename_ext_header: .byte ".cmt",0
 
 .endproc

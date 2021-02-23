@@ -6,6 +6,8 @@
 start:
   jsr setup
   jsr ui::draw_frame
+  jsr ui::print_song_info
+  jsr ui::print_speed
 
 ; Main module
 main:

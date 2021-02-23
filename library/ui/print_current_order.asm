@@ -9,7 +9,7 @@ print_current_order:
   jsr graphics::drawing::goto_xy
 
   ; Color
-  set_text_color #$B1
+  set_text_color #TEXT_COLORS
   lda ORDER_NUMBER       ; Get the current row conunt
   jsr graphics::drawing::print_hex
   rts

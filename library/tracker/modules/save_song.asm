@@ -16,8 +16,6 @@
   FILENAME_INPUT_X = $12
   FILENAME_INPUT_Y = $0D
 
-
-
 start:
   lda #$10
   sta VERA_addr_high ; Set primary address bank to 0, stride to 1
@@ -48,25 +46,35 @@ start:
   beq @play_song_module
   cmp #F8
   beq @stop_song
-  ;cmp #F10PETSCII_BACKSPACE
-  ;beq @save_song
+  cmp #COMMAND_S
+  beq @save_song_jump
+  cmp #COMMAND_L
+  beq @load_song_jump
   cmp #F11
-  beq @order_list_module
+  beq @order_list_module_jump
   cmp #KEY_UP
   beq @cursor_up
   cmp #KEY_DOWN
   beq @cursor_down
   cmp #PETSCII_BACKSPACE
   beq @backspace
-  cmp #PETSCII_RETURN
-  beq @save_song
-  cmp #$30
+  ; Start at period
+  cmp #$2E
   bpl @print_letters
 
   jmp @main_save_loop
 
 @help_module:
   jmp main
+
+@order_list_module_jump:
+  jmp @order_list_module
+
+@save_song_jump:
+  jmp @save_song
+
+@load_song_jump:
+  jmp @load_song
 
 @edit_pattern_module:
   jsr tracker::stop_song
@@ -83,6 +91,7 @@ start:
   lda cursor_y
   cmp #CURSOR_START_Y
   beq @cursor_up_end
+  jsr @update_info
   jsr ui::cursor_up
 @cursor_up_end:
   jmp @main_save_loop
@@ -91,17 +100,9 @@ start:
   lda cursor_y
   cmp #CURSOR_STOP_Y
   beq @cursor_down_end
+  jsr @update_info
   jsr ui::cursor_down
 @cursor_down_end:
-  jmp @main_save_loop
-
-@save_song:
-  ; Only save the song if we're on the filename row
-  lda cursor_y
-  cmp #FILENAME_INPUT_Y
-  bne @save_song_end
-  jsr tracker::save_song
-@save_song_end:
   jmp @main_save_loop
 
 @order_list_module:
@@ -133,5 +134,74 @@ start:
   jsr ui::cursor_right
 @print_end:
   jmp @main_save_loop
+
+
+; Update title, composer, speed, and filename
+@update_info:
+  ; Skip over colors
+  lda #$20
+  sta VERA_addr_high
+@update_song_title:
+  lda #SONG_TITLE_INPUT_X
+  ldy #SONG_TITLE_INPUT_Y
+  jsr graphics::drawing::goto_xy
+  ldx #SONG_TITLE_MAX_LENGTH
+  ldy #$0
+@update_song_title_loop:
+  lda VERA_data0
+  sta song_title,y
+  iny
+  dex
+  bne @update_song_title_loop
+
+@update_composer:
+  lda #COMPOSER_INPUT_X
+  ldy #COMPOSER_INPUT_Y
+  jsr graphics::drawing::goto_xy
+  ldx #COMPOSER_MAX_LENGTH
+  ldy #$0
+@update_composer_loop:
+  lda VERA_data0
+  sta composer,y
+  iny
+  dex
+  bne @update_composer_loop
+
+@update_speed:
+  lda #SPEED_INPUT_X
+  ldy #SPEED_INPUT_Y
+  jsr graphics::drawing::goto_xy
+  lda VERA_data0
+  sta r0
+  lda VERA_data0
+  sta r1
+  jsr graphics::drawing::chars_to_number
+  sta SPEED
+
+@update_end:
+  ;jsr ui::draw_frame
+  jsr ui::print_song_info
+  jsr ui::print_speed
+  ;jsr ui::draw_save_frame
+  rts
+
+
+@load_song:
+  print_string_macro load_text, #$05, #$0F, #TITLE_COLORS
+  print_string_macro done_text, #$0E, #$0F, #TITLE_COLORS
+  jmp @main_save_loop
+
+; Save song
+@save_song:
+  print_string_macro save_text, #$05, #$0F, #TITLE_COLORS
+  jsr tracker::save_song
+  print_string_macro done_text, #$0E, #$0F, #TITLE_COLORS
+  jmp @main_save_loop
+
+
+; Strings
+save_text: .byte "saving...     ", 0
+load_text: .byte "loading..     ", 0
+done_text: .byte "done!",0
 
 .endproc

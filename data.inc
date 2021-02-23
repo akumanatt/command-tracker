@@ -3,8 +3,15 @@
 ; we're manually loading it here, but reserving the rest
 ; so we don't run out of RAM while testing stuffs
 ;order_list: .byte $01, $02,$03,$04
-order_list: .byte $09, $02,$05,$04
+;.res $FB
+;order_list: .byte $09, $02,$05,$04
+
+;order_list: .byte $02, $02, $01, $01
+;.res $FB
+
+order_list: .byte $AB, $CD, $DE, $CD
 .res $FB
+
 
 ; An array to store the sorted order list - this is temporary data for when
 ; saving a song
@@ -64,10 +71,14 @@ petscii_to_note:
   .byte $02, $19, $00, $FF, $FF, $FF, $FF, $0D
 
 ; Will likely align these to say 15 charactes
-song_title: .byte "bad apple       "
-composer:   .byte "m00dawg         "
-; .cmt will be added at end
-filename: .byte "@:song"
+song_title:     .byte "bad apple      ",0
+composer:       .byte "m00dawg        ",0
+
+; When we need to reference the OS filename which includes the
+; @: to indicate file overwriting
+full_filename:  .byte "@:"
+filename:       .byte "song.cmt        ",0
+;filename: .byte "song"
 
 ; Override the 16 color palette
 ; gb,r

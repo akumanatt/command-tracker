@@ -16,8 +16,7 @@ help_text:
   .byte "f2  : edit pattern", $0D
   .byte "f5  : play song", $0D
   .byte "f8  : stop", $0D
-  ;.byte "f9  : load", $0D
-  .byte "f10 : save", $0D
+  .byte "f10 : load/save", $0D
   .byte "f11 : orders", $0D
   .byte 0
 
