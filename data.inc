@@ -4,13 +4,14 @@
 ; so we don't run out of RAM while testing stuffs
 ;order_list: .byte $01, $02,$03,$04
 ;.res $FB
-;order_list: .byte $09, $02,$05,$04
+order_list: .byte $09, $02,$05,$04, $01, $02, $03, $04, $05, $06, $08
+.res $F4
 
 ;order_list: .byte $02, $02, $01, $01
 ;.res $FB
 
-order_list: .byte $AB, $CD, $DE, $CD
-.res $FB
+;order_list: .byte $AB, $CD, $DE, $CD
+;.res $FB
 
 
 ; An array to store the sorted order list - this is temporary data for when

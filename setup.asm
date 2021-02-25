@@ -39,6 +39,9 @@ setup:
 
   jsr graphics::vera::load_palette_16
 
+  ; Set ROM Bank to 0 (Kernel)
+  stz ROM_BANK
+
   ; Enable VBLANK Interrupt
   ; We will use VBLANK from the VERA as our time keeper, so we enable
   ; the VBLANK interupt
