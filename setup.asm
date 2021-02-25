@@ -40,6 +40,9 @@ setup:
   jsr graphics::vera::load_palette_16
 
   ; Set ROM Bank to 0 (Kernel)
+  ; This speeds up calls to kernel routines by avoiding unnecessary jumps
+  ; when using the default ROM bank (4) which is for BASIC and we don't need
+  ; here.
   stz ROM_BANK
 
   ; Enable VBLANK Interrupt
