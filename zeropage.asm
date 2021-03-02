@@ -34,5 +34,5 @@ TMP1: .byte $00
 TMP2: .byte $00
 TMP3: .byte $00
 TMP4: .byte $00
-TMP5: .byte $00
-TMP6: .byte $00
+;TMP5: .byte $00
+;TMP6: .byte $00

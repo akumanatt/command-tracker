@@ -29,74 +29,43 @@
 
 
 .proc save_song
-  ; Constants
-  FILE_NUMBER = $01  ; set to 1 for now as we will only be opening 1 file at a time
-  DEVICE = $08  ; set to 8 for host system (emulator)
-  SECONDARY_ADDR = $01 ; Ignore file header
-
   ; Vars
   ; A variable to store the pattern number so that we skip over duplicates
   ; in the sorted order list
-  PATTERN_NUMBER = r15
+  PATTERN_NUMBER = r5
 
-@set_filename:
-  ldy #$FF
-  ldx #FILENAME_MAX_LENGTH
-; Get the length by finding the first space
-@find_filename_length:
-  iny
-  lda full_filename,y
-  dex
-  beq @set_filename
-  cmp #SCREENCODE_BLANK
-  bne @find_filename_length
-@set_filename_end:
-  tya
-  ldx #<full_filename
-  ldy #>full_filename
-  jsr SETNAM
-
-; This allows overwriting the file, though note it still requires
-; using @: as a prefix of the filename.
-@overwrite_file:
-  lda #FILE_NUMBER
-  jsr CLOSE
-
-@set_file_parameters:
-  lda #FILE_NUMBER
-  ldx #DEVICE
-  ldy #SECONDARY_ADDR
-  jsr SETLFS
-
-@open_file:
-  jsr OPEN
-  ldx #FILE_NUMBER
-  jsr CHKOUT
+  sei
+  jsr files::open_for_write
 
 @write_bytes:
+  ; OS File header (unused)
+  lda #$00
+  jsr CHROUT
+  jsr CHROUT
+  ; Version of CMT save file format
   lda #FILE_VERSION
   jsr CHROUT
+  ; Starting song speed
   lda SPEED
   jsr CHROUT
 
 @write_title:
-  ldx #$00
+  ldx #$FF
 @write_title_loop:
+  inx
   lda song_title,x
   jsr CHROUT
-  inx
-  cpx #$10
+  cpx #SONG_TITLE_MAX_LENGTH
   bne @write_title_loop
 
 @write_composer:
-  ldx #$00
+  ldx #$FF
 @write_composer_loop:
+  inx
   lda composer,x
   jsr CHROUT
-  inx
-  cpx #$10
+  cpx #COMPOSER_MAX_LENGTH
   bne @write_composer_loop
-
 
 @write_order_list:
   ldx #$00
@@ -110,26 +79,20 @@
 ; that have been defined in the order list
 @sort_order_list:
   ; Copy order list to the sorted area
-  lda #<order_list
-  sta r0
-  lda #>order_list
-  sta r0+1
+  ldx #$00
+@copy_order_list_loop:
+  lda order_list,x
+  sta order_list_sorted,x
+  inx
+  bne @copy_order_list_loop
+@copy_order_list_loop_done:
   lda #<order_list_sorted
-  ; r1 is used by MEMORY_COPY
-  ; r13 is used by math::sort8
-  ; Just trying to save a few cycles by doing this all at once
-  sta r1
   sta r13
   lda #>order_list_sorted
-  sta r1+1
   sta r13+1
   lda #$FF
-  ; Same as above, r2 used by MEMORY_COPY, r14 by sort8
-  sta r2
   sta r14
-  jsr MEMORY_COPY
   jsr math::sort8
-
 
 ; This is super wasteful as we're just grabbing full pages from himemory
 ; as this makes the count easier :P In reality, patterns are currently
@@ -137,12 +100,12 @@
 @write_patterns:
   ; Set pattern number to 00 since we haven't saved any patterns yet.
   stz PATTERN_NUMBER
-  ; Set loop counter for sorter order list array
-  ldy #$00
 
 ; Pattern loop which reads the sorted order list and writes unique patterns
 ; to the file, writing the pattern number first and then the full hi-mem
 ; page data for that pattern (pattern number == page number)
+; Set loop counter for sorter order list array
+  ldy #$00
 @get_pattern_loop:
   lda order_list_sorted,y
   ; Push our order list index
@@ -200,9 +163,14 @@
   jsr CHROUT
 
 ; Close the file and return
-@close_file:
-  lda #FILE_NUMBER
-  jsr CLOSE
-  jsr CLRCHN
+  jsr files::close_file
+
+  ; Reset pattern pointer back to default
+  lda #<PATTERN_ADDRESS
+  sta PATTERN_POINTER
+  lda #>PATTERN_ADDRESS
+  sta PATTERN_POINTER + 1
+
+  cli
   rts
 .endproc

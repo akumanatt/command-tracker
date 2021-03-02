@@ -15,7 +15,8 @@ print:
 @loop:
   lda (STRING_POINTER),y
   beq @end
-  cmp #$0D                ; If return is found, go down a row
+  cmp #SCREENCODE_RETURN  ; Our special screencode value to indicate return
+  ;cmp #$0D                ; If return is found, go down a row
   beq @return
   cmp #$40               ; Only subtract if it's A-Z
   bmi @nosub

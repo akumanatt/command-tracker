@@ -4,8 +4,8 @@
 ; so we don't run out of RAM while testing stuffs
 ;order_list: .byte $01, $02,$03,$04
 ;.res $FB
-order_list: .byte $09, $02,$05,$04, $01, $02, $03, $04, $05, $06, $08
-.res $F4
+;order_list: .byte $09, $02,$05,$04, $01, $02, $03, $04, $05, $06, $08
+;.res $F4
 
 ;order_list: .byte $02, $02, $01, $01
 ;.res $FB
@@ -13,6 +13,7 @@ order_list: .byte $09, $02,$05,$04, $01, $02, $03, $04, $05, $06, $08
 ;order_list: .byte $AB, $CD, $DE, $CD
 ;.res $FB
 
+order_list: .res $FF
 
 ; An array to store the sorted order list - this is temporary data for when
 ; saving a song
@@ -71,20 +72,24 @@ petscii_to_note:
   ;     D-0, A-1, C-0, NOP, NOP, NOP, NOP, REL
   .byte $02, $19, $00, $FF, $FF, $FF, $FF, $0D
 
-; Will likely align these to say 15 charactes
-song_title:     .byte "bad apple      ",0
-composer:       .byte "m00dawg        ",0
+; 16 characters each
+; We have the extra 0 at the end for the print macro
+song_title:     .byte "                  ",0
+composer:       .byte "                  ",0
+;song_title:     .byte "bad apple         ",0
+;composer:       .byte "m00dawg           ",0
 
 ; When we need to reference the OS filename which includes the
 ; @: to indicate file overwriting
 full_filename:  .byte "@:"
-filename:       .byte "song.cmt        ",0
+filename:       .byte "                ",0
+;filename:       .byte "song.cmt        ",0
 ;filename: .byte "song"
 
 ; Override the 16 color palette
 ; gb,r
 palette:
-.byte $01,$00     ; super dark blue
+.byte $02,$00     ; super dark blue
 .byte $FF,$0F     ; white
 .byte $00,$0F     ; red
 .byte $4F,$04     ; cyan
@@ -101,4 +106,4 @@ palette:
 .byte $9F,$0A     ; light blue
 .byte $88,$08     ; light gray
 
-.include "song.inc"
+;.include "song.inc"

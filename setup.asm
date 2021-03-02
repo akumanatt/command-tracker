@@ -68,9 +68,9 @@ setup:
   sta PATTERN_NUMBER
 
   ; Manully set speed (for now)
-  lda #$06
+  lda #$0A
   sta SPEED
 
-  jsr tracker::load_patterns
+  jsr tracker::clear_patterns
 
   rts

@@ -180,6 +180,7 @@ IOINIT                        := $FF84
 RAMTAS                        := $FF87
 RESTOR                        := $FF8A
 SETLFS                        := $FFBA
+READST												:= $FFB7
 SETNAM                        := $FFBD
 OPEN                          := $FFC0
 CLOSE                         := $FFC3

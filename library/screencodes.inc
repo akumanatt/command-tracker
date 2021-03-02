@@ -7,3 +7,7 @@ SCREENCODE_PERIOD = $2E
 SCREENCODE_ARROW_UP = $1E
 SCREENCODE_DASH = $2D
 SCREENCODE_BLANK = $20
+SCREENCODE_AT = $00
+
+; Special value we will use to denote return in screencode strings
+SCREENCODE_RETURN = $FF

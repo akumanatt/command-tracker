@@ -12,7 +12,7 @@ DISPLAY_END_Y = $3B
 ; Field : Sprit E : L1 E : L2 E : NC : Chroma : Output x2
 DC_VIDEO = %00110001
 
-; Kernel Locations
+; Kernel Settings
 ISR_HANDLER = $0314
 
 ; Constants
@@ -155,7 +155,7 @@ PLAY_STATE = $01
 FILE_VERSION = $00
 
 ; Lengths of things
-SONG_TITLE_MAX_LENGTH = $0F
-COMPOSER_MAX_LENGTH = $0F
+SONG_TITLE_MAX_LENGTH = $10
+COMPOSER_MAX_LENGTH = $10
 ; Including "@:"
 FILENAME_MAX_LENGTH = $11

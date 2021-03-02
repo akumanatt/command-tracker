@@ -12,12 +12,12 @@ draw_help_frame:
   rts
 
 help_text:
-  .byte "f1  : help", $0D
-  .byte "f2  : edit pattern", $0D
-  .byte "f5  : play song", $0D
-  .byte "f8  : stop", $0D
-  .byte "f10 : load/save", $0D
-  .byte "f11 : orders", $0D
+  .byte "f1  : help", SCREENCODE_RETURN
+  .byte "f2  : edit pattern", SCREENCODE_RETURN
+  .byte "f5  : play song", SCREENCODE_RETURN
+  .byte "f8  : stop", SCREENCODE_RETURN
+  .byte "f10 : load/save", SCREENCODE_RETURN
+  .byte "f11 : orders", SCREENCODE_RETURN
   .byte 0
 
 .endproc

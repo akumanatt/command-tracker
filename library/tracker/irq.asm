@@ -1,3 +1,5 @@
+; Setup playback IRQ
+.proc enable_irq
 enable_irq:
   ; Setup irq handler
   ; We load the address of our interrupt handler into a special memory
@@ -70,3 +72,16 @@ vblank:
 @vblank_end:
   clc
   jmp (PREVIOUS_ISR_HANDLER)        ; Pass control to the previous handler
+
+.endproc
+
+; Restore the previous IRQ routine
+.proc disable_irq
+  ldx #$0
+  lda PREVIOUS_ISR_HANDLER,x
+  sta ISR_HANDLER,x
+  inx
+  lda PREVIOUS_ISR_HANDLER,x
+  sta ISR_HANDLER,x
+  rts
+.endproc

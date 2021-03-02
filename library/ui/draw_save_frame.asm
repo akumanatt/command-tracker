@@ -48,13 +48,13 @@ end:
 
 save_header: .byte "load/save song",0
 input_titles:
-  .byte "title:", $0D
-  .byte "composer:",$0D
-  .byte "start speed:", $0D
-  .byte "filename:", $0D
-  .byte $0D,$0D,$0D,$0D
-  .byte "cmd-s: save", $0D
-  .byte "cmd-l: load", $0D
+  .byte "title:", SCREENCODE_RETURN
+  .byte "composer:", SCREENCODE_RETURN
+  .byte "start speed:", SCREENCODE_RETURN
+  .byte "filename:", SCREENCODE_RETURN
+  .byte SCREENCODE_RETURN,SCREENCODE_RETURN,SCREENCODE_RETURN,SCREENCODE_RETURN
+  .byte "cmd-s: save", SCREENCODE_RETURN
+  .byte "cmd-l: load", SCREENCODE_RETURN
   .byte 0
 
 .endproc

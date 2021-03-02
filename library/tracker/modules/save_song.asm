@@ -17,7 +17,7 @@
   FILENAME_INPUT_Y = $0D
 
 start:
-  lda #$10
+  lda #$20
   sta VERA_addr_high ; Set primary address bank to 0, stride to 1
   jsr ui::clear_lower_frame
   jsr ui::draw_save_frame
@@ -31,7 +31,6 @@ start:
   lda #CURSOR_START_Y
   sta cursor_y
   jsr graphics::drawing::cursor_plot
-
 
 @main_save_loop:
   wai
@@ -53,15 +52,20 @@ start:
   cmp #F11
   beq @order_list_module_jump
   cmp #KEY_UP
-  beq @cursor_up
+  beq @cursor_up_jump
   cmp #KEY_DOWN
-  beq @cursor_down
+  beq @cursor_down_jump
+  cmp #KEY_LEFT
+  beq @cursor_left_jump
+  cmp #KEY_RIGHT
+  beq @cursor_right_jump
+  cmp #SPACE
+  beq @cursor_right_jump
   cmp #PETSCII_BACKSPACE
   beq @backspace
   ; Start at period
-  cmp #$2E
+  cmp #PETSCII_PERIOD
   bpl @print_letters
-
   jmp @main_save_loop
 
 @help_module:
@@ -87,26 +91,28 @@ start:
   jsr tracker::stop_song
   jmp @main_save_loop
 
-@cursor_up:
-  lda cursor_y
-  cmp #CURSOR_START_Y
-  beq @cursor_up_end
-  jsr @update_info
-  jsr ui::cursor_up
-@cursor_up_end:
-  jmp @main_save_loop
+@cursor_up_jump:
+  jmp @cursor_up
+@cursor_down_jump:
+  jmp @cursor_down
+@cursor_left_jump:
+  jmp @cursor_left
+@cursor_right_jump:
+  jmp @cursor_right
 
-@cursor_down:
-  lda cursor_y
-  cmp #CURSOR_STOP_Y
-  beq @cursor_down_end
+@print_letters:
+  pha
+  lda cursor_x
+  ldy cursor_y
+  jsr graphics::drawing::goto_xy
+  ldx #EDITABLE_TEXT_COLORS
+  stx r0
+  pla
+  jsr graphics::drawing::print_alpha_char
+  jsr ui::cursor_right
   jsr @update_info
-  jsr ui::cursor_down
-@cursor_down_end:
+@print_end:
   jmp @main_save_loop
-
-@order_list_module:
-  jmp tracker::modules::orders
 
 @backspace:
   lda cursor_x
@@ -122,22 +128,51 @@ start:
 @backspace_end:
   jmp @main_save_loop
 
-@print_letters:
-  pha
-  lda cursor_x
-  ldy cursor_y
-  jsr graphics::drawing::goto_xy
-  pla
-  ldx #EDITABLE_TEXT_COLORS
-  stx r0
-  jsr graphics::drawing::print_alpha_char
-  jsr ui::cursor_right
-@print_end:
+@cursor_up:
+  lda cursor_y
+  cmp #CURSOR_START_Y
+  beq @cursor_up_end
+  lda #CURSOR_START_X
+  sta cursor_x
+  dec cursor_y
+  jsr graphics::drawing::cursor_plot
+  ;jsr @update_info
+@cursor_up_end:
   jmp @main_save_loop
 
+@cursor_down:
+  lda cursor_y
+  cmp #CURSOR_STOP_Y
+  beq @cursor_down_end
+  jsr graphics::drawing::cursor_unplot
+  lda #CURSOR_START_X
+  sta cursor_x
+  inc cursor_y
+  jsr graphics::drawing::cursor_plot
+  ;jsr @update_info
+@cursor_down_end:
+  jmp @main_save_loop
+
+@cursor_left:
+  lda cursor_x
+  cmp #CURSOR_START_X
+  beq @cursor_left_end
+  jsr ui::cursor_left
+@cursor_left_end:
+  jmp @main_save_loop
+
+@cursor_right:
+  jsr ui::cursor_right
+  inc order_list_column
+@cursor_right_end:
+  jmp @main_save_loop
+
+@order_list_module:
+  jmp tracker::modules::orders
 
 ; Update title, composer, speed, and filename
 @update_info:
+  sei
   ; Skip over colors
   lda #$20
   sta VERA_addr_high
@@ -146,7 +181,7 @@ start:
   ldy #SONG_TITLE_INPUT_Y
   jsr graphics::drawing::goto_xy
   ldx #SONG_TITLE_MAX_LENGTH
-  ldy #$0
+  ldy #$00
 @update_song_title_loop:
   lda VERA_data0
   sta song_title,y
@@ -159,7 +194,7 @@ start:
   ldy #COMPOSER_INPUT_Y
   jsr graphics::drawing::goto_xy
   ldx #COMPOSER_MAX_LENGTH
-  ldy #$0
+  ldy #$00
 @update_composer_loop:
   lda VERA_data0
   sta composer,y
@@ -178,17 +213,43 @@ start:
   jsr graphics::drawing::chars_to_number
   sta SPEED
 
+@update_filename:
+  lda #FILENAME_INPUT_X
+  ldy #FILENAME_INPUT_Y
+  jsr graphics::drawing::goto_xy
+  ldx #FILENAME_MAX_LENGTH
+  ldy #$00
+; Screencode to PETSCII conversion logic happening here
+@update_filename_loop:
+  lda VERA_data0
+  cmp #SCREENCODE_BLANK
+  beq @update_end
+  cmp #PETSCII_PERIOD
+  bcs @update_char
+  clc
+  adc #$40
+@update_char:
+  sta filename,y
+  iny
+  dex
+  bne @update_filename_loop
+
 @update_end:
   ;jsr ui::draw_frame
   jsr ui::print_song_info
   jsr ui::print_speed
   ;jsr ui::draw_save_frame
+  cli
   rts
 
 
 @load_song:
   print_string_macro load_text, #$05, #$0F, #TITLE_COLORS
+  jsr tracker::load_song
   print_string_macro done_text, #$0E, #$0F, #TITLE_COLORS
+  jsr ui::print_song_info
+  jsr ui::print_speed
+  jsr ui::draw_save_frame
   jmp @main_save_loop
 
 ; Save song

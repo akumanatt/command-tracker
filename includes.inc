@@ -7,7 +7,7 @@
 
 .include "debug.asm"
 .include "math.asm"
-;.include "files.asm"
+.include "files.asm"
 .include "graphics.asm"
 .include "sound.asm"
 .include "ui.asm"
