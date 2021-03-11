@@ -9,6 +9,7 @@ play_song:
   lda STATE
   beq start_song
   jsr disable_irq
+  jsr concerto_synth::deactivate_synth
 start_song:
   lda #PLAY_STATE
   sta STATE

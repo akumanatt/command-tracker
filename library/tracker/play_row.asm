@@ -21,11 +21,11 @@ play_row:
      lda #63
      sta concerto_synth::note_volume
 
-     lda #0
-     sta concerto_synth::note_timbre
-
 @channel_loop:
   lda CHANNEL_COUNT
+  ; For now, only worry about the PSGs
+  cmp #PSG_CHANNELS
+  bcs @inc
   sta concerto_synth::note_channel
 
   lda #$00
@@ -35,8 +35,6 @@ play_row:
   jsr @vol
   jsr @inst
   jsr @note
-
-
 
 @inc:
   lda CHANNEL_OFFSET
@@ -96,7 +94,11 @@ play_row:
 
 @note_off:
   set_note_off
-  jsr concerto_synth::stop_note
+  jsr concerto_synth::release_note
+  ;sei
+  ;jsr concerto_synth::stop_note
+  ;cli
+
   ; debug
   ;lda NOTE_FLAGS
   ;jsr printhex
@@ -113,12 +115,15 @@ play_row:
 
 
 @inst:
-  ; placeholder, do nothing but jump past the byte
-  lda #$01  ; inst is second byte
-
-
-  ; Placeholder
-  ;stz concerto_synth::note_timbre
+  lda #$01    ; inst is second byte
+  clc
+  adc CHANNEL_OFFSET
+  tay
+  lda (ROW_POINTER),y ;get vol from the pattern
+  cmp #INSTNULL
+  beq @inst_end
+  sta concerto_synth::note_timbre
+@inst_end:
   rts
 
 ; Set Vol

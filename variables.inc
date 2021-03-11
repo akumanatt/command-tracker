@@ -104,16 +104,22 @@ STATIC_PATTERN_SCROLL_L = $B0
 ;TOTAL_BYTES_PER_ROW = $1E         ; total bytes per row (for skipping rows)
 
 ; 25 Channels (16 PSG, 8 FM, 1 DPCM)
-NUMBER_OF_CHANNELS = $19
+PSG_CHANNELS = $10
+YM_CHANNELS = $08
+DPCM_CHANNELS = $01
+
+; Start at 0, so 0-24
+NUMBER_OF_CHANNELS = $18
 TOTAL_BYTES_PER_PATTERN = $1F40    ; currently 5 bytes * 25 channels * 64 rows
 TOTAL_BYTES_PER_ROW = $7D         ; total bytes per row (for skipping rows), 5*25
+TOTAL_BYTES_PER_CHANNEL = $05
 ; 8000 bytes
 TOTAL_PATTERN_SIZE_HIGH = $1F
 TOTAL_PATTERN_SIZE_LOW = $40
 PATTERN_ADDRESS = $A000
 
 
-TOTAL_BYTES_PER_CHANNEL = $05
+
 NUM_VERA_PSG_REGISTERS = $04
 
 ROW_MAX = $40               ; Max # of rows for our test pattern (64)
