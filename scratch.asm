@@ -8,27 +8,35 @@ start:
 main:
   ;jsr tracker::save_song
   ;jsr tracker::load_song
-  lda #$20
-  sta VERA_addr_high
-  stz VERA_addr_med
-  stz VERA_addr_low
-  lda #$0D
-  sta VERA_data0
-
-  lda #$0F
-  sta r0
-  lda #$4D
-  jsr graphics::drawing::print_alpha_char
-  lda #$4D
-  jsr graphics::drawing::print_alpha_char
-  lda #$4D
-  jsr graphics::drawing::print_alpha_char
-  lda #$4D
-  jsr graphics::drawing::print_alpha_char
+  jsr concerto_synth::initialize
+  jsr concerto_synth::activate_synth
 
 
-  ;jmp tracker::exit
+;              channel number: r0L
+;              note timbre:    r0H
+;              note pitch:     r1L
+;              note volume:    r1H
+
+  sei
+   ; play a note
+   lda #60
+   sta concerto_synth::note_pitch
+   lda #63
+   sta concerto_synth::note_volume
+   lda #0
+   sta concerto_synth::note_channel
+   lda #0
+   sta concerto_synth::note_timbre
+   sei
+   jsr concerto_synth::play_note
+   cli
+
+
 loop:
+  sei
+
+  jsr concerto_synth::voices::play_note
+  cli
   jmp loop
 
 

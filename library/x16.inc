@@ -72,6 +72,7 @@ ZP_PTR_4          = $26
 VERA_addr_low     = $9F20
 VERA_addr_med		  = $9F21
 VERA_addr_high    = $9F22
+VERA_addr_bank    = $9F22
 VERA_data0        = $9F23
 VERA_data1        = $9F24
 VERA_ctrl         = $9F25
