@@ -7,6 +7,7 @@
 .include "library/keyboard.inc"
 .include "library/screencodes.inc"
 .include "library/macros.inc"
+.include "concerto_synth/concerto_synth.asm"
 .include "debug.asm"
 .include "math.asm"
 .include "files.asm"
@@ -15,7 +16,7 @@
 .include "ui.asm"
 .include "tracker.asm"
 
-.include "concerto_synth/concerto_synth.asm"
+
 
 
 .include "variables.inc"

@@ -6,6 +6,7 @@
 start:
   jsr setup
 main:
+
   ;jsr tracker::save_song
   ;jsr tracker::load_song
   jsr concerto_synth::initialize
@@ -18,9 +19,7 @@ main:
 ;              note volume:    r1H
 
   sei
-   ; play a note
-   lda #60
-   sta concerto_synth::note_pitch
+   stx concerto_synth::note_pitch
    lda #63
    sta concerto_synth::note_volume
    lda #0
