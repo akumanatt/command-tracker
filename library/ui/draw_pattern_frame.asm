@@ -65,7 +65,7 @@ draw_pattern_frame:
   print_string_macro pcm_channel_header, CHANNEL_START, #CHANNEL_HEADER, #PCM_CHANNEL_COLOR
   lda #PCM_CHANNEL_COLOR
 @print_channel_label:
-  sta r0
+  sta COLOR
   phx
   txa
   jsr graphics::drawing::print_hex
@@ -83,7 +83,7 @@ draw_pattern_frame:
 @draw_empty_lower_box:
   ; x-pos
   lda #$01
-  sta r0
+  sta COLOR
   ; y-pos
   lda #CHANNEL_BOTTOM_Y + 1
   sta r1
@@ -180,8 +180,8 @@ draw_pattern_frame:
 ; If the song is playing, be sure to draw the playback lines
 ; FIX ME TO BE BETTER
 @draw_playback_marker:
-  lda #$01
-  sta r0
+  lda #PLAYBACK_MARKER_COLOR
+  sta COLOR
   lda STATE
   beq @end
   lda #$4F

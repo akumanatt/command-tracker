@@ -1,8 +1,7 @@
 ; Draw a solid box
 .proc draw_solid_box
   ; Constants
-  ;SPACE = $20
-  SPACE = $4F
+  SPACE = $20
   ; Vars
   BOX_X = r0
   BOX_Y = r1
@@ -26,7 +25,7 @@
     asl
     sta VERA_addr_low
     sty VERA_addr_med
-    ldx 0
+    ldx #$0
   @line_loop:
     lda #SPACE
     sta VERA_data0 ; Write chracter
