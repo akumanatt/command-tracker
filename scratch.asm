@@ -9,19 +9,31 @@
 
 ;.include "includes.inc"
 
-; Zero Page
+; Kernal Registers
+r0						= $02
+r0L					= r0
+r0H					= r0+1
+r1						= $04
+r1L					= r1
+r1H					= r1+1
+r2						= $06
+r2L					= r2
+r2H					= r2+1
+r3						= $08
+r3L					= r3
+r3H					= r3+1
+r4						= $0A
+r4L					= r4
+r4H					= r4+1
+r5						= $0C
+r5L					= r5
+r5H					= r5+1
+r6						= $0E
+r6L					= r6
+r6H					= r6+1
+
 RAM_BANK          = $00
 ROM_BANK          = $01
-ADDRESS = $30
-NUM_BYTES = $32
-
-TEMP1 = $40
-TEMP2 = $42
-TEMP3 = $44
-TEMP4 = $46
-TEMP5 = $48
-TEMP6 = $4A
-
 MEMORY_FILL                   := $FEE4
 
 ; I/O Registers
@@ -64,7 +76,8 @@ VERA_spi_data     = $9F3E
 VERA_spi_ctrl     = $9F3F
 
 
-
+ADDRESS = $30
+NUM_BYTES = $32
 ;PATTERN_ADDRESS_TEST = $A000
 PATTERN_ADDRESS_TEST = $A000
 HEADER_BACKGROUND_COLOR = $B0
@@ -105,15 +118,15 @@ setup:
   sta VERA_L0_tilebase
 
   ; Clear VRAM
-  stz TEMP1
+  stz r0
   lda #$F0
-  sta TEMP2
+  sta r1
   jsr clear_vram
   lda #$01
   sta VERA_addr_high
-  stz TEMP1
+  stz r0
   lda #$F0
-  sta TEMP2
+  sta r1
   jsr clear_vram
   stz VERA_addr_high
 
@@ -128,16 +141,19 @@ setup:
 
 main:
     ;jsr clear_patterns
+    ldx #$02
+    stx $00
+    ;stx RAM_BANK
     lda #$00
-    sta TEMP1
-    sta TEMP2
+    sta r0
+    sta r1
     lda #$51
-    sta TEMP3
+    sta r2
     ; Y End
     lda #$3C
-    sta TEMP4
+    sta r3
     lda #HEADER_BACKGROUND_COLOR
-    sta TEMP5
+    sta r4
    jsr draw_solid_box
 
 loop:
@@ -150,13 +166,13 @@ loop:
   ;SPACE = $20
   SPACE = $4F
   ; Vars
-  BOX_X = TEMP1
-  BOX_Y = TEMP2
-  BOX_X_LEN = TEMP3
-  BOX_Y_LEN = TEMP4
-  COLOR = TEMP5
+  BOX_X = r0
+  BOX_Y = r1
+  BOX_X_LEN = r2
+  BOX_Y_LEN = r3
+  COLOR = r4
   ; Temp
-  COUNT_Y = TEMP6
+  COUNT_Y = r6
   ;BOX_Y_END = r7
 
 draw_solid_box:
@@ -167,12 +183,12 @@ draw_solid_box:
     ldx BOX_X
     ldy BOX_Y
   @line:
-    lda TEMP3
+    lda r2
     txa
     asl
     sta VERA_addr_low
     sty VERA_addr_med
-    ldx 0
+    ldx #$0
   @line_loop:
     lda #SPACE
     sta VERA_data0 ; Write chracter
@@ -197,8 +213,8 @@ draw_solid_box:
 ; a = med address start
 ; x = med address end
 .proc clear_vram
-  START = TEMP1
-  END = TEMP2
+  START = r0
+  END = r1
 clear_vram:
   lda #$10
   sta VERA_addr_high
@@ -252,7 +268,7 @@ load_palette_16:
 
 clear_patterns:
   ; Fill with empty patterns for now
-  ldx #$01
+  ldx #$02
 @empty_patterns_loop:
   stx RAM_BANK
   phx

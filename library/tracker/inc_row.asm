@@ -9,7 +9,7 @@ inc_row:
   beq @row_max      ; if not, jump to end; if so, go to row_max
   rts
 @row_max:
-  lda 0
+  lda #$0
   sta  ROW_NUMBER
 return:
   rts

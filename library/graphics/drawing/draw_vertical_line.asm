@@ -7,7 +7,7 @@
   LENGTH = r11
   ; Constants
   CHAR = $42
-
+  
   draw_vertical_line:
     sta LENGTH
     txa
