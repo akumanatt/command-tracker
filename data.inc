@@ -13,7 +13,8 @@
 ;order_list: .byte $AB, $CD, $DE, $CD
 ;.res $FB
 
-order_list: .res $FF
+order_list: .byte $01
+.res $FE
 
 ; An array to store the sorted order list - this is temporary data for when
 ; saving a song
