@@ -9,6 +9,7 @@ play_song:
   lda STATE
   beq start_song
   jsr disable_irq
+
   jsr concerto_synth::deactivate_synth
 start_song:
   lda #PLAY_STATE
@@ -17,10 +18,10 @@ start_song:
   ;jsr ui::draw_frame
   jsr ui::draw_pattern_frame
   jsr sound::stop_all_voices
+  stz ORDER_NUMBER
+  stz ROW_NUMBER
   ldy #$00
-  sty ORDER_NUMBER
   lda order_list,y
-  sty ROW_NUMBER
   sta RAM_BANK
   sta PATTERN_NUMBER
   jsr ui::print_song_info

@@ -1,7 +1,6 @@
 .proc draw_frame
   DISPLAY_END_X = $4F
   DISPLAY_END_Y = $3B
-
 draw_frame:
   ; color
   lda #FRAME_COLOR
@@ -29,6 +28,9 @@ draw_frame:
   sta r0
   sta r1
   ; X End
+  ;lda #$4E
+  ; For new emu/ROM, but this doesn't make any sense? It should be $4E....
+  ;lda #$51
   lda #$4E
   sta r2
   ; Y End

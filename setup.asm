@@ -4,6 +4,7 @@ setup:
   stz VERA_addr_med ; Set primary address med byte to 0
   stz VERA_addr_low ; Set Primary address low byte to 0
   stz VERA_addr_high ; Set primary address bank to 0, stride to 0
+
   ;lda #RES128x128x256    ; L0 is the pattern scroll space
   lda #RES128x128x16      ; L0 is the pattern scroll space
   ;lda #RES128x256x16      ; L0 is the pattern scroll space
@@ -22,7 +23,8 @@ setup:
   lda #$7C
   sta VERA_L0_tilebase
 
-  sta r0
+  ;sta r0
+  stz r0
   lda #$F0
   ;lda #$F6
   sta r1
