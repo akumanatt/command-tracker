@@ -11,68 +11,50 @@
 .endmacro
 
 .proc play_row
-  VERA_VOICE_OFFSET = r2    ; for skipping through VERA registers
   CHANNEL_COUNT = r4   ; Counter to know when we're done with channels
   CHANNEL_OFFSET = r6 ; bytes to skip for each channel
   NOTE_FLAGS = r7   ; bit 7 = noteoff, bit 6 = noterel, bit 5 =
 play_row:
-  ; Set base vera address to PSG
-  lda #%00000001
-  sta VERA_ctrl
+  stz CHANNEL_OFFSET
+  stz CHANNEL_COUNT
 
-  lda #$01
-  sta VERA_addr_high
-  lda #$F9
-  sta VERA_addr_med
-
-  lda #$00
-  sta VERA_VOICE_OFFSET
-  sta CHANNEL_OFFSET
-
-  lda #NUMBER_OF_CHANNELS
-  sta CHANNEL_COUNT
+     lda #63
+     sta concerto_synth::note_volume
 
 @channel_loop:
+  lda CHANNEL_COUNT
+  ; For now, only worry about the PSGs
+  cmp #PSG_CHANNELS
+  bcs @inc
+  sta concerto_synth::note_channel
+
   lda #$00
   sta NOTE_FLAGS
-  ldy CHANNEL_OFFSET  ; note is first byte
-  lda (ROW_POINTER),y ;get note from the pattern
+
   jsr @effect
-  jsr @note
-  jsr @inst
   jsr @vol
+  jsr @inst
+  jsr @note
 
-  lda VERA_VOICE_OFFSET
-  clc
-  adc #NUM_VERA_PSG_REGISTERS
-  sta VERA_VOICE_OFFSET
-
+@inc:
   lda CHANNEL_OFFSET
   clc
   adc #TOTAL_BYTES_PER_CHANNEL
   sta CHANNEL_OFFSET
 
-  dec CHANNEL_COUNT
+  inc CHANNEL_COUNT
+  lda CHANNEL_COUNT
+  cmp #NUMBER_OF_CHANNELS
   bne @channel_loop
 @end:
-  lda #%00000000
-  sta VERA_ctrl
   rts
 
 @note:
+  ldy CHANNEL_OFFSET  ; note is first byte
+  lda (ROW_POINTER),y ;get note from the pattern
+
   ; Get numeric value of note
   jsr sound::decode_note
-
-; SUggestion from klip, though I need to think through this more
-; Should save quite a few cycles
-;lda octave
-;asl
-;asl
-;sta pitch
-;asl
-;clc
-;adc pitch
-;sta pitch
 
   jsr math::multiply_by_12
   adc NOTE_NOTE
@@ -90,25 +72,32 @@ play_row:
 @note_play:
   ;$1F9C0 - $1F9FF
   ; set low byte of Note
-  set_note_play
-  lda #$C0
-  clc
-  adc VERA_VOICE_OFFSET
-  sta VERA_addr_low
-  lda sound::pitch_dataL,x
-  sta VERA_data1
+  ; set_note_play
+  ;lda #$C0
+  ;clc
+  ;adc VERA_VOICE_OFFSET
+  ;sta VERA_addr_low
+  ;lda sound::pitch_dataL,x
+  ;sta VERA_data1
   ; set high byte of note
-  lda #$C1
-  clc
-  adc VERA_VOICE_OFFSET
-  sta VERA_addr_low
-  lda sound::pitch_dataH,x
-  sta VERA_data1
+  ;lda #$C1
+  ;clc
+  ;adc VERA_VOICE_OFFSET
+  ;sta VERA_addr_low
+  ;lda sound::pitch_dataH,x
+  ;sta VERA_data1
 
+  set_note_play
+  stx concerto_synth::note_pitch
+  jsr concerto_synth::play_note
   jmp @note_end
 
 @note_off:
   set_note_off
+  jsr concerto_synth::release_note
+  ;sei
+  ;jsr concerto_synth::stop_note
+  ;cli
 
   ; debug
   ;lda NOTE_FLAGS
@@ -124,19 +113,22 @@ play_row:
 @note_end:
   rts
 
+
 @inst:
-  ; placeholder, do nothing but jump past the byte
-  lda #$01  ; inst is second byte
+  lda #$01    ; inst is second byte
   clc
-  adc VERA_VOICE_OFFSET
+  adc CHANNEL_OFFSET
+  tay
+  lda (ROW_POINTER),y ;get vol from the pattern
+  cmp #INSTNULL
+  beq @inst_end
+  sta concerto_synth::note_timbre
+@inst_end:
   rts
 
 ; Set Vol
 @vol:
-  lda #$C2
-  clc
-  adc VERA_VOICE_OFFSET
-  sta VERA_addr_low
+  rts
 
   ; Skip if we have a note off event
   ; Need to add not rel once it exists
@@ -144,8 +136,9 @@ play_row:
   lda #NOTEOFF_FLAG
   bit NOTE_FLAGS
   beq @set_vol_from_pattern
-  lda #$00
-  sta VERA_data1
+  ;jsr concerto_synth::stop_note
+  ;lda #$00
+  ;sta VERA_data1
   jmp @end_vol
 
 @set_vol_from_pattern:
@@ -158,8 +151,10 @@ play_row:
   beq @set_vol_from_instrument
 
   ; For now we force panning to LR
-  ora #%11000000
-  sta VERA_data1
+  ;ora #%11000000
+  ;sta VERA_data1
+
+  ;sta concerto_synth::note_volume
   rts
 
 ; If we played an instrument but didn't specify a volume,
@@ -170,7 +165,7 @@ play_row:
   beq @end_vol
   ; we have no instruments defined so we set to max
   lda #$FF
-  sta VERA_data1
+  ;sta concerto_synth::note_volume
 
 @end_vol:
   rts

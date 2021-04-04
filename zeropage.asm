@@ -1,5 +1,3 @@
-.ZEROPAGE
-
 ; Zero Page Addresses
 ; Reserved by X16 Kernel
 RESERVED: .res $22

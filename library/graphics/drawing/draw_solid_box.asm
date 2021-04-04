@@ -1,7 +1,8 @@
 ; Draw a solid box
 .proc draw_solid_box
   ; Constants
-  SPACE = $20
+  ;SPACE = $20
+  SPACE = $4F
   ; Vars
   BOX_X = r0
   BOX_Y = r1

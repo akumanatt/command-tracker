@@ -42,7 +42,7 @@ start_song:
   jsr ui::print_pattern
 
   ; Prepare for playback
-  jsr sound::setup_voices
+  ;jsr sound::setup_voices
   jsr enable_irq
 
   lda #PLAY_STATE
