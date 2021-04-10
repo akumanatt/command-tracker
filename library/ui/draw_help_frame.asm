@@ -15,6 +15,8 @@ help_text:
   .byte "f1  : help", SCREENCODE_RETURN
   .byte "f2  : edit pattern", SCREENCODE_RETURN
   .byte "f5  : play song", SCREENCODE_RETURN
+  .byte "f6  : play pattern (in edit pattern only)", SCREENCODE_RETURN
+  .byte "f7  : start song at row (in edit pattern only)", SCREENCODE_RETURN
   .byte "f8  : stop", SCREENCODE_RETURN
   .byte "f10 : load/save", SCREENCODE_RETURN
   .byte "f11 : orders", SCREENCODE_RETURN
