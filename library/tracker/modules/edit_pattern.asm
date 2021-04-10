@@ -78,6 +78,8 @@ edit_pattern_loop:
   beq @play_song_module
   cmp #F6
   beq @play_pattern_jump
+  cmp #F7
+  beq @play_song_at_row_jump
   cmp #F8
   beq @stop_jump
   cmp #F10
@@ -121,6 +123,8 @@ edit_pattern_loop:
   jmp @print_note_or_alphanumeric
 @play_pattern_jump:
   jmp @play_pattern
+@play_song_at_row_jump:
+  jmp @play_song_at_row
 @stop_jump:
   jmp @stop_pattern
 
@@ -137,15 +141,25 @@ edit_pattern_loop:
 @play_pattern:
   lda #PLAY_PATTERN_STATE
   sta STATE
+  ; We're only playing the pattern, so let's scroll
   lda #$01
   sta SCROLL_ENABLE
+  ; Set row to 0 to make sure we start scrolling at the start of the pattern
   stz ROW_NUMBER
   jsr concerto_synth::activate_synth
-  jsr play_song_irq
+  jsr play_irq
+  jmp edit_pattern_loop
+
+@play_song_at_row:
+  lda #PLAY_SONG_STATE
+  sta STATE
+  jsr concerto_synth::activate_synth
+  jsr play_irq
   jmp edit_pattern_loop
 
 @stop_pattern:
   jsr tracker::stop_song
+  jsr reset_scroll_position
   jmp edit_pattern_loop
 
 ; Inc/Dec octave and update UI

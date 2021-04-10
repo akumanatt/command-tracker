@@ -1,5 +1,5 @@
 ; Setup playback IRQ
-.proc play_song_irq
+.proc play_irq
 enable_irq:
   ; Setup irq handler
   ; We load the address of our interrupt handler into a special memory
@@ -51,6 +51,8 @@ vblank:
   ldx #0
   stx VBLANK_SKIP_COUNT
 
+  ; Only evaluate getting the next pattern if we are playing the entire song.
+  ; Otherwise, skip past it.
   lda STATE
   cmp #PLAY_SONG_STATE
   bne @get_row
@@ -58,7 +60,7 @@ vblank:
 @get_row:
   jsr tracker::get_row             ; get the current row of pattern, put in ROW_POINTER
   jsr tracker::play_row
-  jsr ui::scroll_pattern
+  jsr ui::scroll_pattern          ; note we check for scroll in the routine
 @print_row_number:
   jsr ui::print_row_number
   jsr tracker::inc_row

@@ -35,7 +35,7 @@ start_song:
   ; Prepare for playback
   ;jsr sound::setup_voices
   jsr concerto_synth::activate_synth
-  jsr play_song_irq
+  jsr play_irq
 
 
   cli
