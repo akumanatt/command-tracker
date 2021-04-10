@@ -153,6 +153,7 @@ edit_pattern_loop:
 @play_song_at_row:
   lda #PLAY_SONG_STATE
   sta STATE
+  stz SCROLL_ENABLE
   jsr concerto_synth::activate_synth
   jsr play_irq
   jmp edit_pattern_loop
@@ -581,6 +582,14 @@ edit_pattern_loop:
   iny
 
   sta (ROW_POINTER),y
+
+  ; If we're on the instrument column (which is first in the loop)
+  ; update the user's currently selected instrument
+  cpx #$04
+  bne @not_instrument
+  sta user_instrument
+
+@not_instrument:
   dex
   bne @store_rest_of_row_loop
 

@@ -118,10 +118,9 @@ SYNTH_MACROS_INC = 1
 .macro VERA_SET_VOICE_PARAMS_MEM_A frequency, volume, waveform
    pha
    lda #$11
-   sta VERA_addr_bank
+   sta VERA_addr_high
    lda #$F9
-   ; sta VERA_addr_high
-   sta VERA_addr_med
+   sta VERA_addr_mid
    pla
    asl
    asl
@@ -162,9 +161,9 @@ SYNTH_MACROS_INC = 1
 ; mutes PSG voice with index stored in register X
 .macro VERA_MUTE_VOICE_X
    lda #$11
-   sta VERA_addr_bank
+   sta VERA_addr_high
    lda #$F9
-	sta VERA_addr_high
+	sta VERA_addr_mid
    txa
    asl
    asl
@@ -179,9 +178,9 @@ SYNTH_MACROS_INC = 1
 .macro VERA_MUTE_VOICE_A
    pha
    lda #$11
-   sta VERA_addr_bank
-   lda #$F9
    sta VERA_addr_high
+   lda #$F9
+   sta VERA_addr_mid
    pla
    asl
    asl

@@ -5,7 +5,8 @@ stop_song:
   lda STATE
   beq stopping_song
   jsr disable_irq
-  jsr concerto_synth::deactivate_synth
+  jsr concerto_synth::panic
+  ;jsr concerto_synth::deactivate_synth
 stopping_song:
   ;jsr sound::stop_all_voices
 

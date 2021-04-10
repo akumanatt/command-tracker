@@ -122,6 +122,7 @@ play_row:
   lda (ROW_POINTER),y ;get vol from the pattern
   cmp #INSTNULL
   beq @inst_end
+
   sta concerto_synth::note_timbre
 @inst_end:
   rts

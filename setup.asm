@@ -75,7 +75,9 @@ setup:
 
   jsr tracker::clear_patterns
 
+
   jsr concerto_synth::initialize
+  CONCERTO_LOAD_FACTORY_PRESETS
   ;jsr concerto_synth::activate_synth
 
   rts

@@ -20,6 +20,7 @@ enable_irq:
 
 vblank:
   sei
+  jsr concerto_synth::synth_engine::synth_tick
 
 @vblank_next:
   ; Check to see if the VBLANK was triggered. This is in case the intterupt

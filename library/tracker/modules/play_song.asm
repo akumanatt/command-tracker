@@ -1,16 +1,13 @@
 play_song:
   sei
 
-  ; Hard set scroll
-  lda #$01
-  sta SCROLL_ENABLE
-
+  jsr tracker::stop_song
   ; Check current state, if 0, don't remove ISR
   lda STATE
   beq start_song
-  jsr disable_irq
+  ;jsr disable_irq
+  ;jsr concerto_synth::deactivate_synth
 
-  jsr concerto_synth::deactivate_synth
 start_song:
   lda #PLAY_SONG_STATE
   sta STATE
@@ -34,7 +31,7 @@ start_song:
 
   ; Prepare for playback
   ;jsr sound::setup_voices
-  jsr concerto_synth::activate_synth
+  ;jsr concerto_synth::activate_synth
   jsr play_irq
 
 
