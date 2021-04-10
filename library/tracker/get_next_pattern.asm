@@ -16,7 +16,8 @@ get_next_pattern:
   lda order_list,y
   sta RAM_BANK
   sta PATTERN_NUMBER
-  jsr ui::print_pattern
+  ; Do not draw next pattern (disabling this for now as it causes play stalls)
+  ;jsr ui::print_pattern
   jsr ui::print_current_order
   jsr ui::print_current_pattern_number
   rts

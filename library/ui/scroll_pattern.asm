@@ -2,6 +2,9 @@
 
 ; r15 = place to hold 16-bit shift value
 scroll_pattern:
+  ; Check if we want to scroll or not
+  ; Currently we are not scrolling on playback (too expensive)
+  ; Just when playing an isolated pattern
   lda SCROLL_ENABLE
   beq @end
 

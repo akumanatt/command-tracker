@@ -29,6 +29,7 @@
   .include "library/ui/draw_orders_frame.asm"
   .include "library/ui/draw_help_frame.asm"
   .include "library/ui/draw_save_frame.asm"
+  .include "library/ui/draw_playsong_frame.asm"
   .include "library/ui/print_song_info.asm"
   .include "library/ui/print_current_pattern_number.asm"
   .include "library/ui/print_number_of_orders.asm"

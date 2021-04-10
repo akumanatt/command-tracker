@@ -1,5 +1,5 @@
 ; Setup playback IRQ
-.proc enable_irq
+.proc play_song_irq
 enable_irq:
   ; Setup irq handler
   ; We load the address of our interrupt handler into a special memory
@@ -14,16 +14,6 @@ enable_irq:
   lda ISR_HANDLER,x
   sta PREVIOUS_ISR_HANDLER,x
   lda #>vblank
-  sta ISR_HANDLER,x
-@end:
-  rts
-
-disable_irq:
-  ldx #$0
-  lda PREVIOUS_ISR_HANDLER,x
-  sta ISR_HANDLER,x
-  inx
-  lda PREVIOUS_ISR_HANDLER,x
   sta ISR_HANDLER,x
 @end:
   rts
@@ -61,11 +51,15 @@ vblank:
   ldx #0
   stx VBLANK_SKIP_COUNT
 
+  lda STATE
+  cmp #PLAY_SONG_STATE
+  bne @get_row
   jsr tracker::get_next_pattern
+@get_row:
   jsr tracker::get_row             ; get the current row of pattern, put in ROW_POINTER
-
   jsr tracker::play_row
   jsr ui::scroll_pattern
+@print_row_number:
   jsr ui::print_row_number
   jsr tracker::inc_row
 

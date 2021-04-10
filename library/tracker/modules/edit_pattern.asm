@@ -76,6 +76,10 @@ edit_pattern_loop:
   beq edit_pattern
   cmp #F5
   beq @play_song_module
+  cmp #F6
+  beq @play_pattern_jump
+  cmp #F8
+  beq @stop_jump
   cmp #F10
   beq @save_song
   cmp #F11
@@ -111,12 +115,15 @@ edit_pattern_loop:
   jmp @cursor_right
 @cursor_tab_right_jump:
   jmp @cursor_tab_right
-
 @delete_channel_row_jump:
   jmp @delete_channel_row
-
 @print_note_or_alphanumeric_jump:
   jmp @print_note_or_alphanumeric
+@play_pattern_jump:
+  jmp @play_pattern
+@stop_jump:
+  jmp @stop_pattern
+
 @help_module:
   jmp main
 @play_song_module:
@@ -125,6 +132,21 @@ edit_pattern_loop:
   jmp tracker::modules::save_song
 @order_list_module:
   jmp tracker::modules::orders
+
+; Play pattern only (loop pattern over and over)
+@play_pattern:
+  lda #PLAY_PATTERN_STATE
+  sta STATE
+  lda #$01
+  sta SCROLL_ENABLE
+  stz ROW_NUMBER
+  jsr concerto_synth::activate_synth
+  jsr play_song_irq
+  jmp edit_pattern_loop
+
+@stop_pattern:
+  jsr tracker::stop_song
+  jmp edit_pattern_loop
 
 ; Inc/Dec octave and update UI
 @decrease_octave:

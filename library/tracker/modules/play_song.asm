@@ -12,11 +12,12 @@ play_song:
 
   jsr concerto_synth::deactivate_synth
 start_song:
-  lda #PLAY_STATE
+  lda #PLAY_SONG_STATE
   sta STATE
   ; First stuff before song starts to play
   ;jsr ui::draw_frame
-  jsr ui::draw_pattern_frame
+  ;jsr ui::draw_pattern_frame
+  jsr ui::draw_playsong_frame
   jsr sound::stop_all_voices
   stz ORDER_NUMBER
   stz ROW_NUMBER
@@ -34,7 +35,7 @@ start_song:
   ; Prepare for playback
   ;jsr sound::setup_voices
   jsr concerto_synth::activate_synth
-  jsr enable_irq
+  jsr play_song_irq
 
 
   cli
