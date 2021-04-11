@@ -139,6 +139,7 @@ edit_pattern_loop:
 
 ; Play pattern only (loop pattern over and over)
 @play_pattern:
+  jsr tracker::stop_song
   lda #PLAY_PATTERN_STATE
   sta STATE
   ; We're only playing the pattern, so let's scroll
@@ -146,15 +147,14 @@ edit_pattern_loop:
   sta SCROLL_ENABLE
   ; Set row to 0 to make sure we start scrolling at the start of the pattern
   stz ROW_NUMBER
-  jsr concerto_synth::activate_synth
   jsr play_irq
   jmp edit_pattern_loop
 
 @play_song_at_row:
+  jsr tracker::stop_song
   lda #PLAY_SONG_STATE
   sta STATE
   stz SCROLL_ENABLE
-  jsr concerto_synth::activate_synth
   jsr play_irq
   jmp edit_pattern_loop
 

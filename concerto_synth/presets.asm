@@ -41,7 +41,7 @@
 .macro CONCERTO_PRESET_BRIGHT_PLUCK patch_no
    ; global parameters
    ldx #patch_no
-   lda #1
+   lda #3
    sta concerto_synth::timbres::Timbre::n_oscs, x
    lda #1
    sta concerto_synth::timbres::Timbre::n_envs, x
