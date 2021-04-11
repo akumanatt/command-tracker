@@ -1,4 +1,17 @@
 .DATA
+
+; Offset values are defined in variables.inc
+jump_table_low:
+  .byte <tracker::modules::edit_pattern
+  .byte <tracker::modules::orders
+  .byte <tracker::modules::play_song
+  .byte <tracker::modules::save_song
+jump_table_high:
+  .byte >tracker::modules::edit_pattern
+  .byte >tracker::modules::orders
+  .byte >tracker::modules::play_song
+  .byte >tracker::modules::save_song
+
 ; Order list is assumed to be up to 256 ($FF)
 ; we're manually loading it here, but reserving the rest
 ; so we don't run out of RAM while testing stuffs

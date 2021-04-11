@@ -40,9 +40,9 @@ PITCH_TEMP      = TMP2
 SCREEN_ROW      = TMP3
 SCREEN_CHANNEL  = TMP4
 
-
 ; Initial run once stuff
 edit_pattern:
+  jsr tracker::stop_song
   lda PATTERN_NUMBER
   sta RAM_BANK
   stz START_CHANNEL

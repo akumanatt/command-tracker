@@ -5,6 +5,7 @@
 ; Initial run once stuff
 start:
   jsr setup
+  jsr graphics::vera::clear_vram
   jsr ui::draw_frame
   jsr ui::print_song_info
   jsr ui::print_speed
@@ -20,36 +21,35 @@ check_keyboard:
   jsr GETIN  ;keyboard
   ;cmp #F1
   ;beq
+@f2_key:
   cmp #F2
-  beq @edit_pattern_module
+  bne @f5_key
+  ldx #EDIT_PATTERN_MODULE
+  jmp @jump_table
+
+@f5_key:
   cmp #F5
-  beq @play_song_module
-  cmp #F8
-  beq @stop_song
+  bne @f10_key
+  ldx #PLAY_SONG_MODULE
+  jmp @jump_table
+
+@f10_key:
   cmp #F10
-  beq @save_song
+  bne @f11_key
+  ldx #SAVE_SONG_MODULE
+  jmp @jump_table
+
+@f11_key:
   cmp #F11
-  beq @order_list_module
-  jmp main_application_loop
+  bne main_application_loop
+  ldx #ORDERS_MODULE
 
-; Jump to order list module
-@edit_pattern_module:
-  jsr tracker::stop_song
-  jmp tracker::modules::edit_pattern
-
-@play_song_module:
-  jmp tracker::modules::play_song
-
-@stop_song:
-  jsr tracker::stop_song
-  jmp main_application_loop
-
-@save_song:
-  jmp tracker::modules::save_song
-
-@order_list_module:
-  jmp tracker::modules::orders
-
+@jump_table:
+  lda jump_table_low,x
+  sta r15
+  lda jump_table_high,x
+  sta r15+1
+  jmp (r15)
 
 
 .include "data.inc"
