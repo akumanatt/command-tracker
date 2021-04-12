@@ -9,12 +9,14 @@ current_module: .byte $00
 ; Offset values are defined in variables.inc
 init_jump_table_low:
   .byte <tracker::modules::help::init
+  .byte <tracker::modules::psg_instruments::init
   .byte <tracker::modules::play_song_init
   .byte <tracker::modules::edit_pattern::init
   .byte <tracker::modules::save_song::init
   .byte <tracker::modules::orders::init
 init_jump_table_high:
   .byte >tracker::modules::help::init
+  .byte >tracker::modules::psg_instruments::init
   .byte >tracker::modules::play_song_init
   .byte >tracker::modules::edit_pattern::init
   .byte >tracker::modules::save_song::init
@@ -22,12 +24,14 @@ init_jump_table_high:
 
 loop_jump_table_low:
   .byte <tracker::modules::help::keyboard_loop
+  .byte <tracker::modules::psg_instruments::keyboard_loop
   .byte <tracker::modules::play_song_keyboard_loop
   .byte <tracker::modules::edit_pattern::keyboard_loop
   .byte <tracker::modules::save_song::keyboard_loop
   .byte <tracker::modules::orders::keyboard_loop
 loop_jump_table_high:
   .byte >tracker::modules::help::keyboard_loop
+  .byte >tracker::modules::psg_instruments::keyboard_loop
   .byte >tracker::modules::play_song_keyboard_loop
   .byte >tracker::modules::edit_pattern::keyboard_loop
   .byte >tracker::modules::save_song::keyboard_loop

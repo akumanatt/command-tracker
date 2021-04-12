@@ -4,7 +4,7 @@
 .scope ui
   ; Top Header Labels
 
-  command_tracker_string: .byte "command tracker v0.000",0
+  command_tracker_string: .byte "command tracker v0.100",0
   song_label: .byte "song:",0
   composer_label: .byte "by  :",0
   speed_label: .byte "spd:",0
@@ -27,7 +27,6 @@
   .include "library/ui/clear_lower_frame.asm"
   .include "library/ui/draw_pattern_frame.asm"
   .include "library/ui/draw_orders_frame.asm"
-  .include "library/ui/draw_help_frame.asm"
   .include "library/ui/draw_save_frame.asm"
   .include "library/ui/draw_playsong_frame.asm"
   .include "library/ui/print_song_info.asm"

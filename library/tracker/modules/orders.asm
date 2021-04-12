@@ -40,6 +40,7 @@ init:
   sta current_module
   lda #$10
   sta VERA_addr_high ; Set primary address bank to 0, stride to 1
+  jsr ui::draw_frame
   jsr ui::clear_lower_frame
   lda #$00
   sta r1
