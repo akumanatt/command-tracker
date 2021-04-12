@@ -1,5 +1,5 @@
 ; Edit pattern
-.proc edit_pattern
+.scope edit_pattern
 
 ; Constants
 NOTE          = $00
@@ -19,7 +19,7 @@ CURSOR_X_START_OF_LAST_CHNNAEL = $3F
 ; If 5 vol
 ; 7 eff
 ; 9 eff val
-; 10 end of that CHANNEL_NUMBER (skip 2)
+; 10 end of thaORDERS_MODULE = $03t CHANNEL_NUMBER (skip 2)
 NOTE_COLUMN_POSITIION = $00
 INSTRUMENT_COLUMN_POSITIION = $03
 VOLUMNE_COLUMN_POSITIION = $05
@@ -30,18 +30,16 @@ LAST_COLUMN_POSITION = $0A
 ; Vars
 COLOR           = r0
 ; Screen row pos (may differ from pattern when scrolling)
-;COLUMN_POS      = r6       ; Note, Inst, Vol, Eff, Effect Value
-;PITCH_TEMP      = r7
-;SCREEN_ROW      = r9
-;SCREEN_CHANNEL  = r9 + 1
-
-COLUMN_POS      = TMP1       ; Note, Inst, Vol, Eff, Effect Value
-PITCH_TEMP      = TMP2
-SCREEN_ROW      = TMP3
-SCREEN_CHANNEL  = TMP4
+COLUMN_POS      = r6       ; Note, Inst, Vol, Eff, Effect Value
+PITCH_TEMP      = r7
+SCREEN_ROW      = r9
+SCREEN_CHANNEL  = r9 + 1
 
 ; Initial run once stuff
-edit_pattern:
+.proc init
+init:
+  lda #EDIT_PATTERN_MODULE
+  sta current_module
   jsr tracker::stop_song
   lda PATTERN_NUMBER
   sta RAM_BANK
@@ -64,28 +62,16 @@ edit_pattern:
   lda #$F8
   sta VERA_L0_hscroll_l
   jsr reset_scroll_position
+  stz key_pressed
+.endproc
 
-edit_pattern_loop:
-  wai
-  jsr GETIN  ;keyboard
-  cmp #$00
-  beq edit_pattern_loop
-  cmp #F1
-  beq @help_module
-  cmp #F2
-  beq edit_pattern
-  cmp #F5
-  beq @play_song_module
+.proc keyboard_loop
+keyboard_loop:
+  lda key_pressed
   cmp #F6
   beq @play_pattern_jump
   cmp #F7
   beq @play_song_at_row_jump
-  cmp #F8
-  beq @stop_jump
-  cmp #F10
-  beq @save_song
-  cmp #F11
-  beq @order_list_module
   cmp #KEY_UP
   beq @cursor_up_jump
   cmp #KEY_DOWN
@@ -96,7 +82,7 @@ edit_pattern_loop:
   beq @cursor_right_jump
   ; Disable tabbing for now becuase channel advancing doesn't work here
   ;cmp #KEY_TAB
-  ;beq @cursor_tab_right_jump
+  beq @cursor_tab_right_jump
   cmp #PETSCII_BRACKET_LEFT
   beq @decrease_octave
   cmp #PETSCII_BRACKET_RIGHT
@@ -105,7 +91,7 @@ edit_pattern_loop:
   beq @delete_channel_row_jump
   cmp #$2E    ; Alphanumeric, period, and a few things we don't want
   bpl @print_note_or_alphanumeric_jump
-  jmp edit_pattern_loop
+  jmp main_application_loop
 
 @cursor_up_jump:
   jmp @cursor_up
@@ -125,17 +111,6 @@ edit_pattern_loop:
   jmp @play_pattern
 @play_song_at_row_jump:
   jmp @play_song_at_row
-@stop_jump:
-  jmp @stop_pattern
-
-@help_module:
-  jmp main
-@play_song_module:
-  jmp tracker::modules::play_song
-@save_song:
-  jmp tracker::modules::save_song
-@order_list_module:
-  jmp tracker::modules::orders
 
 ; Play pattern only (loop pattern over and over)
 @play_pattern:
@@ -148,7 +123,7 @@ edit_pattern_loop:
   ; Set row to 0 to make sure we start scrolling at the start of the pattern
   stz ROW_NUMBER
   jsr play_irq
-  jmp edit_pattern_loop
+  jmp main_application_loop
 
 @play_song_at_row:
   jsr tracker::stop_song
@@ -156,12 +131,12 @@ edit_pattern_loop:
   sta STATE
   stz SCROLL_ENABLE
   jsr play_irq
-  jmp edit_pattern_loop
+  jmp main_application_loop
 
 @stop_pattern:
   jsr tracker::stop_song
   jsr reset_scroll_position
-  jmp edit_pattern_loop
+  jmp main_application_loop
 
 ; Inc/Dec octave and update UI
 @decrease_octave:
@@ -175,11 +150,10 @@ edit_pattern_loop:
   beq @update_octave_end
   inc user_octave
   jmp @update_ui_octave
-
 ; TBD
 @update_ui_octave:
 @update_octave_end:
-  jmp edit_pattern_loop
+  jmp main_application_loop
 
 @cursor_up:
   jsr ui::cursor_up
@@ -212,7 +186,7 @@ edit_pattern_loop:
   dec ROW_NUMBER
 @cursor_up_end:
   jsr ui::print_row_number
-  jmp edit_pattern_loop
+  jmp main_application_loop
 
 @cursor_down:
   jsr ui::cursor_down
@@ -232,7 +206,7 @@ edit_pattern_loop:
   jsr ui::scroll_pattern_up
 @cursor_down_end:
   jsr ui::print_row_number
-  jmp edit_pattern_loop
+  jmp main_application_loop
 
 @cursor_left:
   lda COLUMN_POS
@@ -241,13 +215,13 @@ edit_pattern_loop:
   beq @cursor_left_note
   jsr ui::cursor_left
   dec COLUMN_POS
-  jmp edit_pattern_loop
+  jmp main_application_loop
 @cursor_left_note:
   jsr ui::cursor_left
   jsr ui::cursor_left
   jsr ui::cursor_left
   stz COLUMN_POS
-  jmp edit_pattern_loop
+  jmp main_application_loop
 @cursor_left_channel:
   ; If we're at the 0th screen channel, check to see if we're on the
   ; 0th actual channel and, if so, we're already as far left as we can go.
@@ -279,7 +253,7 @@ edit_pattern_loop:
   lda #LAST_COLUMN_POSITION
   sta COLUMN_POS
 @cursor_left_channel_end:
-  jmp edit_pattern_loop
+  jmp main_application_loop
 
 @cursor_right:
   lda COLUMN_POS
@@ -288,14 +262,14 @@ edit_pattern_loop:
   beq @cursor_right_channel
   jsr ui::cursor_right
   inc COLUMN_POS
-  jmp edit_pattern_loop
+  jmp main_application_loop
 @cursor_right_note:
   jsr ui::cursor_right
   jsr ui::cursor_right
   jsr ui::cursor_right
   lda #INSTRUMENT_COLUMN_POSITIION
   sta COLUMN_POS
-  jmp edit_pattern_loop
+  jmp main_application_loop
 @cursor_right_channel:
   ; If we're on the last column, we need to move the pattern view over
   lda SCREEN_CHANNEL
@@ -308,7 +282,7 @@ edit_pattern_loop:
   adc #NUM_CHANNELS_VISIBLE - 1
   cmp #NUMBER_OF_CHANNELS
   bne @cursor_right_not_at_last_channel
-  jmp edit_pattern_loop
+  jmp main_application_loop
 
 @cursor_right_not_at_last_channel:
   inc START_CHANNEL
@@ -327,7 +301,7 @@ edit_pattern_loop:
 @cursor_right_channel_end:
   stz COLUMN_POS
   inc CHANNEL_NUMBER
-  jmp edit_pattern_loop
+  jmp main_application_loop
 
 @cursor_tab_right:
   ldx #$0C
@@ -339,7 +313,7 @@ edit_pattern_loop:
   dex
   bne @cursor_tab_right_loop
 @cursor_tab_right_end:
-  jmp edit_pattern_loop
+  jmp main_application_loop
 
 ; Delete the entire channel/row
 @delete_channel_row:
@@ -427,9 +401,8 @@ edit_pattern_loop:
 
 @print_end:
   jsr @save_row_channel
-
   cli
-  jmp edit_pattern_loop
+  jmp main_application_loop
 
 @key_to_note:
   sbc #$2F      ; Subtract to offset the values for the LUT
@@ -597,11 +570,11 @@ edit_pattern_loop:
   ;lda NOTE_NOTE
   ;jsr graphics::kernal::printhex
 
-
   lda #$01
   sta VERA_addr_high
   cli
   rts
+.endproc
 
 ; Reset pattern scroll/position
 reset_scroll_position:
@@ -619,4 +592,4 @@ reset_scroll_position:
   jsr graphics::drawing::cursor_plot
   rts
 
-.endproc
+.endscope

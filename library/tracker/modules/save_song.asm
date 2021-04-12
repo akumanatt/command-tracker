@@ -1,26 +1,31 @@
-.proc save_song
-  ; Constants
-  CURSOR_START_X = $12
-  CURSOR_START_Y = $0A
-  CURSOR_STOP_Y = $0D
+.scope save_song
 
-  SONG_TITLE_INPUT_X = $12
-  SONG_TITLE_INPUT_Y = $0A
+; Constants
+CURSOR_START_X = $12
+CURSOR_START_Y = $0A
+CURSOR_STOP_Y = $0D
 
-  COMPOSER_INPUT_X = $12
-  COMPOSER_INPUT_Y = $0B
+SONG_TITLE_INPUT_X = $12
+SONG_TITLE_INPUT_Y = $0A
 
-  SPEED_INPUT_X = $12
-  SPEED_INPUT_Y = $0C
+COMPOSER_INPUT_X = $12
+COMPOSER_INPUT_Y = $0B
 
-  FILENAME_INPUT_X = $12
-  FILENAME_INPUT_Y = $0D
+SPEED_INPUT_X = $12
+SPEED_INPUT_Y = $0C
 
-start:
+FILENAME_INPUT_X = $12
+FILENAME_INPUT_Y = $0D
+
+.proc init
+init:
+  lda #SAVE_MODULE
+  sta current_module
   lda #$20
   sta VERA_addr_high ; Set primary address bank to 0, stride to 1
   jsr ui::clear_lower_frame
   jsr ui::draw_save_frame
+  stz key_pressed
 
 @cursor_start_position:
   lda #$00
@@ -31,26 +36,15 @@ start:
   lda #CURSOR_START_Y
   sta cursor_y
   jsr graphics::drawing::cursor_plot
+.endproc
 
-@main_save_loop:
-  wai
-@check_keyboard:
-  ; Returns 0 is no input
-  jsr GETIN  ;keyboard
-  cmp #F1
-  beq @help_module
-  cmp #F2
-  beq @edit_pattern_module
-  cmp #F5
-  beq @play_song_module
-  cmp #F8
-  beq @stop_song
+.proc keyboard_loop
+@keyboard_loop:
+  lda key_pressed
   cmp #COMMAND_S
   beq @save_song_jump
   cmp #COMMAND_L
   beq @load_song_jump
-  cmp #F11
-  beq @order_list_module_jump
   cmp #KEY_UP
   beq @cursor_up_jump
   cmp #KEY_DOWN
@@ -66,30 +60,13 @@ start:
   ; Start at period
   cmp #PETSCII_PERIOD
   bpl @print_letters
-  jmp @main_save_loop
-
-@help_module:
-  jmp main
-
-@order_list_module_jump:
-  jmp @order_list_module
+  jmp main_application_loop
 
 @save_song_jump:
   jmp @save_song
 
 @load_song_jump:
   jmp @load_song
-
-@edit_pattern_module:
-  jsr tracker::stop_song
-  jmp tracker::modules::edit_pattern
-
-@play_song_module:
-  jmp tracker::modules::play_song
-
-@stop_song:
-  jsr tracker::stop_song
-  jmp @main_save_loop
 
 @cursor_up_jump:
   jmp @cursor_up
@@ -112,7 +89,7 @@ start:
   jsr ui::cursor_right
   jsr @update_info
 @print_end:
-  jmp @main_save_loop
+  jmp main_application_loop
 
 @backspace:
   lda cursor_x
@@ -126,7 +103,7 @@ start:
   beq @backspace_end
   jsr ui::cursor_left
 @backspace_end:
-  jmp @main_save_loop
+  jmp main_application_loop
 
 @cursor_up:
   lda cursor_y
@@ -138,7 +115,7 @@ start:
   jsr graphics::drawing::cursor_plot
   ;jsr @update_info
 @cursor_up_end:
-  jmp @main_save_loop
+  jmp main_application_loop
 
 @cursor_down:
   lda cursor_y
@@ -151,7 +128,7 @@ start:
   jsr graphics::drawing::cursor_plot
   ;jsr @update_info
 @cursor_down_end:
-  jmp @main_save_loop
+  jmp main_application_loop
 
 @cursor_left:
   lda cursor_x
@@ -159,16 +136,16 @@ start:
   beq @cursor_left_end
   jsr ui::cursor_left
 @cursor_left_end:
-  jmp @main_save_loop
+  jmp main_application_loop
 
 @cursor_right:
   jsr ui::cursor_right
   inc order_list_column
 @cursor_right_end:
-  jmp @main_save_loop
+  jmp main_application_loop
 
 @order_list_module:
-  jmp tracker::modules::orders
+  ;jmp tracker::modules::orders
 
 ; Update title, composer, speed, and filename
 @update_info:
@@ -250,14 +227,14 @@ start:
   jsr ui::print_song_info
   jsr ui::print_speed
   jsr ui::draw_save_frame
-  jmp @main_save_loop
+  jmp main_application_loop
 
 ; Save song
 @save_song:
   print_string_macro save_text, #$05, #$0F, #TITLE_COLORS
   jsr tracker::save_song
   print_string_macro done_text, #$0E, #$0F, #TITLE_COLORS
-  jmp @main_save_loop
+  jmp main_application_loop
 
 
 ; Strings
@@ -266,3 +243,5 @@ load_text: .byte "loading..     ", 0
 done_text: .byte "done!",0
 
 .endproc
+
+.endscope

@@ -1,16 +1,37 @@
 .DATA
 
+; Key user pressed (we need to keep this across jump table calls)
+key_pressed: .byte $00
+
+; The offset for the jump tables of the current module we are in
+current_module: .byte $00
+
 ; Offset values are defined in variables.inc
-jump_table_low:
-  .byte <tracker::modules::edit_pattern
-  .byte <tracker::modules::orders
-  .byte <tracker::modules::play_song
-  .byte <tracker::modules::save_song
-jump_table_high:
-  .byte >tracker::modules::edit_pattern
-  .byte >tracker::modules::orders
-  .byte >tracker::modules::play_song
-  .byte >tracker::modules::save_song
+init_jump_table_low:
+  .byte <tracker::modules::help::init
+  .byte <tracker::modules::play_song_init
+  .byte <tracker::modules::edit_pattern::init
+  .byte <tracker::modules::save_song::init
+  .byte <tracker::modules::orders::init
+init_jump_table_high:
+  .byte >tracker::modules::help::init
+  .byte >tracker::modules::play_song_init
+  .byte >tracker::modules::edit_pattern::init
+  .byte >tracker::modules::save_song::init
+  .byte >tracker::modules::orders::init
+
+loop_jump_table_low:
+  .byte <tracker::modules::help::keyboard_loop
+  .byte <tracker::modules::play_song_keyboard_loop
+  .byte <tracker::modules::edit_pattern::keyboard_loop
+  .byte <tracker::modules::save_song::keyboard_loop
+  .byte <tracker::modules::orders::keyboard_loop
+loop_jump_table_high:
+  .byte >tracker::modules::help::keyboard_loop
+  .byte >tracker::modules::play_song_keyboard_loop
+  .byte >tracker::modules::edit_pattern::keyboard_loop
+  .byte >tracker::modules::save_song::keyboard_loop
+  .byte >tracker::modules::orders::keyboard_loop
 
 ; Order list is assumed to be up to 256 ($FF)
 ; we're manually loading it here, but reserving the rest

@@ -19,10 +19,11 @@
 ; SO in other words, the cursor is always matched to the order number
 ; and not the position on the screen.
 
-.proc orders
-  ; Temp vars used: r0, r1
-  ; Relative position we are in the order list on screen
-  ORDER_LIST_POSITION = r14
+.scope orders
+
+; Temp vars used: r0, r1
+; Relative position we are in the order list on screen
+ORDER_LIST_POSITION = r14
 
 ; Constrain movement of the cursor to only the order list
 CURSOR_START_X = $24
@@ -33,7 +34,10 @@ CURSOR_STOP_Y = $2F
 ORDERS_MIN_COLUMN = $00
 ORDERS_MAX_COLUMN = $01
 
-start:
+.proc init
+init:
+  lda #ORDERS_MODULE
+  sta current_module
   lda #$10
   sta VERA_addr_high ; Set primary address bank to 0, stride to 1
   jsr ui::clear_lower_frame
@@ -53,23 +57,15 @@ start:
   lda #CURSOR_START_Y
   sta cursor_y
   jsr graphics::drawing::cursor_plot
+  stz key_pressed
+  ; Fall through to loop
+.endproc
 
-@main_orders_loop:
-  wai
+; Jumped from main application loop
+.proc keyboard_loop
+@keyboard_loop:
 @check_keyboard:
-  ; Returns 0 is no input
-  jsr GETIN  ;keyboard
-  cmp #$00
-  beq @main_orders_loop
-  cmp #F1
-  beq @help_module
-  cmp #F2
-  beq @edit_pattern_jump
-  cmp #F8
-  beq @stop_song
-  cmp #F5
-  beq @play_song_module
-
+  lda key_pressed
   cmp #KEY_UP
   beq @cursor_up
   cmp #KEY_DOWN
@@ -78,22 +74,13 @@ start:
   beq @cursor_left
   cmp #KEY_RIGHT
   beq @cursor_right
-  cmp #ENTER
-  beq start
   cmp #PETSCII_G
   beq @edit_pattern_jump
   cmp #$30
   bpl @print_alphanumeric
-  jmp @main_orders_loop
+  jmp main_application_loop
 
-@help_module:
-  jmp main
-@stop_song:
-  jsr tracker::stop_song
-  jmp @main_orders_loop
-@play_song_module:
-  jmp tracker::modules::play_song
-
+; Local jumps
 @edit_pattern_jump:
   jmp @edit_pattern
 
@@ -101,13 +88,12 @@ start:
 ; and if we are at the end of the view.
 ; If at the end of the view, will need to redraw the list
 ; Also update where in the order list we are.
-
 @cursor_up:
   lda ORDER_LIST_POSITION
   beq @cursor_scroll_up_jump
   jsr ui::cursor_up
   dec ORDER_LIST_POSITION
-  jmp @main_orders_loop
+  jmp main_application_loop
 @cursor_scroll_up_jump:
   jmp @scroll_orders_up
 
@@ -117,7 +103,7 @@ start:
   beq @cursor_scroll_down_jump
   jsr ui::cursor_down
   inc ORDER_LIST_POSITION
-  jmp @main_orders_loop
+  jmp main_application_loop
   ; If we're at the bottom of the screen, scroll the orders
 @cursor_scroll_down_jump:
   jmp @scroll_orders_down
@@ -126,17 +112,19 @@ start:
 ; Needed for further down.
 @cursor_left:
   lda order_list_column
-  beq @main_orders_loop
+  beq @cursor_left_end
   jsr ui::cursor_left
   dec order_list_column
-  jmp @main_orders_loop
+@cursor_left_end:
+  jmp main_application_loop
 @cursor_right:
   lda order_list_column
   cmp #ORDERS_MAX_COLUMN
-  beq @main_orders_loop
+  beq @cursor_right_end
   jsr ui::cursor_right
   inc order_list_column
-  jmp @main_orders_loop
+@cursor_right_end:
+  jmp main_application_loop
 
 ; Print the # the user typed. If ordrer_list_column is 1, we are in the
 ; second column, so we need to see if it's a valid pattern number and, if so,
@@ -207,7 +195,7 @@ start:
  sta order_list,y
 
 @print_end:
-  jmp @main_orders_loop
+  jmp main_application_loop
 
 ; If we're at the top of the screen, but we have more
 ; orders, scroll the order list
@@ -220,7 +208,7 @@ start:
   dec order_list_start
   jsr ui::draw_orders_frame
   jsr graphics::drawing::cursor_plot
-  jmp @main_orders_loop
+  jmp main_application_loop
 
 ; If we're at the bottom of the screen, but we have more
 ; orders, scroll the order list
@@ -233,10 +221,10 @@ start:
   inc order_list_start
   jsr ui::draw_orders_frame
   jsr graphics::drawing::cursor_plot
-  jmp @main_orders_loop
+  jmp main_application_loop
 
 @main_orders_loop_jump:
-  jmp @main_orders_loop
+  jmp main_application_loop
 
 ; Edit pattern specified at cursor
 @edit_pattern:
@@ -248,7 +236,6 @@ start:
 @get_pattern_at_cursor:
   lda #$20  ; skip over colors
   sta VERA_addr_high
-
   ldy cursor_y
   sty VERA_addr_med
   ; X-pos of first digit
@@ -266,7 +253,13 @@ start:
 
   jsr graphics::drawing::chars_to_number
   sta PATTERN_NUMBER
-  jsr tracker::stop_song
-  jmp tracker::modules::edit_pattern
+  lda #EDIT_PATTERN_MODULE
+  sta current_module
+  tax
+  jmp init_jump_table
+  ;sta current_module
+  ;jmp init_jump_table
 
 .endproc
+
+.endscope

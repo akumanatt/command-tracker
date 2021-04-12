@@ -1,10 +1,12 @@
-play_song:
+.proc play_song_init
+play_song_init:
   sei
 
   jsr tracker::stop_song
   ; Check current state, if 0, don't remove ISR
   lda STATE
   beq start_song
+  stz key_pressed
   ;jsr disable_irq
   ;jsr concerto_synth::deactivate_synth
 
@@ -33,42 +35,11 @@ start_song:
   ;jsr sound::setup_voices
   ;jsr concerto_synth::activate_synth
   jsr play_irq
-
-
   cli
-  jmp main_play_loop
+.endproc
 
+.proc play_song_keyboard_loop
 ; Loop on user interaction
-main_play_loop:
-  wai
-check_keyboard:
-  jsr GETIN  ;keyboard
-  cmp #F1
-  beq @help_module
-  cmp #F2
-  beq @edit_pattern_module
-  cmp #F8
-  beq @stop_song
-  cmp #F5
-  beq @play_song_module
-  cmp #F11
-  beq @order_list_module
-  jmp main_play_loop
-
-@help_module:
-  jmp main
-
-; Jump to order list module
-@edit_pattern_module:
-  jsr tracker::stop_song
-  jmp tracker::modules::edit_pattern
-
-@play_song_module:
-  jmp tracker::modules::play_song
-
-@stop_song:
-  jsr tracker::stop_song
-  jmp main_play_loop
-
-@order_list_module:
-  jmp tracker::modules::orders
+play_song_keyboard_loop:
+  jmp main_application_loop
+.endproc
