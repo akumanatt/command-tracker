@@ -1,8 +1,5 @@
 .DATA
 
-; Key user pressed (we need to keep this across jump table calls)
-key_pressed: .byte $00
-
 ; The offset for the jump tables of the current module we are in
 current_module: .byte $00
 
@@ -68,10 +65,15 @@ order_list_start: .byte $00
 ; Which column the cursor is in (there are only 2 so 0/1)
 order_list_column: .byte $00
 
+; Key user pressed (we need to keep this across jump table calls)
+key_pressed: .byte $00
+
 ; Current Octave User Has Specified
 user_octave:   .byte $04
 ; User's current instrument
-user_instrument: .byte $01
+user_instrument: .byte $00
+
+
 
 
 key: .byte $00

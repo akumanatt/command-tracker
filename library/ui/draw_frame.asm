@@ -48,6 +48,8 @@ draw_frame:
   print_string_macro pattern_label, #PATTERN_LABEL_X, #PATTERN_LABEL_Y, #TITLE_COLORS
   print_string_macro order_label, #ORDER_LABEL_X, #ORDER_LABEL_Y, #TITLE_COLORS
   print_string_macro row_label, #ROW_LABEL_X, #ROW_LABEL_Y, #TITLE_COLORS
+  print_string_macro instrument_label, #INSTRUMENT_LABEL_X, #INSTRUMENT_LABEL_Y, #TITLE_COLORS
+  print_string_macro octave_label, #OCTAVE_LABEL_X, #OCTAVE_LABEL_Y, #TITLE_COLORS
 
   rts
 .endproc

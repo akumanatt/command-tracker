@@ -54,6 +54,8 @@ init:
   stz ROW_NUMBER
   jsr ui::print_current_pattern_number
   jsr ui::print_row_number
+  jsr ui::print_current_instrument
+  jsr ui::print_current_octave
 
   lda #CURSOR_X_START
   sta cursor_x
@@ -133,11 +135,6 @@ keyboard_loop:
   jsr play_irq
   jmp main_application_loop
 
-@stop_pattern:
-  jsr tracker::stop_song
-  jsr reset_scroll_position
-  jmp main_application_loop
-
 ; Inc/Dec octave and update UI
 @decrease_octave:
   lda user_octave
@@ -150,8 +147,8 @@ keyboard_loop:
   beq @update_octave_end
   inc user_octave
   jmp @update_ui_octave
-; TBD
 @update_ui_octave:
+  jsr ui::print_current_octave
 @update_octave_end:
   jmp main_application_loop
 
@@ -350,6 +347,9 @@ keyboard_loop:
 @print_note_or_alphanumeric:
   sei
   pha
+  ; Make sure we're on layer 1
+  lda #$01
+  sta VERA_addr_high
   lda cursor_x
   ldy cursor_y
   jsr graphics::drawing::goto_xy
@@ -528,6 +528,9 @@ keyboard_loop:
   ; Loop for instrument, volume, effect, and effect value
   ldx #$04
 @store_rest_of_row_loop:
+  ; Auto-inc, layer 1
+  ;lda #$11
+  ;sta VERA_addr_high
   ; Grab next two values in pattern VRAM
   lda VERA_data0
   sta r0
@@ -553,7 +556,6 @@ keyboard_loop:
 @inc_row_pointer:
   ; Inc our row pointer
   iny
-
   sta (ROW_POINTER),y
 
   ; If we're on the instrument column (which is first in the loop)
@@ -561,17 +563,14 @@ keyboard_loop:
   cpx #$04
   bne @not_instrument
   sta user_instrument
-
 @not_instrument:
   dex
   bne @store_rest_of_row_loop
 
 @done_save:
-  ;lda NOTE_NOTE
-  ;jsr graphics::kernal::printhex
-
   lda #$01
   sta VERA_addr_high
+  jsr ui::print_current_instrument
   cli
   rts
 .endproc

@@ -3,7 +3,6 @@
 
 .scope ui
   ; Top Header Labels
-
   command_tracker_string: .byte "command tracker v0.100",0
   song_label: .byte "song:",0
   composer_label: .byte "by  :",0
@@ -11,6 +10,8 @@
   pattern_label: .byte "pat:",0
   order_label: .byte "ord:",0
   row_label: .byte "row:",0
+  instrument_label: .byte "ins:",0
+  octave_label: .byte "oct:",0
   more_channels_label: .byte ">>>",0
   row_header: .byte "##",0
 
@@ -31,6 +32,8 @@
   .include "library/ui/draw_playsong_frame.asm"
   .include "library/ui/print_song_info.asm"
   .include "library/ui/print_current_pattern_number.asm"
+  .include "library/ui/print_current_instrument.asm"
+  .include "library/ui/print_current_octave.asm"
   .include "library/ui/print_number_of_orders.asm"
   .include "library/ui/print_current_order.asm"
   .include "library/ui/print_speed.asm"
