@@ -70,49 +70,66 @@ init:
 .proc keyboard_loop
 keyboard_loop:
   lda key_pressed
-  cmp #F6
-  beq @play_pattern_jump
-  cmp #F7
-  beq @play_song_at_row_jump
-  cmp #KEY_UP
-  beq @cursor_up_jump
-  cmp #KEY_DOWN
-  beq @cursor_down_jump
-  cmp #KEY_LEFT
-  beq @cursor_left_jump
-  cmp #KEY_RIGHT
-  beq @cursor_right_jump
-  ; Disable tabbing for now becuase channel advancing doesn't work here
-  ;cmp #KEY_TAB
-  beq @cursor_tab_right_jump
-  cmp #PETSCII_BRACKET_LEFT
-  beq @decrease_octave
-  cmp #PETSCII_BRACKET_RIGHT
-  beq @increase_octave
-  cmp #PETSCII_SHIFT_BACKSPACE
-  beq @delete_channel_row_jump
+  ldx #(@cmp_table_end - @cmp_table)
+@check_key:
+  cmp @cmp_table-1,x
+  beq @got_key
+  dex
+  bne @check_key
   cmp #$2E    ; Alphanumeric, period, and a few things we don't want
   bpl @print_note_or_alphanumeric_jump
   jmp main_application_loop
 
-@cursor_up_jump:
-  jmp @cursor_up
-@cursor_down_jump:
-  jmp @cursor_down
-@cursor_left_jump:
-  jmp @cursor_left
-@cursor_right_jump:
-  jmp @cursor_right
-@cursor_tab_right_jump:
-  jmp @cursor_tab_right
-@delete_channel_row_jump:
-  jmp @delete_channel_row
+@got_key:
+  lda @jump_table_lo-1,x
+  sta r15
+  lda @jump_table_hi-1,x
+  sta r15+1
+  jmp (r15)
+
 @print_note_or_alphanumeric_jump:
   jmp @print_note_or_alphanumeric
-@play_pattern_jump:
-  jmp @play_pattern
-@play_song_at_row_jump:
-  jmp @play_song_at_row
+
+@cmp_table:
+  .byte F6
+  .byte F7
+  .byte KEY_UP
+  .byte KEY_DOWN
+  .byte KEY_LEFT
+  .byte KEY_RIGHT
+  .byte KEY_TAB
+  .byte KEY_SHIFT_TAB
+  .byte PETSCII_BRACKET_LEFT
+  .byte PETSCII_BRACKET_RIGHT
+  .byte PETSCII_SHIFT_BACKSPACE
+@cmp_table_end:
+@jump_table_lo:
+  .lobytes @play_pattern
+  .lobytes @play_song_at_row
+  .lobytes @cursor_up
+  .lobytes @cursor_down
+  .lobytes @cursor_left
+  .lobytes @cursor_right
+  .lobytes @cursor_tab_right
+  .lobytes @cursor_tab_right ; TEMP
+  .lobytes @decrease_octave
+  .lobytes @increase_octave
+  .lobytes @delete_channel_row
+@jump_table_hi:
+  .hibytes @play_pattern
+  .hibytes @play_song_at_row
+  .hibytes @cursor_up
+  .hibytes @cursor_down
+  .hibytes @cursor_left
+  .hibytes @cursor_right
+  .hibytes @cursor_tab_right
+  .hibytes @cursor_tab_right ; TEMP
+  .hibytes @decrease_octave
+  .hibytes @increase_octave
+  .hibytes @delete_channel_row
+
+  .assert         (*              - @jump_table_hi) = (@cmp_table_end - @cmp_table), error
+  .assert         (@jump_table_hi - @jump_table_lo) = (@cmp_table_end - @cmp_table), error
 
 ; Play pattern only (loop pattern over and over)
 @play_pattern:

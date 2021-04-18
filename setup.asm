@@ -53,6 +53,9 @@ setup:
   lda #VBLANK_MASK
   sta VERA_ien
 
+  ; Initialize mouse
+  jsr MOUSE_CONFIG
+
   ; Set state to 0 (idle/stopped)
   stz STATE
 

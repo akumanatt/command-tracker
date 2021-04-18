@@ -12,6 +12,7 @@ CHAR_DOT = $2E
 COLON = $3A
 SPACE = $20
 KEY_TAB = $09
+KEY_SHIFT_TAB = $18
 F1 = $85
 F2 = $89
 F5 = $87
