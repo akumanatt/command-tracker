@@ -20,6 +20,11 @@ data would need to be shifted over.
 The ideal when composing is to have a pattern buffer, but given the channels
 and effects, it will likely exceed a single 8k page of RAM.
 
+The sparse format could still be big for dense patterns. Once clever thing
+might be to provide a "bytes remaining" sort of indicator to the user so
+the user can decide how to deal with the 8k page budget (though many patterns
+would likely be much less than 8k).
+
 PATTERN DATA
 ------------
 
