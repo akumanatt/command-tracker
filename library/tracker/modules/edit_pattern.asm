@@ -111,7 +111,7 @@ keyboard_loop:
   .lobytes @cursor_left
   .lobytes @cursor_right
   .lobytes @cursor_tab_right
-  .lobytes @cursor_tab_right ; TEMP
+  .lobytes @cursor_tab_left
   .lobytes @decrease_octave
   .lobytes @increase_octave
   .lobytes @delete_channel_row
@@ -123,7 +123,7 @@ keyboard_loop:
   .hibytes @cursor_left
   .hibytes @cursor_right
   .hibytes @cursor_tab_right
-  .hibytes @cursor_tab_right ; TEMP
+  .hibytes @cursor_tab_left
   .hibytes @decrease_octave
   .hibytes @increase_octave
   .hibytes @delete_channel_row
@@ -290,6 +290,7 @@ keyboard_loop:
   cmp #NUM_CHANNELS_VISIBLE - 1
   bne @cursor_move_right_channel
 
+@cursor_right_last_channel_check:
   ; Check if we're not on the max possible channel
   lda START_CHANNEL
   clc
@@ -318,6 +319,11 @@ keyboard_loop:
   jmp main_application_loop
 
 @cursor_tab_right:
+  lda SCREEN_CHANNEL
+  cmp #NUM_CHANNELS_VISIBLE - 1
+  beq @cursor_right_last_channel_check
+
+@cursor_tab_right_channel:
   ldx #$0C
   inc CHANNEL_NUMBER
   lda SCREEN_CHANNEL
@@ -327,6 +333,17 @@ keyboard_loop:
   dex
   bne @cursor_tab_right_loop
 @cursor_tab_right_end:
+  jmp main_application_loop
+
+@cursor_tab_left:
+  lda START_CHANNEL
+  beq @cursor_tab_left_end
+
+  dec START_CHANNEL
+  dec CHANNEL_NUMBER
+  jsr ui::draw_pattern_frame
+  jsr ui::print_pattern
+@cursor_tab_left_end:
   jmp main_application_loop
 
 ; Delete the entire channel/row
